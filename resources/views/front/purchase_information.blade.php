@@ -21,6 +21,8 @@
 
 @section('data_product_title') Producto autorizado @endsection
 
+@section('url') # @endsection
+
 <!-- end header menu -->
 
 @section('content')

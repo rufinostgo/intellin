@@ -1,0 +1,1 @@
+<a href="{{url('/purchase-information')}}">Información de pago</a>
