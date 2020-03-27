@@ -14,10 +14,10 @@
 				<div class="department">@yield('name_department')</div>
 			</div>
 			<div class="col-md-5 d-none  d-md-block pl-3 pt-2 pb-2 my-auto">
-				<button data-button="@yield('data_plano')" class="show_plano pt-2 pb-2 mr-3 mt-1 mb-1">
+				<button data-url="@yield('data_plano_url')" data-title="@yield('data_plano_title')" class="show_plano pt-2 pb-2 mr-3 mt-1 mb-1 detonar_modal">
 					@yield('text_button1')
 				</button>
-				<button  data-button="@yield('data_product')" class="show_product  pt-2 pb-2 mt-1 mb-1 ">
+				<button  data-url="@yield('data_product_url')" data-title="@yield('data_product_title')" class="show_product  pt-2 pb-2 mt-1 mb-1 detonar_modal">
 					@yield('text_button2')
 				</button>
 			</div>
@@ -43,12 +43,29 @@
 					</div>
 				</div>	
 				<div class="show_plano_movil d-none text-center pt-3 pb-3 ">
-					<button class="show_plano pt-2 pb-2">@yield('text_button1')</button>
+					<button data-url="@yield('data_plano_url')" data-title="@yield('data_plano_title')" class="show_plano pt-2 pb-2 detonar_modal">@yield('text_button1')</button>
 				</div>	
 				<div class="show_plano_movil d-none text-center ">
-					<button class="show_product  pt-2 pb-2">@yield('text_button2')</button>
+					<button data-url="@yield('data_product_url')" data-title="@yield('data_product_title')" class="show_product  pt-2 pb-2 detonar_modal">@yield('text_button2')</button>
 				</div>	
 			</div>
 		</div>
 	</div>
 </nav>
+<div>
+	<div id="modal_imagen" class="modal active d-none pt-5">
+	  <div class="row">
+		  <div class="col-md-3"></div>
+		  <div class="col-md-6 pl-md-5 pr-md-5">
+		  	<div class="pl-md-5 pr-md-5">
+		  		<div class="sub_title_modal">Está viendo</div>
+		  		<p class="title_modal"></p>
+			    <div class="cerrar"><span class="close mb-2">×</span></div>
+			    <img class="modal-content mt-2" id="img_modal" src="">
+		  	</div>
+		  </div>
+		  <div class="col-md-3">
+		  </div>
+	  </div>
+	</div>
+</div>

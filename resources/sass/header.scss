@@ -74,3 +74,30 @@
 	background-color: #E8E7E4;
 	margin-top: 5px;
 }
+#modal_imagen{
+	background-color: rgba(0, 0, 0, 0.8);
+}
+.sub_title_modal{
+  color: #FFFFFF;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 27px;
+}
+.title_modal{
+  color: #FFFFFF;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 23px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 28px;
+}
+.cerrar .close{
+	color: #fff;
+	font-weight: 300;
+	opacity: 1;
+	cursor: pointer;
+}
+.cerrar .close:hover{
+	color: #fff;
+}

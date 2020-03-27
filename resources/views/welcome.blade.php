@@ -4,12 +4,24 @@
 
 @section('description')  INFORMACIÓN DE COMPRA  @endsection
 
+<!-- header menu -->
 @section('name_tower') Torre con nombre de ejemplo largo @endsection
+
 @section('name_department') Departamento: A1 @endsection
+
 @section('text_button1') Ver plano @endsection
-@section('data_plano')http://127.0.0.1:8000/@endsection
-@section('text_button2') Producto autorizado @endsection
-@section('data_product')http://127.0.0.1:8000/@endsection
+
+@section('data_plano_url') https://demo7.estrasol.com.mx/casaboceto/wp-content/uploads/2019/06/mueble-galería-1.jpg @endsection
+
+@section('data_plano_title') Title plano @endsection
+
+@section('text_button2') Torre con nombre de ejemplo largo @endsection
+
+@section('data_product_url') https://demo7.estrasol.com.mx/casaboceto/wp-content/uploads/2019/06/mueble-galería-1.jpg @endsection
+
+@section('data_product_title') Producto autorizado @endsection
+
+<!-- end header menu -->
 
 @section('content')
 

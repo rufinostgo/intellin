@@ -11,3 +11,13 @@ $("#show_button").click(function(){
 		$(".show_plano_movil").removeClass('d-block');
 	} 	
 });
+$(".detonar_modal").click(function(){
+	$("#modal_imagen").removeClass('d-none');
+	$("#modal_imagen").addClass('d-block');
+	$(".title_modal").text($(this).data('title'))
+	$("#img_modal").attr("src", $(this).data('url'));
+});
+$(".cerrar").click(function(){
+	$("#modal_imagen").removeClass('d-block');
+	$("#modal_imagen").addClass('d-none');
+});
