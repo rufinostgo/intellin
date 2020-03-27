@@ -13,9 +13,9 @@
 
 @section('data_plano_url') https://demo7.estrasol.com.mx/casaboceto/wp-content/uploads/2019/06/mueble-galería-1.jpg @endsection
 
-@section('data_plano_title') Title plano @endsection
+@section('data_plano_title') Torre con nombre de ejemplo largo @endsection
 
-@section('text_button2') Torre con nombre de ejemplo largo @endsection
+@section('text_button2') Producto autorizado @endsection
 
 @section('data_product_url') https://demo7.estrasol.com.mx/casaboceto/wp-content/uploads/2019/06/mueble-galería-1.jpg @endsection
 
