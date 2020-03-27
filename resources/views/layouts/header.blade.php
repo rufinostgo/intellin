@@ -14,8 +14,12 @@
 				<div class="department">@yield('name_department')</div>
 			</div>
 			<div class="col-md-5 d-none  d-md-block pl-3 pt-2 pb-2 my-auto">
-				<button class="show_plano pt-2 pb-2 mr-3 mt-1 mb-1">@yield('text_button1')</button>
-				<button class="show_product  pt-2 pb-2 mt-1 mb-1 ">@yield('text_button2')</button>
+				<button data-button="@yield('data_plano')" class="show_plano pt-2 pb-2 mr-3 mt-1 mb-1">
+					@yield('text_button1')
+				</button>
+				<button  data-button="@yield('data_product')" class="show_product  pt-2 pb-2 mt-1 mb-1 ">
+					@yield('text_button2')
+				</button>
 			</div>
 		</div>
 	</div>

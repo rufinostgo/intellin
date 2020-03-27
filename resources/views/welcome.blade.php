@@ -7,7 +7,9 @@
 @section('name_tower') Torre con nombre de ejemplo largo @endsection
 @section('name_department') Departamento: A1 @endsection
 @section('text_button1') Ver plano @endsection
+@section('data_plano')http://127.0.0.1:8000/@endsection
 @section('text_button2') Producto autorizado @endsection
+@section('data_product')http://127.0.0.1:8000/@endsection
 
 @section('content')
 
