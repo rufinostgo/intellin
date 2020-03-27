@@ -4,6 +4,10 @@
 
 @section('description')  INFORMACIÓN DE COMPRA  @endsection
 
+@section('mystyle') 
+<link href="{{ asset('css/purchase_information.css') }}" rel="stylesheet">
+@endsection
+
 <!-- header menu -->
 @section('name_tower') Torre con nombre de ejemplo largo @endsection
 
@@ -27,25 +31,14 @@
 
 @section('content')
 
-<div class="container">
-    
-    <div class="row">
-    <div class="col-12 col-xs-12 col-sm-12 col-md-1"></div>
-        <div class="col-12 col-xs-12 col-sm-12 col-md-10 pt-5">
-            <h1 class="title_parrafo pt-md-4">
-                AVISO DE PRIVACIDAD
-            </h1>
+<div class="container-fluid purchase_header">
+    <div class="container pt-4">
+        <div class="d-none d-md-block select_depart pl-1">
+            <a href="{{ url('/')}}" class="rever_play" >
+                <i class="fa fa-chevron-left play" aria-hidden="true"></i>
+            </a>
+            &nbsp;&nbsp;&nbsp;Seleccionar otro departamento
         </div>
-        <div class="col-12 col-xs-12 col-sm-12 col-md-1"></div>
-
-        <div class="col-12 col-xs-12 col-sm-1 col-md-2"></div>
-        <div class="col-12 col-xs-12 col-sm-10 col-md-8 pb-5 pt-3 pt-md-5">
-            <div class="nts_parrafo pb-md-4 text-left text-md-center">
-                <p class="mb-0 pb-0">mnvhhv</p>
-            </div>
-        </div>
-        <div class="col-12 col-xs-12 col-sm-1 col-md-2"></div>
     </div>
-
 </div>
 @endsection

@@ -28,7 +28,7 @@
 			<div class="pt-3 pb-4">
 				<div class="row justify-content-center align-items-center">
 					<div class="col-2">
-						<a href="@yield('url')">
+						<a href="@yield('url')" class="rever_play">
 							<i class="fa fa-chevron-left play" aria-hidden="true"></i>
 						</a>
 					</div>
