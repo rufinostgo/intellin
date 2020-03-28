@@ -18,4 +18,12 @@ Route::get('/purchase-information', function () {
     return view('front.purchase_information');
 });
 
+Route::get('/welcome', function () {
+    return view('front.welcome');
+});
+
+Route::get('/signup', function () {
+    return view('front.signup'); 
+});
+
 
