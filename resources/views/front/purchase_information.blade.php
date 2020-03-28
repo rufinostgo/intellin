@@ -46,6 +46,7 @@
     <div class="row">
 
         <div class="col-md-9">
+
             <div class="row head_area mr-md-3 pt-2 pb-2">
                 <div class="col-md-3 border_area">
                     <span class="title_area">ÁREA </span>
@@ -56,6 +57,13 @@
                     <span class="subtitle_area">Translúcida</span>
                 </div>
             </div>
+
+            <div class="row">
+                 <div class="col-md-3"></div>
+                 <div class="col-md-3"></div>
+                 <div class="col-md-3"></div>
+            </div>
+
         </div>
 
         <div class="col-md-3 pt-4 pb-3 column_total">
