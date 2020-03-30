@@ -18,7 +18,7 @@ Route::get('/purchase-information', function () {
     return view('front.purchase_information');
 });
 
-Route::get('/purchase-informationv2', function () {
+Route::get('/purchase-information-2', function () {
     return view('front.purchase_information_v2');
 });
 
