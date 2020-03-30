@@ -22,7 +22,9 @@
 				</button>
 			</div>
 		</div>
+	
 	</div>
+
 	<div class="container-fluid fondo_heder_movil">
 		<div class="container d-block d-md-none ">
 			<div class="pt-3 pb-4">
@@ -71,3 +73,6 @@
 	  </div>
 	</div>
 </div>
+<div class="div" style="position:absolute; padding:0 0; width:100%; margin:0 0;   height:200px; background:red; ">
+				
+		</div>

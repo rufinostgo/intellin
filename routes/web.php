@@ -18,12 +18,7 @@ Route::get('/purchase-information', function () {
     return view('front.purchase_information');
 });
 
-Route::get('/welcome', function () {
-    return view('front.welcome');
+Route::get('/purchase-informationv2', function () {
+    return view('front.purchase_information_v2');
 });
-
-Route::get('/signup', function () {
-    return view('front.signup'); 
-});
-
 
