@@ -54,6 +54,9 @@
 	border-top: 4px solid #E95A0C;
 	background-color:  #646567;
 }
+.head_area2{
+    background-color:  #646567;
+}
 .title_area{
 	color: #FFFFFF;
     font-family: 'Roboto Condensed', sans-serif;
@@ -68,4 +71,78 @@
     font-size: 16px;
     letter-spacing: 0;
     line-height: 27px;
+}
+.sub_header_area{
+      background-color: #E8E7E4;
+}
+.zone{
+  color: #646567;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 19px;
+  border-right: 1px solid #BFC3CC;
+}
+.total_area{
+  background-color: #E95A0C;
+  color: #FFFFFF;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+.sucurasal{
+  color: #646567;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 27px;
+}
+.select_product{
+  border: 0px solid #BFC3CC;
+  border-bottom: 1px solid #BFC3CC;
+  background:  transparent;
+  color: #646567;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 27px;    
+}
+.preci_total{
+  color: #646567;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 27px;
+}
+.zone_produt{
+    .row:nth-child(2n+1){
+        background: #F6F6F6;
+    }
+    .row:last-child{
+     border-bottom: 1px solid #BFC3CC;
+    }
+}
+.sin_margen{
+    .row:last-child{
+     border-bottom: 0px solid #BFC3CC;
+    }
+}
+.info_contacto{
+  color: #7F8185;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 27px;
+}
+.necesario_compra{
+  color: #7F8185;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-style: italic;
+  letter-spacing: 0;
+  line-height: 19px;
 }
