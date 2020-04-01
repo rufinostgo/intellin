@@ -71,7 +71,7 @@
                 <div class="row no-gutters mt-2 steps_purchase " >
                     
                     <div class="col-md-3 "  >
-                        <button class="bt_enabled_steps general_text pt-2 pb-2 pr-0 pl-0  mt-1  detonar_modal" style="width:100%; ">
+                        <button class="bt_enabled_steps general_text pt-2 pb-2 pr-0 pl-0  mt-1   " style="width:100%; ">
                             z
                         </button>
                        <!--aqui-->
@@ -146,17 +146,17 @@
                            
                       
                     </div>
-                    <div class="col-md-3" >
+                    <div class="col-md-3 bt_hide_content" >
                         <button class="bt_enabled general_text pt-2 pb-2  mt-1 mb-1 detonar_modal" style="width:100%;">
                             z
                         </button>
                     </div>
-                    <div class="col-md-3" >
+                    <div class="col-md-3 bt_hide_content" >
                         <button class="bt_enabled general_text pt-2 pb-2  mt-1 mb-1 detonar_modal" style="width:100%;">
                             z
                         </button>
                     </div>
-                    <div class="col-md-3" >
+                    <div class="col-md-3 bt_hide_content" >
                         <button class="bt_enabled general_text pt-2 pb-2  mt-1 mb-1 detonar_modal" style="width:100%;">
                             z
                         </button>
