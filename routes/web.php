@@ -25,3 +25,7 @@ Route::get('/purchase-information-2', function () {
 Route::get('/signup', function () {
     return view('front.signup');
 });
+
+Route::get('/welcome', function () {
+    return view('front.welcome');
+});
