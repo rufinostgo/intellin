@@ -69,7 +69,7 @@
                 <div class="row justify-content-center align-items-center mr-md-3 pb-2 pt-2">
                      <div class="col-md-3 sucurasal">Sala Norte</div>
                      <div class="col-md-4">
-                        <select class="form-control select_product" data-live-search="true">
+                        <select class="form-control select_product select_2" data-live-search="true">
                             <option>Sowaks, white motor</option>
                         </select>
                  </div>

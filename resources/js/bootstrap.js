@@ -11,6 +11,8 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+
+    const select2 = require('select2');
 } catch (e) {}
 
 /**
