@@ -14,7 +14,7 @@ background:$crema_1;
     height:290px; 
     background:$gris_fondo_2;
 }
-//asd
+
 .total_products{
 
     background:$gris_fondo_2;
@@ -25,32 +25,30 @@ background:$crema_1;
     padding:0;
 }
 
+*:focus:not(.focus-visible) {
+  outline: none;
+}
+
+
+
+
 .separator_total{
     height:1px;
     width: 100%;
     background: white;
     margin: 0;
 }
-//Factura
+
+//Invoice
 .invoice{
     background: $gris_fondo_2;
-    width:730px; height:60px; position:absolute; bottom:0; ;  margin:0 auto;
-    margin-left: 4.5px;
+    
+   
 }
 
-//Opcion
-.option_inf{
-  width:720px;;
-}
-.minh_inf_op{
-  width:700px; 
-  height:450px;
-}
+¿
 
-.bt_hide_content{
-  height: 2px;
-}
-
+//CHECKBOX
 .check_special {
     position: absolute;
     opacity: 0;
@@ -83,23 +81,24 @@ background:$crema_1;
       background-color: $gris_fondo_3;
     }
 
+   
+
+
+    //fix size medium
+    
+   
+
 
     //Movil
     @media only screen and (max-width: 768px) {
-      .option_inf{
-        width:100%;
+      .d_none_special{
+        display:none;
       }
-      .invoice{
-    background: $gris_fondo_2;
-    width:100%; height:80px; position:relative; bottom:0; ;  margin:0 auto; margin-left: 0px;
-    }
-
-    .minh_inf_op{
-      width:100%; 
-      height:auto;
-    }
+     
     .bt_hide_content{
       height: auto;
     }
       
     }
+
+

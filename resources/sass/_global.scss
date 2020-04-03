@@ -1,7 +1,7 @@
 h1{
     font-size: 40px;
     font-weight: Bold;
-    line-height : 0px;
+    
     font-family:  'Montserrat', sans-serif;
     display: inline;
 
@@ -10,7 +10,7 @@ h1{
 h2{
     font-size: 30px;
     font-weight: Bold;
-    line-height : 0px;
+    
     font-family:  'Montserrat', sans-serif;
     display: inline;
     
@@ -18,21 +18,21 @@ h2{
 .titulo_1{
     font-size: 24px;
     font-weight: Bold;
-    line-height : 0px;
+
     font-family:  'Montserrat', sans-serif;
 }
 
 .titulo_2{
     font-size: 22px;
     font-weight: Bold;
-    line-height : 0px;
+   
     font-family: 'Roboto Condensed', sans-serif;
 }
 
 .titulo_tab_car{
     font-size: 16px;
     //Regular
-    line-height : 0px;
+   
     font-family: 'Roboto Condensed', sans-serif;
 }
 
@@ -60,6 +60,9 @@ h2{
     color:  #FFFFFF ;
     height: 40px;
     border-left: 8px solid  #DA4D00;
+    font-size: 12px; 
+    font-family:'Roboto', sans-serif;
+
 }
 
 
@@ -69,6 +72,13 @@ h2{
     color:  #FFFFFF ;
     height: 40px;
     border-left: 8px solid  #DA4D00;
+    font-size: 12px; 
+    font-family:'Roboto', sans-serif;
+}
+
+.bt_enabled:focus,.bt_enabled_selected:focus{
+    outline:0 !important;
+    box-shadow: none;
 }
 
 .bt_enabled_no_background{
@@ -88,11 +98,13 @@ h2{
     width: 100%;
     background: none;
   
-          height: 40px;
+          height: 100%;
       border-left: 8px solid  #DA4D00;
       border-top: 0px;
     border-right: 0px;
     border-bottom: 5px;
+    margin: 0 ;
+    padding: 0;
 }
 
 //ICONS
@@ -126,12 +138,12 @@ h2{
 
 .line{
     width: 30px;
-    height: 1px;
+    height: 2px;
     border: 1px solid $naranja_0;
 }
 .parent_line{
     width: 100%;
-    height: 1px;
+    height: 2px;
  
     background: white;;
 }
