@@ -28,22 +28,28 @@
                         Por favor introduzca el número de contrato que le proporcionamos para que
                         pueda ingresar al sistema
                     </p>
-                    <form class="needs-validation" novalidate>
+
+
+                    <form action="{{ url('welcome/') }}" method="POST">
+                        @csrf
                         <div class="form-group">
-                            <label class="signup-instructions2" for="numero_contrato"> Número de contrato
-                            </label>
-                            <input required type="text" name="numero_contrato" 
-                                class="form-control numero_contrato" id="numero_contrato" 
-                                placeholder="Introduzca su número de contrato aquí" />
-                            <div class="invalid-feedback ">
-                                <div class="invalid-signup">
-                                    .
-                                </div>
+                            <label class="signup-instructions2" for="numero_contrato"> Número de contrato</label>
+                            <input type="text" class="numero_contrato form-control{{ $errors->has('numero_contrato') ? ' is-invalid' : '' }}" id="numero_contrato" name="numero_contrato" placeholder="Introduzca su número de contrato aquí" value="AURA01" required/>
+                            @if (session('alert'))
+                            <div class="">
+                                <p style="padding: 2px; padding-top:6px; color: darkred">
+                                {{ session('alert') }}
+                                </p>
                             </div>
+                            @endif
                         </div>
-                        <button type="button" class="btn btn_aceptar" onclick="search_code(this);" >ACEPTAR</button>
-                        
+                        <div class="form-group">
+                            <button type="submit" class="btn btn_aceptar">ACEPTAR</button>
+                        </div>
                     </form>
+
+
+
                 </div>
             </div>
         </div>

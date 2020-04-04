@@ -10,9 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('front.home');
-});
+Route::get('/', 'PagesController@home');
 
 Route::get('/purchase-information', function () {
     return view('front.purchase_information');
@@ -21,11 +19,5 @@ Route::get('/purchase-information', function () {
 Route::get('/purchase-information-2', function () {
     return view('front.purchase_information_v2');
 });
-
-Route::get('/signup', function () {
-    return view('front.signup');
-});
-
-Route::get('/welcome', function () {
-    return view('front.welcome');
-});
+ 
+Route::post('/welcome', 'PagesController@welcome');

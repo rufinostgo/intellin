@@ -7,7 +7,7 @@
 
 <body >
     <header></header>
-    
+     
     @yield('content')
 
     <!-- FOOTER -->

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="52px" height="52px" viewBox="0 0 52 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>Btn back</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="20" cy="20" r="20"></circle>
+        <filter x="-30.0%" y="-15.0%" width="160.0%" height="160.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="6" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.123524913 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Escritorio" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Selección-de-torre" transform="translate(-317.000000, -86.000000)">
+            <g id="Btn-back" transform="translate(323.000000, 86.000000)">
+                <g id="Oval">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#E95A0C" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <polygon id="Fill-1" fill="#FFFFFF" points="21.2160386 14 15 20.0116 21.191636 26 23.9834559 26 17.7918199 20.0116 24 14.0076 23.9917279 14"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
