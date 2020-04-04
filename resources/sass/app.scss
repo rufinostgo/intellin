@@ -10,7 +10,8 @@
 @import 'global';
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-//plugind
+//plugin
 @import "plugins/select2.min";
 //custom
-@import "select2";
+@import "custom/select2";
+@import "custom/modalCarousel";
