@@ -108,7 +108,7 @@
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   letter-spacing: 0;
-  line-height: 27px;    
+  line-height: 27px;
 }
 .preci_total{
   color: #646567;
@@ -145,4 +145,93 @@
   font-style: italic;
   letter-spacing: 0;
   line-height: 19px;
+}
+
+#modalContinueBuy{
+	background-color: rgba(0, 0, 0, 0.8);
+
+	.modal-dialog{
+			margin-top: 150px;
+	}
+
+	.cerrar{
+		position: absolute;
+		top: -50px;
+		right: 0px;
+		background: transparent;
+	}
+
+	.modal-header{
+		border-bottom: 0;
+		background-color: #E95A0C;
+		i{
+			font-size: 35px;
+		}
+		h5{
+			font-family: "Montserrat";
+			font-weight: bold;
+			font-size: 23px;
+		}
+	}
+
+	.modal-content{
+		background-color: #646567;
+		color: #fff;
+		font-size: 16px;
+		line-height: 20px;
+	}
+
+	.modal-body{
+		padding: 20px 45px;
+		font-family: 'Roboto',  sans-serif;
+		font-weight: 100;
+	}
+
+	.modal-footer{
+		border-top: 0;
+	}
+
+	.btn_back, .btn_continue{
+		border-left: 7px solid #E95A0C!important;
+  	color: #fff;
+		font-family: 'Roboto',  sans-serif;
+		font-size: 14px;
+		text-align: center;
+		max-width: 187px;
+		height: 43px;
+		width: 100%;
+	}
+
+	.btn_back{
+  	border: 3px solid #fff;
+		background-color: transparent;
+	  }
+
+		.btn_continue{
+			border: 3px solid transparent;
+			background-color: #414345;
+		}
+}
+
+@media (min-width: 576px){
+	.modal-dialog {
+	    max-width: 600px;
+	}
+}
+
+@media (max-width: 767px){
+	#modalContinueBuy{
+		.modal-dialog{
+				margin-top: 80px;
+		}
+
+		.btn_back, .btn_continue{
+				max-width: 100%!important;
+		}
+
+		.modal-body{
+			padding: 20px 30px;
+		}
+
+	}
 }
