@@ -200,7 +200,7 @@
                                 </div>
                                 <div class="pr-1 h-25 mt-3 ">
                                     <label for="exampleInputEmail1">USO de CFDI*</label>
-                                    <input type="email" class=" fix_input general_text" id="exampleInputEmail1"
+                                    <input type="email" class=" fix_input general_text " id="exampleInputEmail1"
                                         aria-describedby="emailHelp" placeholder="Indique el uso de CFDI">
 
                                 </div>
@@ -254,46 +254,55 @@
 
                         </div>
                         <div class="row ml-0 mr-0  d-none d-none">
-                            <div class="col-md-5 ml-md-5" style="height:700px;">
+                            <div class="col-md-5 ml-md-5" style="height:600px;" >
                                 <div class="pr-1 h-25 mt-3  ">
                                     <label for="exampleInputEmail1">Calle*</label>
-                                    <input type="email" class=" fix_input general_text" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp" placeholder="Indique calle">
+                                    <select class="form-control select_product select_2" data-live-search="true">
+                                        <option>Sowaks, white motor</option>
+                                    </select>
 
                                 </div>
-                                <div class="pr-1 h-25 mt-3 ">
+                                <div class="pr-1  mt-3 ">
                                     <label for="exampleInputEmail1">Numero interior</label>
                                     <input type="email" class=" fix_input general_text" id="exampleInputEmail1"
                                         aria-describedby="emailHelp" placeholder="Indique numero interior">
 
                                 </div>
-                                <div class="pr-1  h-25 mt-3">
+                                <div class="pr-1   mt-3">
                                     <label for="exampleInputEmail1">Estado*</label>
                                     <input type="email" class=" fix_input general_text" id="exampleInputEmail1"
                                         aria-describedby="emailHelp" placeholder="Seleccione su estado">
 
                                 </div>
-                                <div class="pr-1  h-25 mt-3">
+                                <div class="pr-1   mt-3">
                                     <label for="exampleInputEmail1">Localidad*</label>
                                     <input type="email" class=" fix_input general_text" id="exampleInputEmail1"
                                         aria-describedby="emailHelp" placeholder="Seleccione su localidad">
 
                                 </div>
+                                <div class="pr-1   mt-3">
+                                  
+
+                                </div>
+                                <div class="pr-1   mt-3">
+                                    
+
+                                </div>
                             </div>
-                            <div class="col-md-5 ml-md-4 " style="height:700px;">
-                                <div class="pr-1 h-25 mt-3  ">
+                            <div class="col-md-5 ml-md-4 mb-5 " >
+                                <div class="pr-1  mt-3  ">
                                     <label for="exampleInputEmail1">Email address</label>
                                     <input type="email" class=" fix_input general_text" id="exampleInputEmail1"
                                         aria-describedby="emailHelp" placeholder="Enter email">
 
                                 </div>
-                                <div class="pr-1 h-25 mt-3 ">
+                                <div class="pr-1  mt-3 ">
                                     <label for="exampleInputEmail1">Email address</label>
                                     <input type="email" class=" fix_input general_text" id="exampleInputEmail1"
                                         aria-describedby="emailHelp" placeholder="Enter email">
 
                                 </div>
-                                <div class="pr-1  h-25 mt-3">
+                                <div class="pr-1   mt-3 mb-5">
                                     <label for="exampleInputEmail1">Email address</label>
                                     <input type="email" class=" fix_input general_text" id="exampleInputEmail1"
                                         aria-describedby="emailHelp" placeholder="Enter email">
