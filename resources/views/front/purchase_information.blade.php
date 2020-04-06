@@ -1,3 +1,5 @@
+
+ 
 @extends('layouts.app')
 
 @section('title') INFORMACIÓN DE COMPRA @endsection
@@ -356,7 +358,7 @@
           <div class="col-md-6 order-first order-md-2">
             <button class="btn_continue pt-1 pb-1 mt-1 mb-1">
                 CONTINUAR
-            </button>
+            </button> 
           </div>
         </div>
       </div>
