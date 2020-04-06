@@ -35,10 +35,10 @@
                         <div class="form-group">
                             <label class="signup-instructions2" for="numero_contrato"> Número de contrato</label>
                             <input type="text" class="numero_contrato form-control{{ $errors->has('numero_contrato') ? ' is-invalid' : '' }}" id="numero_contrato" name="numero_contrato" placeholder="Introduzca su número de contrato aquí" value="AURA01" required/>
-                            @if (session('alert'))
-                            <div class="">
-                                <p style="padding: 2px; padding-top:6px; color: darkred">
-                                {{ session('alert') }}
+                            @if ($errors->has('numero_contrato'))
+                            <div class="invalid-feedback">
+                                <p class="invalid-signup">
+                                    {{ $errors->first('numero_contrato') }}
                                 </p>
                             </div>
                             @endif

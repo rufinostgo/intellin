@@ -12,12 +12,11 @@
 */
 Route::get('/', 'PagesController@home');
 
-Route::get('/purchase-information', function () {
-    return view('front.purchase_information');
-});
+Route::post('/welcome', 'PagesController@welcome');
+ 
+Route::post('/purchase-information','PagesController@purchase_info');
 
 Route::get('/purchase-information-2', function () {
     return view('front.purchase_information_v2');
 });
- 
-Route::post('/welcome', 'PagesController@welcome');
+
