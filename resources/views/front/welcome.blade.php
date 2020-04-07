@@ -61,14 +61,16 @@
             <div id="welcome_frame_row" class="row ">
                 <img class="reticula_bottom" src="{{asset('images/decoratives/reticula_bottom.png')}}" alt="">
                 <div class="welcome_frame col-sm-12 col-md-12   ">
-                    <img class="triangle_welcome" src="asset('images/decoratives/triangle_signup.png')}}" alt="">
+                    <img class="triangle_welcome" src="{{asset('images/decoratives/triangle_signup.png')}}" alt="">
                     <p class="welcome-title "> <span class="welcome-guion">_</span> Biénvenido </p>
                     <p class="welcome-instructions">
                         Por favor seleccione su número de departamento
                     </p>
 
-                    <form id="form_welcome" action="{{ url('purchase-information/') }}" method="POST">
+                    <form id="form_welcome" action="{{ url('purchase-info/') }}" method="POST">
+                         @csrf
                         <div class="form-group">
+                            <input type="text" class="form-control d-none" name="name_torre" id="name_torre" value="{{ $torre_name }}">
                             <label class="welcome-instructions2" for="numero_departamento"> Número de departamento</label>
                             <select class="form-control numero_departamento" name="numero_departamento" id="numero_departamento" placeholder="Seleccione su número de departamento aquí" required>
                                 <option hidden selected value="empty"> Selecciona su número de departamento aquí </option>

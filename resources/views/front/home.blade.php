@@ -1,6 +1,6 @@
 @extends('layouts.appsu')
 
-@section('title') INTELLI (BOOTS) @endsection
+@section('title') INTELLI (BOOT) @endsection
 
 @section('description') INICIO DE SESIÓN @endsection
 
@@ -34,7 +34,7 @@
                         @csrf
                         <div class="form-group">
                             <label class="signup-instructions2" for="numero_contrato"> Número de contrato</label>
-                            <input type="text" class="numero_contrato form-control{{ $errors->has('numero_contrato') ? ' is-invalid' : '' }}" id="numero_contrato" name="numero_contrato" placeholder="Introduzca su número de contrato aquí" value="AURA01" required/>
+                            <input type="text" class="numero_contrato form-control{{ $errors->has('numero_contrato') ? ' is-invalid' : '' }}" id="numero_contrato" name="numero_contrato" placeholder="Introduzca su número de contrato aquí" value="AURA01" required />
                             @if ($errors->has('numero_contrato'))
                             <div class="invalid-feedback">
                                 <p class="invalid-signup">
