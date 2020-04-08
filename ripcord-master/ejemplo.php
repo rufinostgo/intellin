@@ -1,7 +1,6 @@
 <?php 
 
 $url = "https://novias-temp-intelli-2-995132.dev.odoo.com/xmlrpc";
-
 $db = "novias-temp-intelli-2-995132";
 $username = "admin";
 $password = "adminadmin";

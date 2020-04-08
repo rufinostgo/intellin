@@ -1,0 +1,47 @@
+[  
+    {
+                          
+      "success": 200 ,
+      "data":{      
+                  "id ":"nombre",   
+                  "name ":"nombre", 
+                  "street" : "nombre",
+                  "street2" : "nombre",
+                  "location"  : "nombre",  
+                  "state_id" : "nombre", 
+                  "country_id" : "nombre" ,
+                  "instalation_price" : "nombre", 
+                  "delivery_price" : "nombre", 
+                  "password" : "nombre", 
+                  "tower_picture" : "nombre", 
+                  "background_picture" : "nombre", 
+                  "logo" : "nombre", 
+                  "agent" : "nombre",
+                  "email_agent" : "nombre", 
+                  "currency_id" : "nombre",
+                  "departments" : [
+                                     {
+                                      
+                                        "id":"id",           
+                                        "name":"name",
+                                        "instalation":"name",
+                                        "map":"imagen",
+                                        "department_areas":3                       
+                                     },
+                                     {
+                                      
+                                        "id":"id",           
+                                        "name":"name",
+                                        "instalation":"name",
+                                        "map":"imagen",
+                                        "department_areas":0                      
+                                     }
+                                  ]
+                                  
+              
+             }
+    }
+  ]
+
+
+  

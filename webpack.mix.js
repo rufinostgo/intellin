@@ -16,4 +16,9 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/purchase_information.scss', 'public/css')
     .sass('resources/sass/purchase_information_v2.scss', 'public/css')
     .sass('resources/sass/signup.scss', 'public/css')
+<<<<<<< HEAD
     .sass('resources/sass/app.scss', 'public/css');
+=======
+    .sass('resources/sass/welcome.scss', 'public/css')
+    .sass('resources/sass/app.scss', 'public/css');
+>>>>>>> cf92a1efba22b9be4184e656dde052e9869206ea
