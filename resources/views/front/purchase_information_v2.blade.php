@@ -666,7 +666,11 @@
                                     <span class="checkmark"></span>
                                 </label>
                                 <div class="general_text d-inline " style="color:white;">
-                                    Acepto los terminos y condiciones del servicio*
+                                    Acepto  
+                                </div>
+                                <div class="general_text d-inline show_terms_cond"   > términos y condiciones </div>
+                                <div class="general_text d-inline " style="color:white;">
+                                    del servicio*
                                 </div>
                             </div>
 
@@ -820,14 +824,14 @@
 
 <!--Mobile-->
 <div>
-	<div id="modal_imagen" class="modal d-none products_modal  pt-5 pl-2 pr-2 pb-5 overflow-auto">
+	<div id="modal_products" class="modal d-none products_modal  pt-5 pl-2 pr-2 pb-5 overflow-auto">
 	  <div class="row">
 		  <div class="col-md-3"></div>
 		  <div class="col-md-6 pl-md-5 pr-md-5">
 		  	<div class="pl-md-5 pr-md-5 pr-2" >
 		  		<div class="sub_title_modal"></div>
 		  		<p class="title_modal"></p>
-			    <div class="cerrar"><span class="close mb-2 mr-2">×</span></div>
+			    <div class=" cerrar_products cerrar"><span class="close mb-2 mr-2">X</span></div>
 			   
 		    	</div>
 
@@ -880,3 +884,65 @@
 	</div>
 </div>
 
+<!--Modal Terminos y condiciones-->
+<div>
+	<div id="modal_condiciones"  class="modal d-none   pt-5 pl-2 pr-2 pb-5 overflow-auto ">
+	  <div class="row">
+		  <div class="col-md-3"></div>
+		  <div class="col-md-12 pl-md-5 pr-md-5">
+		 <div class="pl-md-5 pr-md-5 pr-2" >
+		  		<div class="sub_title_modal"></div>
+		  		
+			    <div class="cerrar_terminos cerrar"><span class="close mb-2 mr-2">X</span></div>
+			   
+		    	</div>
+
+		  </div>
+          
+          <div class="container video_card justify-content-md-center   " >
+         
+		  
+          <div class="row  pl-5 pr-5  pt-md-0 justify-content-md-center  " >
+           
+                <div class="col-sm-12 col-md-6 mt-3  condition_card " >
+                    <div class="row title_condition pl-3 mt-3">
+                        <div class="col-12 pt-2 pb-2">
+                            <h2 class="title_condition ">Términos y condiciones </h2>
+                        </div>
+                    </div>
+                    <div class="row condition_text pl-3  mt-4  ">
+                        <div class="col-8 text-break">
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>
+                            <p>aaaaaaaaaa</p>   
+                          
+                        </div>
+                    </div>    
+
+                      
+                  </div>
+                
+              </div>
+               
+          </div>
+		  
+	  </div>
+	</div>
+</div>

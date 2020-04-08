@@ -10,7 +10,12 @@ sale_information.removeClass('pt-5');
 sale_information.removeClass('mt-5');
 sale_information.removeClass('d_none_special');
 
-
+$(".cerrar_products").click(function( ev){
+    exept = $(ev.target).closest('#modal_products');
+    exept.toggleClass( "d-none");
+    exept.toggleClass( "d-block"); 
+   
+});
 //Events 
 //Normal form menus
 $(".ctr_option button ").click(function( ev){
@@ -81,13 +86,31 @@ $(".cerrar_video").click(function( ev){
    
 });
 
-//cerrar_video
+//open
 $(".open_video_modal").click(function( ev){
-    console.log("asas")
+   
     exept = $("#modal_video")
     exept.toggleClass( "d-none");
     exept.toggleClass( "d-block"); 
    
 });
+
+$(".cerrar_terminos").click(function( ev){
+    exept = $(ev.target).closest('#modal_condiciones');
+    exept.toggleClass( "d-none");
+    exept.toggleClass( "d-block"); 
+    document.documentElement.style.overflowY = ''; 
+   
+});
+//open
+$(".show_terms_cond").click(function( ev){
+
+    exept = $("#modal_condiciones")
+    exept.toggleClass( "d-none");
+    exept.toggleClass( "d-block"); 
+    document.documentElement.style.overflowY = 'hidden'; 
+   
+});
+d
 
 Payment.formatCardNumber($('.credit_card'), 16);

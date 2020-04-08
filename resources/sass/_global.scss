@@ -94,9 +94,10 @@ h2{
 }
 
 
+
 .bt_enabled_steps{
     width: 100%;
-    background: none;
+    background: $crema_1;
   
           height: 100%;
       border-left: 8px solid  #DA4D00;
@@ -105,7 +106,23 @@ h2{
     border-bottom: 5px;
     margin: 0 ;
     padding: 0;
+    font-size: 12px; 
 }
+//EFECTS BUTTONS
+
+.bt_enabled:hover,.bt_enabled_selected:hover,.bt_enabled_no_background:hover,.bt_enabled_steps:hover{
+   background-color: #646567;
+    border-left: 8px solid  #F78140;
+    color:white;
+    
+}
+.bt_enabled:active,.bt_enabled_selected:active,.bt_enabled_no_background:active,.bt_enabled_steps:active{
+    background-color: $gris_fondo_0;
+     border-left: 8px solid  #F78140;
+     color:white;
+     
+ }
+ 
 
 //ICONS
 .triangle_right{
@@ -131,6 +148,12 @@ h2{
     border-bottom: 2px solid black;
     padding-bottom: 5px;
     padding-left: 0px;
+    
+}
+.fix_input:focus{
+   
+    border-bottom: 2px solid $naranja_1;
+  
     
 }
 
