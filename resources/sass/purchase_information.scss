@@ -1,19 +1,20 @@
+@import 'variables';
 .select_depart{
-	color: #646567;
-    font-family: 'Roboto', sans-serif;
+	color: $gris_fondo_1;
+    font-family: $font-family-roboto;
     font-size: 16px;
     line-height: 19px;
     height: 70px;
 }
 .purchase_header{
 	padding-bottom: 40px;
-	background-color: #E8E7E4;
+	background-color: $crema_1;
 }
 .border_inf{
 	border-bottom: 1px solid #979797;
 }
 .column_total{
-	background-color: #7F8185;
+	background-color: $gris_fondo_2;
 }
 .areas{
 	top: -37px;
@@ -21,14 +22,14 @@
 }
 .text-subtotal{
 	color: #FFFFFF;
-    font-family: 'Roboto', sans-serif;
+    font-family: $font-family-roboto;
     font-size: 16px;
     letter-spacing: 0;
     line-height: 19px;
 }
 .text-total{
 	color: #FFFFFF;
-    font-family: 'Roboto', sans-serif;
+    font-family: $font-family-roboto;
     font-size: 16px;
     font-weight: 500;
     letter-spacing: 0;
@@ -37,25 +38,33 @@
 .btn-comprar{
 	max-width: 197px;
 	width: 100%;
-	border: 3px solid #646567;
-    background-color: #646567;
+	border: 3px solid $gris_fondo_1;
+    background-color: $gris_fondo_1;
     color: #FFFFFF;
-	font-family: 'Roboto', sans-serif;
+	font-family: $font-family-roboto;
 	font-size: 14px;
 	letter-spacing: 0;
 	line-height: 16px;
 	text-align: center;
 	border-left: 7px solid #E95A0C;
 }
+.text-soft-gray{
+	color: #BFC3CC;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+.line-title{
+	color: #E95A0C;
+}
 .border_area{
 	border-right: 1px solid #BFC3CC;
 }
 .head_area{
 	border-top: 4px solid #E95A0C;
-	background-color:  #646567;
+	background-color:  $gris_fondo_1;
 }
 .head_area2{
-    background-color:  #646567;
+    background-color:  $gris_fondo_1;
 }
 .title_area{
 	color: #FFFFFF;
@@ -67,16 +76,16 @@
 }
 .subtitle_area{
 	color: #FFFFFF;
-    font-family: Roboto, sans-serif;
+    font-family: $font-family-roboto;
     font-size: 16px;
     letter-spacing: 0;
     line-height: 27px;
 }
 .sub_header_area{
-      background-color: #E8E7E4;
+      background-color: $crema_1;
 }
 .zone{
-  color: #646567;
+  color: $gris_fondo_1;
   font-family: "Roboto Condensed", sans-serif;
   font-size: 16px;
   font-weight: bold;
@@ -94,8 +103,8 @@
   line-height: 19px;
 }
 .sucurasal{
-  color: #646567;
-  font-family: 'Roboto', sans-serif;
+  color: $gris_fondo_1;
+  font-family: $font-family-roboto;
   font-size: 16px;
   letter-spacing: 0;
   line-height: 27px;
@@ -104,15 +113,15 @@
   border: 0px solid #BFC3CC;
   border-bottom: 1px solid #BFC3CC;
   background:  transparent;
-  color: #646567;
-  font-family: 'Roboto', sans-serif;
+  color: $gris_fondo_1;
+  font-family: $font-family-roboto;
   font-size: 16px;
   letter-spacing: 0;
   line-height: 27px;
 }
 .preci_total{
-  color: #646567;
-  font-family: 'Roboto', sans-serif;
+  color: $gris_fondo_1;
+  font-family: $font-family-roboto;
   font-size: 16px;
   font-weight: bold;
   letter-spacing: 0;
@@ -120,7 +129,7 @@
 }
 .zone_produt{
     .row:nth-child(2n+1){
-        background: #F6F6F6;
+        background: $crema_3;
     }
     .row:last-child{
      border-bottom: 1px solid #BFC3CC;
@@ -132,22 +141,45 @@
     }
 }
 .info_contacto{
-  color: #7F8185;
-  font-family: 'Roboto', sans-serif;
+  color: $gris_fondo_2;
+  font-family: $font-family-roboto;
   font-size: 16px;
   letter-spacing: 0;
   line-height: 27px;
 }
 .necesario_compra{
-  color: #7F8185;
-  font-family: 'Roboto', sans-serif;
+  color: $gris_fondo_2;
+  font-family: $font-family-roboto;
   font-size: 16px;
   font-style: italic;
   letter-spacing: 0;
   line-height: 19px;
 }
 
-#modalContinueBuy{
+#paymentModal, #areaModal, #productModal{
+	.modal-body{
+		background-color: #7F8185;
+		padding: 20px 20px!important;
+		.select2-container--default .select2-selection--single .select2-selection__rendered, .select_product{
+			color: #fff;
+		}
+	}
+	.modal-footer{
+		background-color: #646567;
+		padding: 20px;
+		font-size: 20px;
+		font-family: $font-family-roboto;
+		font-weight: 300;
+		.text-total{
+			color: #BFC3CC;
+			font-size: 20px;
+			font-family: $font-family-roboto;
+			font-weight: 300;
+		}
+	}
+}
+
+#modalContinueBuy, #paymentModal, #areaModal, #productModal{
 	background-color: rgba(0, 0, 0, 0.8);
 
 	.modal-dialog{
@@ -175,7 +207,7 @@
 	}
 
 	.modal-content{
-		background-color: #646567;
+		background-color: $gris_fondo_1;
 		color: #fff;
 		font-size: 16px;
 		line-height: 20px;
@@ -183,7 +215,7 @@
 
 	.modal-body{
 		padding: 20px 45px;
-		font-family: 'Roboto',  sans-serif;
+		font-family: $font-family-roboto;
 		font-weight: 100;
 	}
 
@@ -194,7 +226,7 @@
 	.btn_back, .btn_continue{
 		border-left: 7px solid #E95A0C!important;
   	color: #fff;
-		font-family: 'Roboto',  sans-serif;
+		font-family: $font-family-roboto;
 		font-size: 14px;
 		text-align: center;
 		max-width: 187px;
@@ -233,5 +265,26 @@
 			padding: 20px 30px;
 		}
 
+	}
+}
+
+@media (max-width: 576px) {
+	.price_total_area, .price_total_product{
+		button{
+			background: transparent;
+			border: 0;
+			i{
+				color: #E95A0C;
+			}
+		}
+	}
+	.price_total_payment{
+		button{
+			background: transparent;
+			border: 0;
+			i{
+				color: #fff;
+			}
+		}
 	}
 }
