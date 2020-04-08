@@ -43,9 +43,3 @@
     </div><!-- /.modal-body -->
   </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
-
-@section('myscripts')
-  <script type="text/javascript">
-
-  </script>
-@endsection
