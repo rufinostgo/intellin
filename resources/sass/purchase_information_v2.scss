@@ -93,17 +93,25 @@ background:$crema_1;
   width: 100%;
   height: 400px;
 }
-#modal_video{
+#modal_video,#modal_condiciones,#modal_products{
   background-color: rgba(0, 0, 0, 0.8);
   color:white;
 }
 .open_video_modal{
   cursor:pointer;
 }
-//fix size medium
-    
-   
-
+//Terms and conditions
+.condition_card{
+  background: $gris_fondo_1;
+}    
+ .title_condition{
+   background-color: $naranja_1;
+ }  
+.show_terms_cond{
+  color: white;
+  cursor:pointer;
+  border-bottom: 1px solid white;
+}
 
     //Movil
     @media only screen and (max-width: 768px) {
