@@ -90,18 +90,54 @@ class PagesController extends Controller
             if ($result[0]['success'] == '200') {
                 $areas_array = $result[0]['data'];
                 $products_gral = array();
+                $products_info = array();
+
                 foreach ($areas_array['areas'] as $area) {
                     $zones = $area['zones'];
                     foreach ($zones as $zone) {
                         $products = $zone['products'];
                         foreach ($products as $prod) {
                             $products_gral[$prod['product_id']] = $prod['price'];
+                            $product_imgs = array();
+                            foreach ($prod['images'] as $img) {
+                                array_push($product_imgs, "data:image/png;base64," . str_replace(
+                                    '"',
+                                    '',
+                                    $img
+                                ));
+                            }
+
+                            $products_info[$prod['product_id']] = array(
+                                'name' => $prod['product'],
+                                'image' => "data:image/png;base64," . str_replace(
+                                    '"',
+                                    '',
+                                    $prod['image']
+                                ),
+                                'images' => $product_imgs
+                            );
                         }
                     }
                 }
+
+                foreach ($areas_array['extra_products'] as $prod) {
+                    $products_gral[$prod['product_id']] = $prod['price'];
+                    $products_info[$prod['product_id']] = array(
+                        'name' => $prod['product'],
+                        'image' => "data:image/png;base64," . str_replace(
+                            '"',
+                            '',
+                            $prod['image']
+                        ),
+                        'images' => $product_imgs
+                    );
+                }
+
                 $areas_array['nombre_torre'] = $nombre_torre;
                 $areas_array['num_depto'] = $numero_departamento;
-                echo "<script type='text/javascript'>const array_all = " . json_encode($result) . "</script>";
+                $areas_array['products_info'] = $products_info;
+
+                echo "<script type='text/javascript'>const array_all = " . json_encode($result[0]) . "</script>";
                 echo "<script type='text/javascript'>const products_gral = " . json_encode($products_gral) . "</script>";
                 return view('front.purchase_information_tw', $areas_array);
             }

@@ -84,7 +84,7 @@
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <button class="show_product  pt-1 pb-1 mt-1 mb-1" data-toggle="modal" href="#carouselModal">
+                            <button class="show-p show_product-dis  pt-1 pb-1 mt-1 mb-1" data-toggle="modal" href="#carouselModal" disabled>
                                 Ver imágenes
                             </button>
                         </div>
@@ -93,7 +93,7 @@
                     @endforeach
                 </div>
 
-                <div class="necesario_compra pt-4 pb-4">Productos necesarios en tu compra para el área: 1</div>
+                <!-- <div class="necesario_compra pt-4 pb-4">Productos necesarios en tu compra para el área: 1</div>
 
                 <div class="row sub_header_area mr-md-3 justify-content-center align-items-center">
                     <div class="col-md-4 zone mt-2 mb-2 pt-1 pb-1 ">Producto</div>
@@ -106,7 +106,11 @@
                         <div class="col-md-4 sucurasal"> SECCIÓN POR DEFINIR </div>
                         <div class="col-md-3">
                             <select class="form-control select_product" data-live-search="true">
-                                <option>1</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -116,7 +120,7 @@
                         </div>
                         <div class="col-md-2 text-right preci_total">$0.00</div>
                     </div>
-                </div>
+                </div> -->
             </div>
             @endforeach
             <!-- FIN DE BOX TEMPLATE -->
@@ -137,15 +141,23 @@
             </div>
             <div class="zone_produt  sin_margen mb-5">
                 @foreach ($extra_products as $key_ex => $product)
-                <div class="row justify-content-center align-items-center mr-md-3 pb-2 pt-2">
-                    <div class="col-md-4 sucurasal"> {{$product['product']}} </div>
+                <div class="row extra-row justify-content-center align-items-center mr-md-3 pb-2 pt-2">
+                    <div class="col-md-4 sucurasal">
+                        <input type="hidden" class="extra_product_id" value="{{$product['product_id']}}">
+                        {{$product['product']}}
+                    </div>
                     <div class="col-md-3">
-                        <select class="form-control select_product" data-live-search="true">
-                            <option>1</option>
+                        <select class="form-control select_product select_product_extra" data-live-search="true">
+                            <option value=""></option>
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <button class="show_product  pt-1 pb-1 mt-1 mb-1">
+                        <button class="show_product  pt-1 pb-1 mt-1 mb-1" data-toggle="modal" href="#carouselModal_{{$product['product_id']}}">
                             Ver imágenes
                         </button>
                     </div>
@@ -215,11 +227,52 @@
     </div>
     <!--End modal-->
 
-    <div class="modal fade" id="carouselModal" data-keyboard="false" data-backdrop="static">
-        @include('layouts.modalCarousel', [
-        'title' => 'Sowaks, white motor',
-        'description' => 'Descripción dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-        'images' => 'https://demo7.estrasol.com.mx/casaboceto/wp-content/uploads/2019/06/mueble-galería-1.jpg'])
+
+    <!-- PRODUCTS IMAGE MODAL  -->
+    @foreach ($products_info as $key => $product)
+    <div class="modal fade carouselModal" id="carouselModal_{{$key}}" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+
+                    <p class="title_view">Estas viendo</p>
+                    <h3 class="title"> {{ $product['name']}} </h3>
+
+                    <p class="description"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem incidunt itaque dolorum maiores eos eius laudantium quae officiis dignissimos ex! Iure corporis, soluta tempora inventore reiciendis fugiat commodi earum quod?</p>
+                    <button type="button" class="cerrar border-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="close">&times;</span>
+                    </button>
+
+                    <div id="indicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#indicators" data-slide-to="0" class="active">1</li>
+                            <li data-target="#indicators" data-slide-to="1">2</li>
+                            <li data-target="#indicators" data-slide-to="2">3</li>
+                        </ol>
+                        <p class="num"></p>
+                        <div class="carousel-inner">
+                            @foreach ($product['images'] as $key_i => $img)
+                            <div class="carousel-item {{ $key_i == 0 ? 'active' : '' }}">
+                                <img class="d-block w-100" src="{{$img}}" alt="Third slide">
+                            </div>
+                            @endforeach
+
+                        </div>
+                        <a class="carousel-control-prev" href="#indicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#indicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+
+                </div><!-- /.modal-body -->
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    @endforeach
+
 </div>
 @endsection

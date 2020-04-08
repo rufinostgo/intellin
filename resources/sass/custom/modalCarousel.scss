@@ -1,4 +1,4 @@
-#carouselModal{
+.carouselModal{
   background-color: rgba(0, 0, 0, 0.8);
 
   .modal-content{
@@ -52,7 +52,7 @@
 }
 
 @media (max-width: 420px) {
-  #carouselModal{
+  .carouselModal{
     .modal-content{
       .cerrar{
         top: 250px;
