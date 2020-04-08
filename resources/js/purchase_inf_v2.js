@@ -12,7 +12,7 @@ sale_information.removeClass('d_none_special');
 
 
 //Events 
-//Normal 
+//Normal form menus
 $(".ctr_option button ").click(function( ev){
     exept = $(ev.target).attr('data').toString()
     
@@ -40,7 +40,7 @@ $(".ctr_option button ").click(function( ev){
     
    
 });
-//Mobile
+//Mobile form menus
 $(".open_products_total").click(function( ev){
   
     $(".products_modal").addClass('d-block');
@@ -70,3 +70,24 @@ $(".control_iformation button ").click(function( ev){
     
    
 });
+
+
+//Modal video
+//cerrar_video
+$(".cerrar_video").click(function( ev){
+    exept = $(ev.target).closest('#modal_video');
+    exept.toggleClass( "d-none");
+    exept.toggleClass( "d-block"); 
+   
+});
+
+//cerrar_video
+$(".open_video_modal").click(function( ev){
+    console.log("asas")
+    exept = $("#modal_video")
+    exept.toggleClass( "d-none");
+    exept.toggleClass( "d-block"); 
+   
+});
+
+Payment.formatCardNumber($('.credit_card'), 16);

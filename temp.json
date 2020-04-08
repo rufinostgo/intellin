@@ -44,4 +44,4 @@
   ]
 
 
-[{"area": "2", "style": "Blackout", "zones": [{"name": "SALA DERECHA", "products": [{"product_id": 42, "name": "SALA DERECHA", "product": "a", "price": 5.0, "image": "pendiente", "images": "pendiente"}]}]}, {"area": "2", "style": "Translúcida", "zones": [{"name": "SALA DERECHA", "products": [{"product_id": 1, "name": "SALA DERECHA", "product": "SOWAKS", "price": 120.0, "image": "pendiente", "images": "pendiente"}, {"product_id": 1, "name": "SALA DERECHA", "product": "SOWAKS", "price": 120.0, "image": "pendiente", "images": "pendiente"}]}]}, {"area": "1", "style": "Translúcida", "zones": [{"name": "SALA DERECHA", "products": [{"product_id": 1, "name": "SALA DERECHA", "product": "SOWAKS", "price": 120.0, "image": "pendiente", "images": "pendiente"}, {"product_id": 1, "name": "SALA DERECHA", "product": "SOWAKS", "price": 120.0, "image": "pendiente", "images": "pendiente"}]}, {"name": "IZQ", "products": [{"product_id": 1, "name": "IZQ", "product": "SOWAKS", "price": 120.0, "image": "pendiente", "images": "pendiente"}, {"product_id": 1, "name": "IZQ", "product": "SOWAKS", "price": 120.0, "image": "pendiente", "images": "pendiente"}]}]}]
+  
