@@ -10,7 +10,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container bg-div">
     <div class="row">
         <div class="col-xs-12 col-sm-4 offset-sm-4  text-center">
             <img src="{{ asset('images/logos/logo_signup.png')}}" class="img-fluid" alt="Responsive image">

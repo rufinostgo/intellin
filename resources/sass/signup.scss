@@ -2,31 +2,20 @@
 @media only screen and (max-width: 600px) {}
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-  
-} 
+@media only screen and (min-width: 600px) {}
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {}
 
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-    
-    body {  
-        background-image: url("{{ asset('images/signup/fondo_signup.png'}}");
-        
-        
-    } 
-  
-}
+@media only screen and (min-width: 992px) {}
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-  
-}
+@media only screen and (min-width: 1200px) {}
 
 html,
 body {
     height: 100%;
     margin: 0;
+    background-image: url("{{ asset('images/signup/fondo_signup.png'}}");
 }
