@@ -5,7 +5,7 @@
     @include('layouts.head')
 @show
 
-<body style="background-image: url('images/signup/fondo_signup.png');">
+<body>
     <header></header>
      
     @yield('content')

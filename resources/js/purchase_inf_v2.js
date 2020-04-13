@@ -111,6 +111,5 @@ $(".show_terms_cond").click(function( ev){
     document.documentElement.style.overflowY = 'hidden'; 
    
 });
-d
 
-Payment.formatCardNumber($('.credit_card'), 16);
+Payment.formatCardNumber($('.credit_card'), 16); 

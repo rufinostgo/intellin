@@ -1,4 +1,4 @@
-@extends('layouts.appsu')
+@extends('layouts.appw')
 
 
 @section('title') INTELLI (WELCOME) @endsection
