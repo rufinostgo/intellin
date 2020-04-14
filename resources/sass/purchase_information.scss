@@ -119,6 +119,7 @@
   letter-spacing: 0;
   line-height: 27px;
 }
+/*
 .preci_total{
   color: $gris_fondo_1;
   font-family: $font-family-roboto;
@@ -126,7 +127,7 @@
   font-weight: bold;
   letter-spacing: 0;
   line-height: 27px;
-}
+}*/
 .zone_produt{
     .row:nth-child(2n+1){
         background: $crema_3;
@@ -287,4 +288,13 @@
 			}
 		}
 	}
+}
+
+.row-prodn-false{
+	display: none;
+}
+
+.row-prodn-true{
+	/*border: 1px solid blue;
+	display: none;*/
 }

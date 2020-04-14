@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\RipcordController;
 use Illuminate\Support\Facades\Redirect;
 use Ripcord\Providers\Laravel\Ripcord;
 
@@ -52,8 +51,10 @@ class PagesController extends Controller
                     '',
                     $datos_torre['background_picture']
                 ),
-                'torre_deptos' => $departamentos_array
+                'torre_deptos' => $departamentos_array,
+                'torre_imagen' =>  $datos_torre['tower_picture']
             );
+            echo "<script type='text/javascript'>const array_all = " . json_encode($datos_torre) . "</script>";
             return view('front.welcome', $data_view);
         } else {
             return Redirect::back()->withInput()
@@ -67,6 +68,7 @@ class PagesController extends Controller
     public function purchase_info(Request $request)
     {
         $nombre_torre =  $_POST['name_torre'];
+        $img_torre = $_POST['img_torre'];
         $numero_departamento =  $_POST['numero_departamento'];
 
         if ($numero_departamento != 'empty') {
@@ -90,7 +92,19 @@ class PagesController extends Controller
             if ($result[0]['success'] == '200') {
                 $areas_array = $result[0]['data'];
                 $products_gral = array();
+                $products_act = array();
                 $products_info = array();
+                $area_extraprods = array();
+                $area_otherprods = array();
+
+                $control1 = "Control 1 Canal";              // Nombre del producto de "Controles" a verificar 
+                $control5 = "Control 5 Canales";            // Nombre del producto de "Controles" a verificar 
+                $cargador1 = "Cargador";                    // Nombre del producto de "Cargadores" a verificar 
+                $interfase1 = "Interfase";                  // Nombre del producto de "Interfase" a verificar 
+                $needed_prods = array(
+                    'control_1' => '',
+                    'control_5' => '',
+                );
 
                 foreach ($areas_array['areas'] as $area) {
                     $zones = $area['zones'];
@@ -98,6 +112,7 @@ class PagesController extends Controller
                         $products = $zone['products'];
                         foreach ($products as $prod) {
                             $products_gral[$prod['product_id']] = $prod['price'];
+                            $products_act[$prod['product_id']] = $prod['actuation'];
                             $product_imgs = array();
                             foreach ($prod['images'] as $img) {
                                 array_push($product_imgs, "data:image/png;base64," . str_replace(
@@ -114,14 +129,17 @@ class PagesController extends Controller
                                     '',
                                     $prod['image']
                                 ),
-                                'images' => $product_imgs
+                                'images' => $product_imgs,
+                                'actuation' => $prod['actuation']
                             );
                         }
                     }
                 }
 
+
                 foreach ($areas_array['extra_products'] as $prod) {
                     $products_gral[$prod['product_id']] = $prod['price'];
+                    $products_act[$prod['product_id']] = 'no_aplica';
                     $products_info[$prod['product_id']] = array(
                         'name' => $prod['product'],
                         'image' => "data:image/png;base64," . str_replace(
@@ -129,17 +147,38 @@ class PagesController extends Controller
                             '',
                             $prod['image']
                         ),
-                        'images' => $product_imgs
+                        'images' => $product_imgs,
+                        'actuation' => 'no_aplica'
                     );
+
+                    if ($prod['electronic'] == $control1) {
+                        $needed_prods['control_1'] = $prod['electronic_id'];
+                        array_push($area_extraprods, $prod);
+                    } else if ($prod['electronic'] == $control5) {
+                        $needed_prods['control_5'] = $prod['electronic_id'];
+                        array_push($area_extraprods, $prod);
+                    } else if ($prod['electronic'] == $cargador1) {
+                        $needed_prods['cargador'] = $prod['electronic_id'];
+                        array_push($area_otherprods, $prod);
+                    } else if ($prod['electronic'] == $interfase1) {
+                        $needed_prods['interfase'] = $prod['electronic_id'];
+                        array_push($area_otherprods, $prod);
+                    }
                 }
 
                 $areas_array['nombre_torre'] = $nombre_torre;
+                $areas_array['imagen_torre'] = "data:image/png;base64," . str_replace('"', '', $img_torre);
+                $areas_array['map'] = "data:image/png;base64," . str_replace('"', '', $areas_array['map']);
                 $areas_array['num_depto'] = $numero_departamento;
                 $areas_array['products_info'] = $products_info;
+                $areas_array['a_extraprods'] = $area_extraprods;
+                $areas_array['a_otherprods'] = $area_otherprods;
 
                 echo "<script type='text/javascript'>const array_all = " . json_encode($result[0]) . "</script>";
+                echo "<script type='text/javascript'>const products_act = " . json_encode($products_act) . "</script>";
                 echo "<script type='text/javascript'>const products_gral = " . json_encode($products_gral) . "</script>";
-                return view('front.purchase_information_tw', $areas_array);
+                echo "<script type='text/javascript'>const needed_prods = " . json_encode($needed_prods) . "</script>";
+                return view('front.purchase_information', $areas_array);
             }
         } else {
             return Redirect::back()->with('alert', 'Favor de seleccionar un número de departamento.');

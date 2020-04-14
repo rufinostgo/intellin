@@ -10,7 +10,7 @@
       padding: 0;
     }
 
-    .title_view, .description{
+    .title_view /*, .description*/{
       font-family: 'Roboto';
       font-weight: 100;
       font-size: 16px;
@@ -18,9 +18,10 @@
       margin-bottom: 1rem;
     }
 
+    /*
     .description{
       color: #BFC3CC;
-    }
+    }*/
 
     .title{
       font-family: 'Montserrat';
@@ -31,9 +32,9 @@
 
     .cerrar{
       background: transparent;
-      position: absolute;
+      /*position: absolute;
       right: 0;
-      top: 190px;
+      top: 190px;*/
       text-shadow: none;
     }
 

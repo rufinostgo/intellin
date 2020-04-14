@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    console.log("Welcome XDDDDDD");
+    console.log("Welcome");
 });
 
 $("#aceptar_welcome").on("click",function(){

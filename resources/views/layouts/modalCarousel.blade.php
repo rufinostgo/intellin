@@ -6,9 +6,9 @@
 
       <h3 class="title">{{ $title }}</h3>
 
-      <p class="description">{{ $description }}</p>
+      <!-- <p class="description">{{ $description }}</p> -->
 
-      <button type="button" class="cerrar border-0" data-dismiss="modal" aria-label="Close">
+      <button type="button" class="cerrar border-0" data-dismiss="modal" aria-label="Close"> 
         <span aria-hidden="true" class="close">&times;</span>
       </button>
 

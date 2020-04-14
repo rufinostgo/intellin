@@ -3,9 +3,10 @@
 /public/storage
 /storage/*.key
 /vendor
+/ripcord-master
 .env
 .env.backup
-.phpunit.result.cache
+.phpunit.result.cache 
 Homestead.json
 Homestead.yaml
 npm-debug.log
@@ -15,3 +16,7 @@ composer.lock
 /public/js
 package-lock.json
 public/mix-manifest.json
+.editorconfig
+.env.example
+.gitattributes
+.styleci.yml
