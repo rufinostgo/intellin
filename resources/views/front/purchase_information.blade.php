@@ -11,7 +11,7 @@
 @section('myscripts')
 <script src="{{ asset('js/purchase.js') }}" defer></script>
 @endsection
-
+ 
 <!-- header menu -->
 @section('name_tower') {{$nombre_torre}} @endsection
 

@@ -13,7 +13,7 @@ const search_code = () => {
         $('.numero_contrato').parent().find(".invalid-signup").text("Por favor indique su número de contrato.")
         $('.numero_contrato').addClass('is-invalid');
     } else {
-        window.location.href="http://127.0.0.1:8000/welcome/"+value;
+        $("#form_signup").submit();
         /*fetch('http://127.0.0.1:8000/welcome/' + value)
         .then(function(response){
             return response.json();

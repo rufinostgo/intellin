@@ -16,6 +16,8 @@ $(document).ready(function () {
 
     /**Ocultamos inicialmente el div de Cargador.. */
     $("#row-prodn-" + needed_prods['cargador']).removeClass("row-prodn-true").addClass("row-prodn-false");
+    /**Removemos las opciones inecesarias en el div de Interfase */
+    $("#row-prodn-" + needed_prods['interfase']).find(".select_product option[value=2").remove();
 
     $(".select_product_area").on("change", function () {
         let id = $(this).val() != "" ? $(this).val() : "empty";
@@ -89,7 +91,7 @@ const watch_needed_products = (div_zoneprod) => {
                 //console.log("Es un motor, se requieren productos..");
                 motor_count++;
             }
-        }
+        } 
     });
     console.log("Motores necesarios: " + motor_count);
     const zp_extras = $(div_zoneprod).parent().find(".zone-product-extras");

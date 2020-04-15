@@ -30,7 +30,7 @@
                     </p>
 
 
-                    <form action="{{ url('welcome/') }}" method="POST">
+                    <form id="form_signup" action="{{ url('welcome/') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label class="signup-instructions2" for="numero_contrato"> Número de contrato</label>

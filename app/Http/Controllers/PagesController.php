@@ -164,7 +164,7 @@ class PagesController extends Controller
                         $needed_prods['interfase'] = $prod['electronic_id'];
                         array_push($area_otherprods, $prod);
                     }
-                }
+                } 
 
                 $areas_array['nombre_torre'] = $nombre_torre;
                 $areas_array['imagen_torre'] = "data:image/png;base64," . str_replace('"', '', $img_torre);
