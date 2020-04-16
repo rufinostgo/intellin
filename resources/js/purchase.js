@@ -5,7 +5,7 @@ const act_tocheck4 = 'Interfase'; // Accionamiento a verificar para controles en
 
 $(document).ready(function () {
     setTimeout(() => {
-        console.clear();
+        //console.clear();
         console.log("|| PURCHASE VIEW ||");
     }, 1000);
 
@@ -17,9 +17,10 @@ $(document).ready(function () {
     /**Ocultamos inicialmente el div de Cargador.. */
     $("#row-prodn-" + needed_prods['cargador']).removeClass("row-prodn-true").addClass("row-prodn-false");
     /**Removemos las opciones inecesarias en el div de Interfase */
-    $("#row-prodn-" + needed_prods['interfase']).find(".select_product option[value=2").remove();
+    //$("#row-prodn-" + needed_prods['interfase']).find(".select_product option[value=2]").remove();
 
     $(".select_product_area").on("change", function () {
+        console.log("select_product_area");
         let id = $(this).val() != "" ? $(this).val() : "empty";
         let total = $(this).val() != "" ? products_gral[$(this).val()] : "0.00";
         $(this).parent().parent().find(".preci_total").text("$" + total);
@@ -36,6 +37,34 @@ $(document).ready(function () {
         watch_needed_products($(this).parent().parent().parent()); // .ZoneProduct
         watch_other_products();
         calcular_totales();
+
+        const parent_row_id = $(this).parent().parent().attr("id");
+        const select_mb_id = parent_row_id.replace("web", "select");
+        const select_mobile = $("#" + select_mb_id);
+        if ($(select_mobile).val() != $(this).val()) {
+            $(select_mobile).val($(this).val());
+            $(select_mobile).trigger("change");
+        } else {
+            console.log("Mismo value en ambos selects, se detienen triggers. (MSG Web)");
+        }
+    });
+
+    $(".select_product_mobarea").on("change", function () {
+        console.log("select_product_mobarea");
+        const total = $(this).val() != "" ? products_gral[$(this).val()] : "0.00";
+        console.log(total);
+        $(this).parent().parent().parent().parent().find(".preci_total_mobile").text("$" + total);
+
+        const select_id = $(this).attr("id");
+        const row_area = select_id.replace("select", "web");
+        const select_area = $("#" + row_area).find(".select_product_area");
+
+        if ($(select_area).val() != $(this).val()) {
+            $(select_area).val($(this).val());
+            $(select_area).trigger("change");
+        } else {
+            console.log("Mismo value en ambos selects, se detienen triggers. (MSG Mobile)");
+        }
     });
 
     $(".select_product_extra").on("change", function () {
@@ -53,7 +82,42 @@ $(document).ready(function () {
             $(this).val("1");
             $(this).trigger("change");
         }
+
+        
+        /*let select_idweb = $(this).attr("id");
+        console.log("aiudaaaa: " + select_idweb);
+        let select_mb_id = select_idweb.replace("webselect", "select");
+        let select_mobile = $("#" + select_mb_id);
+
+        if ($(select_mobile).val() != $(this).val()) {
+            $(select_mobile).val($(this).val());
+            $(select_mobile).trigger("change");
+        } else {
+            console.log("Mismo value en ambos selects, se detienen triggers. (MSG Web)");
+        }*/
     });
+
+    $(".select_product_mobextra").on("change", function () {
+        console.log("select_product_mobextra");
+        const cant = $(this).val() != "" ? $(this).val() : "empty";
+        const product_id = $(this).parent().find(".extra_product_id").val();
+        const product_price = products_gral[product_id];
+        const product_price_total = +cant * +product_price;
+        $(this).parent().parent().parent().parent().find(".preci_total_mobile").text(currencyFormat(product_price_total));
+        
+        const select_id = $(this).attr("id");
+        const id_webselect = select_id.replace("select", "webselect");
+        const select_area = $("#" + id_webselect);
+
+        if ($(select_area).val() != $(this).val()) {
+            $(select_area).val($(this).val());
+            $(select_area).trigger("change");
+        } else {
+            console.log("Mismo value en ambos selects, se detienen triggers. (MSG Mobile)");
+        }
+    });
+
+
 });
 
 const calcular_totales = () => {
@@ -80,7 +144,7 @@ const calcular_totales = () => {
 }
 
 const watch_needed_products = (div_zoneprod) => {
-    console.log("watch_needed_products()..");
+    //console.log("watch_needed_products()..");
     let motor_count = 0;
     $(div_zoneprod).find(".product_row").each(function () {
         //console.log("PRODUCTO: " + $(this).find(".select_product_area  option:selected").text());
@@ -91,9 +155,9 @@ const watch_needed_products = (div_zoneprod) => {
                 //console.log("Es un motor, se requieren productos..");
                 motor_count++;
             }
-        } 
+        }
     });
-    console.log("Motores necesarios: " + motor_count);
+    //console.log("Motores necesarios: " + motor_count);
     const zp_extras = $(div_zoneprod).parent().find(".zone-product-extras");
     let id_divctrl;
     if (motor_count > 0) {
@@ -121,8 +185,10 @@ const watch_needed_products = (div_zoneprod) => {
                     $(div_control).removeClass("row-prodn-false").addClass("row-prodn-true");
                     $(div_control).find(".select_product_extra").val("1");
                     $(div_control).find(".select_product_extra").trigger("change");
+                    let dctrl_id = $(div_control).attr("id");
+                    $("#" + dctrl_id + " option[4='true']").prop("disabled", true);
                 } else {
-                    console.log("Ya estamos mostrando esta fila, no la reinicies.")
+                    //console.log("Ya estamos mostrando esta fila, no la reinicies.")
                 }
             } else {
                 let other_div = $(zp_extras).find("#row-prodn-" + value);
@@ -132,7 +198,7 @@ const watch_needed_products = (div_zoneprod) => {
             }
         });
     } else {
-        console.log("Hay que esconder todos los divs.");
+        //console.log("Hay que esconder todos los divs.");
         $(zp_extras).find(".select_product_extra").val("0");
         $(zp_extras).find(".select_product_extra").trigger("change");
         $(zp_extras).find(".row-prodn").removeClass("row-prodn-true").addClass("row-prodn-false");
@@ -170,7 +236,7 @@ const watch_other_products = () => {
         } else {
             //console.log("Ya estamos mostrando esta fila, no la reinicies.")
         }
-    }else{
+    } else {
         //console.log("Hay que esconder el div de cargador");
         $(div_cargador).find(".select_product_extra").val("0");
         $(div_cargador).find(".select_product_extra").trigger("change");

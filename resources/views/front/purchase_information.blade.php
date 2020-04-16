@@ -11,7 +11,7 @@
 @section('myscripts')
 <script src="{{ asset('js/purchase.js') }}" defer></script>
 @endsection
- 
+
 <!-- header menu -->
 @section('name_tower') {{$nombre_torre}} @endsection
 
@@ -73,7 +73,7 @@
                 </div>
                 <div class="zone_produt">
                     @foreach ($area['zones'] as $key_z => $zone)
-                    <div class="row product_row justify-content-center align-items-center mr-md-3 pb-2 pt-2">
+                    <div class="row product_row justify-content-center align-items-center mr-md-3 pb-2 pt-2" id="web-a{{$key_a}}-z{{$key_z}}">
                         <div class="d-none d-sm-block col-sm-3 col-md-3 sucurasal">{{$zone['zone']}}</div>
                         <div class="col-6 col-sm-4 col-md-4">
                             <select class="form-control select_product select_product_area select2 select_2" data-toggle="select2">
@@ -89,7 +89,7 @@
                             </button>
                         </div>
                         <div class="col-6 col-sm-2 col-md-2 text-left text-sm-right price_total_area"> <span class="preci_total ">$0.00</span>
-                            <button data-toggle="modal" data-target="#areaModal" class="float-right d-bloc d-sm-none" type="button" name="button">
+                            <button data-toggle="modal" data-target="#areaModal-a{{$key_a}}-z{{$key_z}}" class="float-right d-bloc d-sm-none" type="button" name="button">
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -110,13 +110,13 @@
 
                 <div class="zone_produt zone-product-extras sin_margen mb-5">
                     @foreach ($a_extraprods as $key_ex => $product)
-                    <div class="row justify-content-center align-items-center mr-md-3 pb-2 pt-2 row-prodn row-prodn-false" id="row-prodn-{{$product['electronic_id']}}">
+                    <div class="row justify-content-center align-items-center mr-md-3 pb-2 pt-2 row-prodn row-prodn-false web-a{{$key_a}}-ex{{$key_ex}}" id="row-prodn-{{$product['electronic_id']}}">
                         <div class="col-6 col-sm-4 col-md-4 sucurasal">
                             <input type="hidden" class="extra_product_id" value="{{$product['product_id']}}">
                             {{$product['product']}}
                         </div>
                         <div class="col-2 col-sm-3 col-md-3 p-0">
-                            <select class="form-control select_product select_product_extra" data-live-search="true">
+                            <select class="form-control select_product select_product_extra" id="webselect-a{{$key_a}}-ex{{$key_ex}}" data-live-search="true">
                                 <option value=""></option>
                                 <option value="0" selected>0</option>
                                 <option value="1">1</option>
@@ -132,7 +132,7 @@
                             </button>
                         </div>
                         <div class="col-4 col-sm-2 col-md-2 text-left text-sm-right price_total_product"> <span class="preci_total "> $0.00</span>
-                            <button data-toggle="modal" data-target="#productModal" class="float-right d-bloc d-sm-none" type="button" name="button">
+                            <button data-toggle="modal" data-target="#productModal-a{{$key_a}}-ex{{$key_ex}}" class="float-right d-bloc d-sm-none" type="button" name="button">
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -160,7 +160,7 @@
 
             <div class="zone_produt sin_margen">
                 @foreach ($a_otherprods as $key_ex => $product)
-                <div class="row extra-row justify-content-center align-items-center mr-md-3 pb-2 pt-2 row-prodn"  id="row-prodn-{{$product['electronic_id']}}">
+                <div class="row extra-row justify-content-center align-items-center mr-md-3 pb-2 pt-2 row-prodn" id="row-prodn-{{$product['electronic_id']}}">
                     <div class="col-6 col-sm-4 col-md-4 sucurasal">
                         <input type="hidden" class="extra_product_id" value="{{$product['product_id']}}">
                         {{$product['product']}}
@@ -300,19 +300,102 @@
             'total' => '23233'])
         </div><!-- /.modal -->
 
-        <div class="modal fade" id="areaModal" data-keyboard="false" data-backdrop="static">
-            @include('layouts.modalArea', [
-            'area' => '500',
-            'style' => '2323',
-            'zone' => '23233',
-            'product' => '23233'])
-        </div><!-- /.modal -->
+        <!-- PRODUCTS DE AREA MODAL  -->
+        @foreach ($areas as $key_a => $area)
+        @foreach ($area['zones'] as $key_z => $zone)
+        <div class="modal fade areaModal" id="areaModal-a{{$key_a}}-z{{$key_z}}" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="cerrar border-0" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="close">&times;</span>
+                        </button>
 
-        <div class="modal fade" id="productModal" data-keyboard="false" data-backdrop="static">
-            @include('layouts.modalProduct', [
-            'area' => '500',
-            'style' => '2323',
-            'zone' => '23233',
-            'quantity' => '23233'])
+                        <h4><span class="line-title">_</span> Detalle del producto</h4>
+
+                        <div class="row mt-4">
+                            <div class="col-3 text-subtotal pb-3"><span class="text-soft-gray">Area</span></div>
+                            <div class="col-9 text-subtotal pb-3">{{$area['area']}}</div>
+                            <div class="col-3 text-subtotal pb-3"><span class="text-soft-gray">Estilo</span></div>
+                            <div class="col-9 text-subtotal pb-3">{{$area['style']}}</div>
+                            <div class="col-3 text-subtotal pb-3"><span class="text-soft-gray">Zona</span></div>
+                            <div class="col-9 text-total pb-4">{{$zone['zone']}}</div>
+
+                            <div class="col-12">
+                                <label for="" class="text-soft-gray">Producto</label>
+                                <select class="form-control select_product select_product_mobarea select2 select_2" data-toggle="select2" id="select-a{{$key_a}}-z{{$key_z}}">
+                                    <option value=""></option>
+                                    @foreach ($zone['products'] as $key_p => $product)
+                                    <option value="{{$product['product_id']}}"> {{$product['product']}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-md-12 text-center mt-4">
+                                <button class="mw-100 btn_continue pt-1 pb-1 mt-1 mb-1">
+                                    Ver imágenes
+                                </button>
+                            </div>
+                        </div>
+                    </div><!-- /.modal-body -->
+                    <div class="modal-footer d-block pl-3">
+                        <span class="text-total">Total</span> <span class="preci_total_mobile">$0.00</span>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        @endforeach
+        @endforeach
+
+
+        <!-- PRODUCTS DE EXTRA/OTHERS MODAL  -->
+        @foreach ($areas as $key_a => $area)
+        @foreach ($a_extraprods as $key_e => $prod)
+        <div class="modal fade productModal" id="productModal-a{{$key_a}}-ex{{$key_e}}" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="cerrar border-0" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="close">&times;</span>
+                        </button>
+
+                        <h4><span class="line-title">_</span> {{$prod['product']}}</h4>
+
+                        <div class="row mt-4">
+                            <div class="col-3 text-subtotal pb-3"><span class="text-soft-gray">Area</span></div>
+                            <div class="col-9 text-subtotal pb-3">{{$area['area']}}</div>
+                            <div class="col-3 text-subtotal pb-3"><span class="text-soft-gray">Estilo</span></div>
+                            <div class="col-9 text-subtotal pb-3">{{$area['style']}}</div>
+                            <div class="col-3 text-subtotal pb-3"><span class="text-soft-gray">Zona</span></div>
+                            <div class="col-9 text-total pb-4">{{$zone['zone']}}</div>
+
+                            <div class="col-12">
+                                <input type="hidden" class="extra_product_id" value="{{$prod['product_id']}}">
+                                <label for="" class="text-soft-gray">Cantidad</label>
+                                <select class="form-control select_product  select2 select_2 select_product_mobextra" data-toggle="select2" id="select-a{{$key_a}}-ex{{$key_e}}">
+                                    <option value=""></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-12 text-center mt-4">
+                                <button class="mw-100 btn_continue pt-1 pb-1 mt-1 mb-1">
+                                    Ver imágenes
+                                </button>
+                            </div>
+                        </div>
+                    </div><!-- /.modal-body -->
+                    <div class="modal-footer d-block pl-3">
+                        <span class="text-total">Total</span> <span class="preci_total_mobile">$0.00</span>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        @endforeach
+        @endforeach
+
         @endsection

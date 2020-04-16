@@ -182,9 +182,6 @@ class PagesController extends Controller
                 $areas_array['a_extraprods'] = $area_extraprods;
                 $areas_array['a_otherprods'] = $area_otherprods;
 
-                echo "<script type='text/javascript'>const area_extraprods = " . json_encode($area_extraprods) . "</script>";
-                echo "<script type='text/javascript'>const area_otherprods = " . json_encode($area_otherprods) . "</script>";
-
                 echo "<script type='text/javascript'>const array_all = " . json_encode($result[0]) . "</script>";
                 echo "<script type='text/javascript'>const products_act = " . json_encode($products_act) . "</script>";
                 echo "<script type='text/javascript'>const products_gral = " . json_encode($products_gral) . "</script>";

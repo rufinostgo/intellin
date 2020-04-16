@@ -157,7 +157,7 @@
   line-height: 19px;
 }
 
-#paymentModal, #areaModal, #productModal{
+#paymentModal, .areaModal, .productModal{
 	.modal-body{
 		background-color: #7F8185;
 		padding: 20px 20px!important;
@@ -180,7 +180,7 @@
 	}
 }
 
-#modalContinueBuy, #paymentModal, #areaModal, #productModal{
+#modalContinueBuy, #paymentModal, .areaModal, .productModal{
 	background-color: rgba(0, 0, 0, 0.8);
 
 	.modal-dialog{
