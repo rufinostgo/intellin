@@ -105,6 +105,10 @@ class PagesController extends Controller
                     'control_1' => '',
                     'control_5' => '',
                 );
+                $other_prods = array(
+                    'cargador' => '',
+                    'interfase' => '',
+                );
 
                 foreach ($areas_array['areas'] as $area) {
                     $zones = $area['zones'];
@@ -166,10 +170,10 @@ class PagesController extends Controller
                         $needed_prods['control_5'] = $prod['electronic_id'];
                         array_push($area_extraprods, $prod);
                     } else if ($prod['electronic'] == $cargador1) {
-                        $needed_prods['cargador'] = $prod['electronic_id'];
+                        $other_prods['cargador'] = $prod['electronic_id'];
                         array_push($area_otherprods, $prod);
                     } else if ($prod['electronic'] == $interfase1) {
-                        $needed_prods['interfase'] = $prod['electronic_id'];
+                        $other_prods['interfase'] = $prod['electronic_id'];
                         array_push($area_otherprods, $prod);
                     }
                 }
@@ -182,13 +186,14 @@ class PagesController extends Controller
                 $areas_array['a_extraprods'] = $area_extraprods;
                 $areas_array['a_otherprods'] = $area_otherprods;
 
-                echo "<script type='text/javascript'>const area_extraprods = " . json_encode($area_extraprods) . "</script>";
-                echo "<script type='text/javascript'>const area_otherprods = " . json_encode($area_otherprods) . "</script>";
+                //echo "<script type='text/javascript'>const area_extraprods = " . json_encode($area_extraprods) . "</script>";
+                //echo "<script type='text/javascript'>const area_otherprods = " . json_encode($area_otherprods) . "</script>";
 
                 echo "<script type='text/javascript'>const array_all = " . json_encode($result[0]) . "</script>";
                 echo "<script type='text/javascript'>const products_act = " . json_encode($products_act) . "</script>";
                 echo "<script type='text/javascript'>const products_gral = " . json_encode($products_gral) . "</script>";
                 echo "<script type='text/javascript'>const needed_prods = " . json_encode($needed_prods) . "</script>";
+                echo "<script type='text/javascript'>const other_prods = " . json_encode($other_prods) . "</script>";
                 return view('front.purchase_information', $areas_array);
             }
         } else {

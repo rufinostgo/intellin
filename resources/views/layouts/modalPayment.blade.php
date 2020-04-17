@@ -7,11 +7,11 @@
 
       <div class="row mt-4">
         <div class="col-6 text-subtotal pb-3">Subtotal.</div>
-        <div class="col-6 text-subtotal pb-3">${{ $subtotal }}</div>
+        <div class="col-6 text-subtotal pb-3 monto-subtotal">${{ $subtotal }}</div>
         <div class="col-6 text-subtotal pb-3">IVA.</div>
-        <div class="col-6 text-subtotal pb-3">${{ $iva }}</div>
+        <div class="col-6 text-subtotal pb-3 monto-iva">${{ $iva }}</div>
         <div class="col-6 text-subtotal pb-3">Total.</div>
-        <div class="col-6 text-total pb-4">${{ $total }}</div>
+        <div class="col-6 text-total pb-4 monto-total">$<span class="monto-total">{{ $total }}</span></div>
         <hr class="w-100 bg-white">
         <div class="col-md-12 text-center">
           <button class="mw-100 btn_continue pt-1 pb-1 mt-1 mb-1 text-uppercase">
