@@ -57,11 +57,11 @@
                 <div class="row head_area mr-md-3 pt-2 pb-2">
                     <div class="col-6 col-md-4 border_area">
                         <span class="title_area">ÁREA </span>
-                        <span class="subtitle_area">{{$area['area']}}</span>
+                        <span class="subtitle_area area_name">{{$area['area']}}</span>
                     </div>
                     <div class="col-6 col-md-4">
                         <span class="title_area">Estílo </span>
-                        <span class="subtitle_area">{{$area['style']}}</span>
+                        <span class="subtitle_area area_style">{{$area['style']}}</span>
                     </div>
                 </div>
 
@@ -111,7 +111,7 @@
 
                     <div class="zone_produt zone-product-extras sin_margen">
                         @foreach ($a_extraprods as $key_ex => $product)
-                        <div class="row justify-content-center align-items-center mr-md-3 pb-2 pt-2 row-prodn row-prodn-false web-a{{$key_a}}-ex{{$key_ex}}" id="row-prodn-{{$product['electronic_id']}}">
+                        <div class="row justify-content-center align-items-center mr-md-3 pb-2 pt-2 extra-prodn row-prodn row-prodn-false web-a{{$key_a}}-ex{{$key_ex}}" id="row-prodn-{{$product['electronic_id']}}">
                             <div class="col-6 col-sm-4 col-md-4 sucurasal">
                                 <input type="hidden" class="extra_product_id" value="{{$product['product_id']}}">
                                 {{$product['product']}}
@@ -204,14 +204,15 @@
                     <div class="d-none d-md-block col-6 text-subtotal pb-3">IVA.</div>
                     <div class="d-none d-md-block col-6 text-subtotal monto-iva pb-3">$0.00</div>
                     <div class="col-6 text-subtotal pb-3">Total.</div>
-                    <div class="col-6 text-total pb-4 price_total_payment"><span class="monto-total"> $0.00 </span> 
+                    <div class="col-6 text-total pb-4 price_total_payment"><span class="monto-total"> $0.00 </span>
                         <button data-toggle="modal" data-target="#paymentModal" class="float-right d-bloc d-sm-none" type="button" name="button">
                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                         </button>
                     </div>
                 </div>
                 <div class="text-center pt-3">
-                    <button type="button" class="btn-comprar pt-2 pb-2" data-toggle="modal" data-target="#modalContinueBuy">
+                    <!-- data-toggle="modal" data-target="#modalContinueBuy" -->
+                    <button type="button" class="btn-comprar pt-2 pb-2">
                         COMPRAR
                     </button>
                 </div>
@@ -245,7 +246,7 @@
                                 </button>
                             </div>
                             <div class="col-md-6 order-first order-md-2">
-                                <button class="btn_continue pt-1 pb-1 mt-1 mb-1">
+                                <button class="btn_continue_compra pt-1 pb-1 mt-1 mb-1">
                                     CONTINUAR
                                 </button>
                             </div>
@@ -337,7 +338,7 @@
                             </div>
 
                             <div class="col-md-12 text-center mt-4">
-                                <button class="mw-100 btn_continue pt-1 pb-1 mt-1 mb-1">
+                                <button class="mw-100 btn_continue pt-1 pb-1 mt-1 mb-1 show-p btn_cont-dis" data-toggle="modal" href="#carouselModal">
                                     Ver imágenes
                                 </button>
                             </div>
@@ -379,6 +380,7 @@
                                 <label for="" class="text-soft-gray">Cantidad</label>
                                 <select class="form-control select_product  select2 select_2 select_product_mobextra" data-toggle="select2" id="select-a{{$key_a}}-ex{{$key_e}}">
                                     <option value=""></option>
+                                    <option value="0">0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -424,6 +426,7 @@
                                 <label for="" class="text-soft-gray">Cantidad</label>
                                 <select class="form-control select_product  select2 select_2 select_product_mobextra" data-toggle="select2" id="select-oth{{$key_ex}}">
                                     <option value=""></option>
+                                    <option value="0">0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -447,6 +450,14 @@
         </div><!-- /.modal -->
         @endforeach
 
+        <form class="d-none" id="form_purchase" action="{{ url('purchase-info-v2/') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <input type="text" class="form-control" name="products_list" id="products_list" value="">
+                <!-- <div class="form-group">
+                            <button type="button" id="aceptar_purchase" class="btn btn_aceptar">ACEPTAR</button>
+                        </div> -->
+        </form>
 
 
         @endsection

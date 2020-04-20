@@ -200,4 +200,13 @@ class PagesController extends Controller
             return Redirect::back()->with('alert', 'Favor de seleccionar un número de departamento.');
         }
     }
+
+    public function purchase_infov2(Request $request){
+        $product_list =  $_POST['products_list'];
+
+        //$insert =   $models->execute_kw($db, $uid, $password,'intelli.blind','products_total',  array('self', [ [1,2], [2,1] ] ) );
+
+        echo "<script type='text/javascript'>const product_list = " . json_encode($product_list) . "</script>";
+        return view('front.purchase_information_v2'); 
+    }
 }

@@ -15,17 +15,14 @@ Route::get('/', 'PagesController@home');
 Route::post('/welcome', 'PagesController@welcome');
   
 Route::post('/purchase-info','PagesController@purchase_info');
- 
-/*Route::get('/purchase-information', function () {
-    return view('front.purchase_information');
-});*/
+
+Route::post('/purchase-info-v2','PagesController@purchase_infov2');
 
 Route::get('/purchase-information-ori', function () {
     return view('front.purchase_information_ori');
 });
 
-
 Route::get('/purchase-information-2', function () {
-    return view('front.purchase_information_v2');
+    return view('front.purchase_information_v2_ori');
 });
 

@@ -17,7 +17,7 @@ $(document).ready(function () {
     ocultar_valores_extra_interfase();
 
     $(".select_product_area").on("change", function () {
-        //console.log("select_product_area");
+        console.log("select_product_area");
         let id = $(this).val() != "" ? $(this).val() : "empty";
         let total = $(this).val() != "" ? products_gral[$(this).val()] : "0.00";
         $(this).parent().parent().find(".preci_total").text("$" + total);
@@ -33,7 +33,7 @@ $(document).ready(function () {
         }
         watch_needed_products($(this).parent().parent().parent()); // .ZoneProduct
         watch_other_products();
-        calcular_totales();
+        //calcular_totales();
 
         const parent_row_id = $(this).parent().parent().attr("id");
         const select_mb_id = parent_row_id.replace("web", "select");
@@ -42,7 +42,7 @@ $(document).ready(function () {
             $(select_mobile).val($(this).val());
             $(select_mobile).trigger("change");
         } else {
-            //console.log("Mismo value en ambos selects, se detienen triggers. (MSG Web)");
+            console.log("Mismo value en ambos selects, se detienen triggers. (MSG Web)");
         }
     });
 
@@ -139,7 +139,6 @@ $(document).ready(function () {
 });
 
 const calcular_totales = () => {
-    console.log("Calcular totales");
     let subtotal = 0,
         iva = 0,
         total = 0;
@@ -148,22 +147,13 @@ const calcular_totales = () => {
         subtotal = +subtotal + +monto;
     });
 
-    $(".extra-prodn").each(function () {
-        //console.log("Extra row");
-        let cant = $(this).find(".select_product_extra").val() != "" ? $(this).find(".select_product_extra").val() : 1;
-        let price = products_gral[$(this).find(".extra_product_id").val()].replace(',', '');
-        let monto = +cant * +price;
-        console.log("(" + $(this).find(".extra_product_id").val() + "): "+ cant + " * " + price + " = " + monto);
-        subtotal = +subtotal + +monto;
-    });
-    
-    //console.log("Extra Rows");
+   //console.log("Extra Rows");
     $(".extra-row").each(function () {
         //console.log("Extra row");
         let cant = $(this).find(".select_product_extra").val() != "" ? $(this).find(".select_product_extra").val() : 1;
         let price = products_gral[$(this).find(".extra_product_id").val()].replace(',', '');
         let monto = +cant * +price;
-        console.log("(" + $(this).find(".extra_product_id").val() + "): "+ cant + " * " + price + " = " + monto);
+       //console.log("(" + $(this).find(".extra_product_id").val() + "): "+ cant + " * " + price + " = " + monto);
         subtotal = +subtotal + +monto;
     });
     iva = (subtotal * .16);
@@ -174,11 +164,11 @@ const calcular_totales = () => {
 }
 
 const watch_needed_products = (div_zoneprod) => {
-    //console.log("watch_needed_products()..");
+    console.log("watch_needed_products()..");
     let motor_count = 0;
     const div_zp_extras = $(div_zoneprod).parent().find(".all_zone_extraprods");
     $(div_zoneprod).find(".product_row").each(function () {
-        //console.log("PRODUCTO: " + $(this).find(".select_product_area  option:selected").text());
+        console.log("PRODUCTO: " + $(this).find(".select_product_area  option:selected").text());
         if (products_act[$(this).find(".select_product_area").val()] != null) {
             const actuation = products_act[$(this).find(".select_product_area").val()];
             //console.log(actuation + " es dif de null");
@@ -188,7 +178,7 @@ const watch_needed_products = (div_zoneprod) => {
             }
         }
     });
-    //console.log("Motores necesarios: " + motor_count);
+    console.log("Motores necesarios: " + motor_count);
     const zp_extras = $(div_zoneprod).parent().find(".zone-product-extras");
     if (motor_count > 0) {
         $(div_zp_extras).removeClass("d-none");
@@ -214,7 +204,7 @@ const watch_needed_products = (div_zoneprod) => {
                 })
 
                 if (!already_shown) {
-                    //console.log("Se muestra " + value);
+                    console.log("Se muestra " + value);
                     $(div_control).removeClass("row-prodn-false").addClass("row-prodn-true");
                     $(div_control).find(".select_product_extra").val("1");
                     $(div_control).find(".select_product_extra").trigger("change");
@@ -225,7 +215,7 @@ const watch_needed_products = (div_zoneprod) => {
                     //console.log("Ya estamos mostrando esta fila, no la reinicies.")
                 }
             } else {
-                //console.log("Se esconde " + value);
+                console.log("Se esconde " + value);
                 let other_div = $(zp_extras).find("#row-prodn-" + value);
                 $(other_div).removeClass("row-prodn-true").addClass("row-prodn-false");
 
@@ -238,14 +228,16 @@ const watch_needed_products = (div_zoneprod) => {
             }
         });
     } else {
-        //console.log("Hay que esconder todos los divs.");
-        $(div_zp_extras).addClass("d-none");
-        let data = {
+        console.log("Hay que esconder todos los divs.");
+        //$(div_zp_extras).addClass("d-none");
+        /*let data = {
             id: 0,
             text: '0'
         };
         let newOption = new Option(data.text, data.id, true, true);
-        $(zp_extras).find(".select_product_extra").append(newOption).trigger("change");
+        $(zp_extras).find(".select_product_extra").append(newOption);*/
+        $(zp_extras).find(".select_product_extra").val("0");
+        $(zp_extras).find(".select_product_extra").trigger('change')
         $(zp_extras).find(".row-prodn").removeClass("row-prodn-true").addClass("row-prodn-false");
     }
 }
@@ -268,7 +260,7 @@ const watch_other_products = () => {
     const div_cargador = $("#row-prodn-" + other_prods['cargador']);
     const div_interfase = $("#row-prodn-" + other_prods['interfase']);
     if (motor_exists) {
-        $(".all_otherprods").removeClass("d-none");
+        $(".all_otherprods").removeClass("d-other-none").addClass("d-other-true");
         let classes = $(div_cargador).attr("class").split(/ +/);
         let already_shown = false;
         $.each(classes, function (y, _class) {
@@ -292,7 +284,7 @@ const watch_other_products = () => {
         }
     } else {
        //console.log("Hay que esconder el div de cargador");
-        $(".all_otherprods").addClass("d-none");
+        $(".all_otherprods").removeClass("d-other-true").addClass("d-other-none");
         let data = {
             id: 0,
             text: '0'
@@ -405,9 +397,6 @@ const advance_purchasev2 = () => {
     $("#form_purchase").submit();
 }
 
-$(".btn_continue_compra").on("click",function(){
-    advance_purchasev2();
-});
 
 const currencyFormat = (num) => {
     return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
