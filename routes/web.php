@@ -18,6 +18,9 @@ Route::post('/purchase-info','PagesController@purchase_info');
 
 Route::post('/purchase-info-v2','PagesController@purchase_infov2');
 
+//Route::post('/execute-order','PagesController@execute_order');
+Route::post('/payment','PagesController@payment');
+
 Route::get('/purchase-information-ori', function () {
     return view('front.purchase_information_ori');
 });

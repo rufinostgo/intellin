@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Ripcord\Providers\Laravel\Ripcord;
+use Conekta\Conekta;
+use Conekta\Order;
+use Conekta\Charge;
+use Conekta\Customer;
 
 class PagesController extends Controller
 {
@@ -70,6 +74,7 @@ class PagesController extends Controller
         $nombre_torre =  $_POST['name_torre'];
         $img_torre = $_POST['img_torre'];
         $numero_departamento =  $_POST['numero_departamento'];
+        $torre_bg = $_POST['torre_bg'];
 
         if ($numero_departamento != 'empty') {
             $config =  array(
@@ -185,6 +190,7 @@ class PagesController extends Controller
                 $areas_array['products_info'] = $products_info;
                 $areas_array['a_extraprods'] = $area_extraprods;
                 $areas_array['a_otherprods'] = $area_otherprods;
+                $areas_array['torre_bg'] = $torre_bg;
 
                 //echo "<script type='text/javascript'>const area_extraprods = " . json_encode($area_extraprods) . "</script>";
                 //echo "<script type='text/javascript'>const area_otherprods = " . json_encode($area_otherprods) . "</script>";
@@ -201,12 +207,114 @@ class PagesController extends Controller
         }
     }
 
-    public function purchase_infov2(Request $request){
+    public function purchase_infov2(Request $request)
+    {
         $product_list =  $_POST['products_list'];
 
-        //$insert =   $models->execute_kw($db, $uid, $password,'intelli.blind','products_total',  array('self', [ [1,2], [2,1] ] ) );
+        /*$name_torre =  $_POST['name_torre'];
+        $num_depto =  $_POST['num_depto'];
+        $img_torre =  $_POST['img_torre'];
+        $img_plano =  $_POST['products_list'];
+        $torre_bg = $_POST['torre_bg'];*/
 
-        echo "<script type='text/javascript'>const product_list = " . json_encode($product_list) . "</script>";
-        return view('front.purchase_information_v2'); 
+        if ($product_list != "") {
+            $product_list_jd = json_decode($product_list);
+            $config =  array(
+                'url' => "https://novias-novias-t-1-pruebas-1012178.dev.odoo.com/xmlrpc",
+                'db' => "novias-novias-t-1-pruebas-1012178",
+                'user' => "admin",
+                'password' => "adminadmin"
+            );
+            $common = new Ripcord($config);
+            $result = $common->client->execute_kw(
+                $common->db,
+                $common->uid,
+                $common->password,
+                'intelli.blind',
+                'products_total',
+                array('self', $product_list_jd)
+            );
+            //print_r($result); 
+            if ($result[0]['success'] == 200) {
+                $result_data = $result[0]['data'];
+                echo "<script type='text/javascript'>const product_list = " . json_encode($product_list) . "</script>";
+                echo "<script type='text/javascript'>const result_data = " . json_encode($result_data) . "</script>";
+
+                $result_data['name_torre'] =  $_POST['name_torre'];
+                $result_data['num_depto'] =  $_POST['num_depto'];
+                $result_data['img_torre'] =  $_POST['img_torre'];
+                $result_data['img_plano'] =  $_POST['products_list'];
+                $result_data['torre_bg'] = $_POST['torre_bg'];
+
+                return view('front.purchase_information_v2', $result_data);
+            }
+        }
+    }
+
+    public function payment(Request $request)
+    {
+        $array_tosend = array();
+        require_once("lib/Conekta.php");
+        \Conekta\Conekta::setApiKey("key_4s5xH2S3BG44nFa5y9smWg");    // Pruebas
+        //\Conekta\Conekta::setApiKey("key_nhZNh6mFkjEAyAtu79P7WQ");    // Producción
+        \Conekta\Conekta::setApiVersion("2.0.0");
+
+        $paymenth_method = array(
+            "type" => "card",
+            "token_id" => $_POST['conektaTokenId']
+        );
+
+        try {
+            $order = \Conekta\Order::create(
+                array(
+                    "line_items" => [
+                        [
+                          "name" => "Tacos",
+                          "unit_price" => 1000,
+                          "quantity" => 120
+                        ]
+                      ],
+                    "shipping_lines" =>  [
+                        [
+                          "amount" => 1500,
+                           "carrier" => "ESTAFETA"
+                        ]
+                      ], 
+                    "currency" => "MXN",
+                    "customer_info" => array(
+                        "name" => 'Estrasol pruebas',
+                        "email" => 'juan.camberos@estrasol.com.mx',
+                        "phone" => "6441468339"
+                    ), //customer_info
+                    "shipping_contact" => array(
+                        "address" => array(
+                            "street1" => "Calle 123, int 2",
+                            "postal_code" => "06100",
+                            "country" => "MX"
+                        )
+                    ),
+                    "charges" => array(
+                        array(
+                            "payment_method" => $paymenth_method
+                        )
+                    )
+                )
+            );
+        } catch (\Conekta\ProcessingError $error) {
+            
+            echo json_encode($error->getMessage() . " 1");
+            exit();
+        } catch (\Conekta\ParameterValidationError $error) {
+            
+            echo json_encode($error->getMessage() . " 2");
+            exit();
+        } catch (\Conekta\Handler $error) {
+            
+            echo json_encode($error->getMessage() . " 3");
+            exit();
+        }
+
+        $array_tosend['torre_bg'] = $_POST['torre_bg'];
+        return view('front.payment_succeed', $array_tosend);
     }
 }

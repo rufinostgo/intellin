@@ -71,7 +71,8 @@
                     <form id="form_welcome" action="{{ url('purchase-info/') }}" method="POST">
                          @csrf
                         <div class="form-group">
-                            <input type="text" class="form-control d-none" name="img_torre" id="img_torre" value="{{ $torre_imagen }}"> 
+                            <input type="text" class="form-control d-none" name="torre_bg" id="torre_bg" value="{{ $torre_bg }}"> 
+                           <input type="text" class="form-control d-none" name="img_torre" id="img_torre" value="{{ $torre_imagen }}"> 
                             <input type="text" class="form-control d-none" name="name_torre" id="name_torre" value="{{ $torre_name }}">
                             <label class="welcome-instructions2" for="numero_departamento"> Número de departamento</label>
                             <select class="form-control numero_departamento" name="numero_departamento" id="numero_departamento" placeholder="Seleccione su número de departamento aquí" required>

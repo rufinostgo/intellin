@@ -375,16 +375,16 @@ const advance_purchasev2 = () => {
         $(this).find(".product_row").each(function () {
             let prod_id = $(this).find(".select_product").val();
             if (prod_id != "") {
-                let prod_arr = new Array(prod_id, "1");
+                let prod_arr = new Array(+prod_id, 1);
                 products_list.push(prod_arr);
             }
-        });
+        }); 
 
         $(this).find(".row-prodn").each(function () {
             let prod_id = $(this).find(".extra_product_id").val();
             let prod_cant = $(this).find(".select_product").val();
             if (prod_cant != "" && prod_cant != "0") {
-                let prod_arr = new Array(prod_id, prod_cant);
+                let prod_arr = new Array(+prod_id, +prod_cant);
                 products_list.push(prod_arr);
             }
         });
@@ -394,7 +394,7 @@ const advance_purchasev2 = () => {
         let prod_id = $(this).find(".extra_product_id").val();
         let prod_cant = $(this).find(".select_product").val();
         if (prod_cant != ""  && prod_cant != "0") {
-            let prod_arr = new Array(prod_id, prod_cant);
+            let prod_arr = new Array(+prod_id, +prod_cant);
             products_list.push(prod_arr);
         }
     });

@@ -454,9 +454,12 @@
             @csrf
             <div class="form-group">
                 <input type="text" class="form-control" name="products_list" id="products_list" value="">
-                <!-- <div class="form-group">
-                            <button type="button" id="aceptar_purchase" class="btn btn_aceptar">ACEPTAR</button>
-                        </div> -->
+                <input type="text" class="form-control" name="name_torre" id="name_torre" value="{{$nombre_torre}}">
+                <input type="text" class="form-control" name="num_depto" id="num_depto" value="{{$num_depto}}">
+                <input type="text" class="form-control" name="img_torre" id="img_torre" value="{{$imagen_torre}}">
+                <input type="text" class="form-control" name="img_plano" id="img_plano" value="{{$map}}">
+                <input type="text" class="form-control" name="torre_bg" id="torre_bg" value="{{$torre_bg}}">
+                
         </form>
 
 

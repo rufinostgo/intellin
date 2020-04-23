@@ -768,7 +768,7 @@
                         <p class="text-left dato_imp_car pl-3 mt-3" style="color:white;">Incluidos</p>
                         <div class="container">
                             <div class="row fake_table general_text" style="color:white; ">
-                                <div class="col-8 mb-0 mb-0 text-left pt-2 pb-2">Control remoto 5 canles x1</div>
+                                <div class="col-8 mb-0 mb-0 text-left pt-2 pb-2">Control remoto 5 canles <br> x1</div>
                                 <div class="col-4 mb-0 mb-0 text-center pt-2 pb-2">$21130</div>
                             </div>
 
