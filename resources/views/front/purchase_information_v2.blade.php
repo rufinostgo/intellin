@@ -52,13 +52,13 @@
                         <h2 class="titulo_1">¿ Desea que instalemos sus productos ?</h2>
                     </div>
                     <div class="col-md-5">
-                        <button class="bt_enabled pt-2 pb-2  mt-1 mb-1 detonar_modal" style="width:100%;">
+                        <button class="bt_enabled pt-2 pb-2 mt-1 mb-1" id="delivery_choice_btn" style="width:100%;">
                             PUEDO INSTALARLOS YO MISMO
                         </button>
                     </div>
                     <div class="col-md-5">
-                        <button class="bt_enabled_no_background pt-2 pb-2  mt-1 mb-1 detonar_modal" style="width:100%;">
-                            PUEDO INSTALARLOS YO MISMO
+                        <button class="bt_enabled_no_background pt-2 pb-2 mt-1 mb-1" id="instalation_choice_btn" style="width:100%;">
+                            AYÚDENME CON LA INSTALACIÓN
                         </button>
                     </div>
                     <div class="col-md-12 ">
@@ -512,9 +512,9 @@
                                             <div class="row">
                                                 <div class="col-12 ml-2 mr-2 pl-0 pr-3 pb-0 pt-0">
                                                     <select id="form_pago_tipo" class="form-control select_product select_2 ml-0 mr-0 " data-live-search="true" style="width:100%">
-                                                        <option selected>Pago tarjeta crédito / Débito</option>
-                                                        <option disabled>Pago en Oxxo</option>
-                                                        <option disabled>Pago con SPEI</option>
+                                                        <option value="pago_tarjeta" selected>Pago tarjeta crédito / Débito</option>
+                                                        <option value="pago_oxxo" disabled>Pago en Oxxo</option>
+                                                        <option value="pago_spei" disabled>Pago con SPEI</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -539,7 +539,10 @@
 
                                 <form action="{{ url('payment/') }}" method="POST" id="card-form">
                                     @csrf
+                                    <input type="hidden" class="form-control" name="extrapay_concept" id="extrapay_concept" value="total_delivery">
                                     <input type="hidden" class="form-control" name="torre_bg" id="torre_bg" value="{{$torre_bg}}">
+                                    <input type="hidden" class="form-control" name="products_list" id="products_list" value="{{$products_list}}">
+                                    <input type="hidden" class="form-control" name="depto_info" id="depto_info" value="{{$name_torre}}, Departamento {{$num_depto}}">
                                     <div class="row">
                                         <div class="col-md-10">
                                             <div class="pr-1  mt-2   mt-sm-3  item_form">
@@ -655,7 +658,7 @@
                     <div class="col-12 mt-2 ">
                         <div class="row">
                             <div class="col-6 general_text" style="color:white">
-                                Subtotal.
+                                Subtotal
                             </div>
                             <div class="col-6">
                                 <p class="text-right general_text" style="color:white"> ${{$total_card['subtotal']}} </p>
@@ -665,10 +668,10 @@
                     <div class="col-12 mt-1">
                         <div class="row">
                             <div class="col-6 general_text" style="color:white">
-                                Envio
+                                <span class="extrapay_concept_label"> Envío </span>
                             </div>
                             <div class="col-6">
-                                <p class="text-right general_text" style="color:white">$0.00</p>
+                                <p class="text-right general_text" style="color:white">$<span class="extrapay_concept_value">{{$total_card['delivery_price']}}</span> </p>
                             </div>
                         </div>
                     </div>
@@ -685,10 +688,10 @@
                     <div class="col-12 mt-1">
                         <div class="row">
                             <div class="col-6 general_text" style="color:white">
-                                Total.
+                                Total
                             </div>
                             <div class="col-6">
-                                <p class="text-right general_text" style="color:white">${{$total_card['total']}}</p>
+                                <p class="text-right general_text" style="color:white">$<span class="total_value">{{$total_card['total_delivery']}}</span></p>
                             </div>
                         </div>
                     </div>
@@ -817,10 +820,10 @@
 
                     <div class="col-sm-12 col-md-8 mt-3  ">
                         <div class="embed-responsive embed-responsive-16by9 iframe_video ">
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+                            <iframe class="embed-responsive-item" src="{{$video}}" allowfullscreen></iframe>
+                                
                         </div>
                     </div>
-
                 </div>
 
             </div>
@@ -856,27 +859,7 @@
                             </div>
                         </div>
                         <div class="row condition_text pl-3  mt-4  ">
-                            <div class="col-8 text-break">
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
-                                <p>aaaaaaaaaa</p>
+                            <div class="col-8 text-break div_policy">
 
                             </div>
                         </div>

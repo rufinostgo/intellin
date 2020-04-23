@@ -38,7 +38,7 @@
 <div class="container-fluid purchase_header">
     <div class="container pt-4">
         <div class="d-none d-md-block select_depart">
-            <a href="{{ url('/')}}" class="rever_play">
+            <a class="rever_play select_back">
                 <i class="fa fa-chevron-left play" aria-hidden="true"></i>
             </a>
             &nbsp;&nbsp;&nbsp;Seleccionar otro departamento

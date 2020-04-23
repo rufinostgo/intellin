@@ -243,8 +243,9 @@ class PagesController extends Controller
                 $result_data['name_torre'] =  $_POST['name_torre'];
                 $result_data['num_depto'] =  $_POST['num_depto'];
                 $result_data['img_torre'] =  $_POST['img_torre'];
-                $result_data['img_plano'] =  $_POST['products_list'];
+                $result_data['img_plano'] =  $_POST['img_plano'];
                 $result_data['torre_bg'] = $_POST['torre_bg'];
+                $result_data['products_list'] = $_POST['products_list'];
 
                 return view('front.purchase_information_v2', $result_data);
             }
@@ -253,67 +254,109 @@ class PagesController extends Controller
 
     public function payment(Request $request)
     {
+        /*['form_nombre', 'form_apellido_paterno', 'form_apellido_materno', 
+            'form_telefono', 'form_mail','form_envio_calle','form_envio_noext','form_envio_noint',
+            'form_envio_cp','form_envio_estado','form_envio_municipio','form_envio_localidad',
+            'form_envio_colonia','form_pago_tipo']*/
         $array_tosend = array();
         require_once("lib/Conekta.php");
         \Conekta\Conekta::setApiKey("key_4s5xH2S3BG44nFa5y9smWg");    // Pruebas
         //\Conekta\Conekta::setApiKey("key_nhZNh6mFkjEAyAtu79P7WQ");    // Producción
         \Conekta\Conekta::setApiVersion("2.0.0");
 
-        $paymenth_method = array(
-            "type" => "card",
-            "token_id" => $_POST['conektaTokenId']
+        $product_list_jd = json_decode($_POST['products_list']);
+        $config =  array(
+            'url' => "https://novias-novias-t-1-pruebas-1012178.dev.odoo.com/xmlrpc",
+            'db' => "novias-novias-t-1-pruebas-1012178",
+            'user' => "admin",
+            'password' => "adminadmin"
         );
+        $common = new Ripcord($config);
+        $result = $common->client->execute_kw(
+            $common->db,
+            $common->uid,
+            $common->password,
+            'intelli.blind',
+            'products_total',
+            array('self', $product_list_jd)
+        );
+        if ($result[0]['success'] == 200) {
+            $result_data = $result[0]['data'];
+            $full_name = $_POST['form_nombre'] . " " . $_POST['form_apellido_paterno'] . " " . $_POST['form_apellido_materno'];
 
-        try {
-            $order = \Conekta\Order::create(
-                array(
-                    "line_items" => [
-                        [
-                          "name" => "Tacos",
-                          "unit_price" => 1000,
-                          "quantity" => 120
-                        ]
-                      ],
-                    "shipping_lines" =>  [
-                        [
-                          "amount" => 1500,
-                           "carrier" => "ESTAFETA"
-                        ]
-                      ], 
-                    "currency" => "MXN",
-                    "customer_info" => array(
-                        "name" => 'Estrasol pruebas',
-                        "email" => 'juan.camberos@estrasol.com.mx',
-                        "phone" => "6441468339"
-                    ), //customer_info
-                    "shipping_contact" => array(
-                        "address" => array(
-                            "street1" => "Calle 123, int 2",
-                            "postal_code" => "06100",
-                            "country" => "MX"
-                        )
-                    ),
-                    "charges" => array(
-                        array(
-                            "payment_method" => $paymenth_method
+            /** TIPO DE PAGO */
+            if ($_POST['form_pago_tipo'] == 'pago_tarjeta') {
+                $paymenth_method = array(
+                    "type" => "card",
+                    "token_id" => $_POST['conektaTokenId']
+                );
+            }
+
+            /** ESPECIFICACIÓN DE ENVÍO */
+            $delivery_array = array();
+            $total_topay = 0;
+            if ($_POST['extrapay_concept'] == 'total_delivery') {
+                $total_topay = str_replace(",", "", $result_data['total_card']['total']);
+                $delivery_array = array(
+                    "amount" => +$result_data['total_card']['delivery_price'] * 100,
+                    "carrier" => "Paquetexpress"
+                );
+            } else {
+                $total_topay = str_replace(",", "", $result_data['total_card'][$_POST['extrapay_concept']]);
+                $delivery_array = array(
+                    "amount" => 0,
+                    "carrier" => "SINENVIO"
+                );
+            }
+            $total_topay_conektav = $total_topay * 100;
+
+            try {
+                $order = \Conekta\Order::create(
+                    array(
+                        "line_items" => [
+                            [
+                                "name" => "Compra en " . $_POST['depto_info'],
+                                "unit_price" =>  $total_topay_conektav,
+                                "quantity" => 1
+                            ]
+                        ],
+                        "shipping_lines" =>  [$delivery_array],
+                        "currency" => "MXN",
+                        "customer_info" => array(
+                            "name" => $full_name,
+                            "email" => $_POST['form_mail'],
+                            "phone" =>  $_POST['form_telefono']
+                        ),
+                        "shipping_contact" => array(
+                            "address" => array(
+                                "street1" => $_POST['form_envio_municipio'] . "," .
+                                    $_POST['form_envio_estado'] . " " . $_POST['form_envio_calle'] .
+                                    " int " . $_POST['form_envio_noint'],
+                                "postal_code" => $_POST['form_envio_cp'],
+                                "country" => "MX"
+                            )
+                        ),
+                        "charges" => array(
+                            array(
+                                "payment_method" => $paymenth_method
+                            )
                         )
                     )
-                )
-            );
-        } catch (\Conekta\ProcessingError $error) {
-            
-            echo json_encode($error->getMessage() . " 1");
-            exit();
-        } catch (\Conekta\ParameterValidationError $error) {
-            
-            echo json_encode($error->getMessage() . " 2");
-            exit();
-        } catch (\Conekta\Handler $error) {
-            
-            echo json_encode($error->getMessage() . " 3");
-            exit();
-        }
+                );
+            } catch (\Conekta\ProcessingError $error) {
 
+                echo json_encode($error->getMessage() . " 1");
+                exit();
+            } catch (\Conekta\ParameterValidationError $error) {
+
+                echo json_encode($error->getMessage() . " 2");
+                exit();
+            } catch (\Conekta\Handler $error) {
+
+                echo json_encode($error->getMessage() . " 3");
+                exit();
+            }
+        }
         $array_tosend['torre_bg'] = $_POST['torre_bg'];
         return view('front.payment_succeed', $array_tosend);
     }

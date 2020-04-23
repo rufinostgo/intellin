@@ -5,11 +5,21 @@ const conektaSuccessResponseHandler = function (token) {
     console.log("Success Conekta JS!");
     let $form = $("#card-form");
     $form.append($('<input type="hidden" name="conektaTokenId" id="conektaTokenId">').val(token.id));
-    //execute_order (token);
-    console.log("a punto de hacer commit de verdad :)..");
-    $form.get(0).submit(); //Hace submit
+
+
+    $.each(['form_nombre', 'form_apellido_paterno', 'form_apellido_materno', 
+            'form_telefono', 'form_mail','form_envio_calle','form_envio_noext','form_envio_noint',
+            'form_envio_cp','form_envio_estado','form_envio_municipio','form_envio_localidad',
+            'form_envio_colonia','form_pago_tipo'],
+        function (index, value) {
+            $form.append($('<input type="hidden" name="' + value + '" >').val($("#" + value).val()));
+        });
+
+
+    $form.get(0).submit();
 };
 const conektaErrorResponseHandler = function (response) {
+    console.log("Error: " + response.message_to_purchaser);
     let $form = $("#card-form");
     $form.find(".card-errors").text(response.message_to_purchaser);
     $form.find("button").prop("disabled", false);

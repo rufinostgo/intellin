@@ -136,6 +136,11 @@ $(document).ready(function () {
         $('#modalContinueBuy').modal('hide');
     });
 
+    $(".select_back").on("click",function(){
+        $(this).prop("disabled",true);
+        window.history.back();
+        
+    });
 });
 
 const calcular_totales = () => {
