@@ -322,14 +322,17 @@
                                     <div class="col-md-5">
                                         <div class="pr-1  mt-2   mt-sm-3  item_form">
                                             <label for="form_fact_localidad">Localidad*</label>
-                                            <div class="row">
+                                            <input type="text" class="fix_input general_text form-required" id="form_fact_localidad" aria-describedby="emailHelp" placeholder="Indique su localidad">
+                                            <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
+
+                                            <!-- <div class="row">
                                                 <div class="col-12 ml-2 mr-2 pl-0 pr-3 pb-0 pt-0">
                                                     <select id="form_fact_localidad" class="form-control select_product select_2 ml-0 mr-0 form-required" data-live-search="true" style="width:100%">
                                                         <option value=""></option>
                                                     </select>
                                                     <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                         </div>
                                     </div>
@@ -339,14 +342,17 @@
                                     <div class="col-md-5">
                                         <div class="pr-1  mt-2   mt-sm-3  item_form">
                                             <label for="form_fact_colonia">Colonia*</label>
-                                            <div class="row">
+                                            <input type="text" class="fix_input general_text form-required" id="form_fact_colonia" aria-describedby="emailHelp" placeholder="Indique su colonia">
+                                            <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
+
+                                            <!-- <div class="row">
                                                 <div class="col-12 ml-2 mr-2 pl-0 pr-3 pb-0 pt-0">
                                                     <select id="form_fact_colonia" class="form-control select_product select_2 ml-0 mr-0 form-required" data-live-search="true" style="width:100%">
                                                         <option value=""></option>
                                                     </select>
                                                     <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                         </div>
                                     </div>
@@ -445,14 +451,17 @@
                                     <div class="col-md-5 ">
                                         <div class="pr-1  mt-2   mt-sm-3  item_form">
                                             <label for="form_envio_localidad">Localidad*</label>
-                                            <div class="row">
+                                            <input type="text" class="fix_input general_text form-required" id="form_envio_localidad" aria-describedby="emailHelp" placeholder="Indique su localidad">
+                                            <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
+
+                                            <!-- <div class="row">
                                                 <div class="col-12 ml-2 mr-2 pl-0 pr-3 pb-0 pt-0">
                                                     <select id="form_envio_localidad" class="form-control select_product select_2 ml-0 mr-0 form-required" data-live-search="true" style="width:100%">
                                                         <option value=""></option>
                                                     </select>
                                                     <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
 
                                         </div>
@@ -460,14 +469,17 @@
                                     <div class="col-md-5 ">
                                         <div class="pr-1  mt-2   mt-sm-3  item_form">
                                             <label for="form_envio_colonia">Colonia*</label>
-                                            <div class="row">
+                                            <input type="text" class="fix_input general_text form-required" id="form_envio_colonia" aria-describedby="emailHelp" placeholder="Indique su colonia">
+                                            <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
+
+                                            <!-- <div class="row">
                                                 <div class="col-12 ml-2 mr-2 pl-0 pr-3 pb-0 pt-0">
                                                     <select id="form_envio_colonia" class="form-control select_product select_2 ml-0 mr-0 form-required" data-live-search="true" style="width:100%">
                                                         <option value=""></option>
                                                     </select>
                                                     <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
 
                                         </div>
@@ -821,7 +833,7 @@
                     <div class="col-sm-12 col-md-8 mt-3  ">
                         <div class="embed-responsive embed-responsive-16by9 iframe_video ">
                             <iframe class="embed-responsive-item" src="{{$video}}" allowfullscreen></iframe>
-                                
+
                         </div>
                     </div>
                 </div>

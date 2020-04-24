@@ -1,3 +1,5 @@
+let estados_list;
+
 $(document).ready(function () {
     $("#check_factura").on("change", function () {
         let is_checked = $(this).prop("checked");
@@ -10,13 +12,13 @@ $(document).ready(function () {
         }
     });
 
-    $("#check_terminos").on("change",function(){
+    $("#check_terminos").on("change", function () {
         let is_checked = $(this).prop("checked");
         console.log("check_terminos: " + is_checked);
         if (is_checked) {
             console.log("Habilita comprar");
             $(".payment-proceed").removeClass("btn-comprar-unabled").addClass("btn-comprar");
-            $(".payment-proceed").prop("disabled",false);
+            $(".payment-proceed").prop("disabled", false);
         } else {
             console.log("Deshabilita comprar");
             $(".payment-proceed").removeClass("btn-comprar").addClass("btn-comprar-unabled");
@@ -54,9 +56,26 @@ $(document).ready(function () {
         $("#extrapay_concept").val("total_instalation");
     });
 
+    $("#form_fact_estado,#form_envio_estado").on("change", function () {
+        let id = $(this).attr("id");
+        let munis_id = id.replace("estado", "municipio");
+        let edo = $(this).val();
+        let munis = estados_list[edo];
+
+        $('#' + munis_id).empty();
+        $.each(munis, function (index, value) {
+            $("#" + munis_id).append(new Option(value, value, false, false));
+        });
+
+        console.log("Select estado " + $(this).attr("id") + " Value: " + edo);
+        console.log(munis);
+    });
+
     init_forms_placeholders();
-    llenar_select_prueba();
-    introducir_datos_prueba();
+    llenar_estadoslist()
+
+    //llenar_select_prueba(); 
+    //introducir_datos_prueba();
 
     $("#check_factura").prop("checked", false);
     $("#check_factura").trigger("change");
@@ -64,18 +83,33 @@ $(document).ready(function () {
 
 });
 
+const llenar_estadoslist = () => {
+    console.log("llenar_selects_domicilio");
+    fetch('/json/estados.json')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (myJson) {
+            estados_list = myJson;
+            $.each(estados_list, function (index, value) {
+                $("#form_fact_estado").append(new Option(index, index, false, false));
+                $("#form_envio_estado").append(new Option(index, index, false, false));
+            });
+        });
+}
+
 const init_forms_placeholders = () => {
     let selects_array = {
         "cfdi": "Indique su CFDI",
         "fact_pais": "Indique su país",
         "fact_estado": "Indique su estado",
         "fact_municipio": "Indique su municipio",
-        "fact_localidad": "Indique su localidad",
-        "fact_colonia": "Indique su colonia",
+        //"fact_localidad": "Indique su localidad",
+        //"fact_colonia": "Indique su colonia",
         "envio_estado": "Indique su estado",
         "envio_municipio": "Indique su municipio",
-        "envio_colonia": "Indique su colonia",
-        "envio_localidad": "Indique su localidad",
+        //"envio_colonia": "Indique su colonia",
+        //"envio_localidad": "Indique su localidad",
         "pago_card_expmes": "Mes",
         "pago_card_expanio": "Año"
     }
@@ -133,7 +167,7 @@ const proceed_toPayment = () => {
         } else {
             $(this).removeClass('is-invalid');
         }
-    }); 
+    });
 
 
     if (everything_correct) {
@@ -151,7 +185,7 @@ const trigger_payment_form = () => {
 }
 
 const introducir_datos_prueba = () => {
-    
+
     $(".form-required").each(function () {
         if ($(this).prop('nodeName').toLowerCase() == 'input') {
             if ($(this).attr("id") == 'form_telefono') {
@@ -201,7 +235,7 @@ const llenar_select_prueba = () => {
             $("#form_pago_card_expmes").append(newOption);
         });
     $("#form_pago_card_expmes").val("1").trigger("change");
-    
+
     for (i = 2021; i <= 2030; i++) {
         let newOption = new Option(i + "", i + "", true, true);
         $("#form_pago_card_expanio").append(newOption);
