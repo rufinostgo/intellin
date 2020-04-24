@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Ripcord\Providers\Laravel\Ripcord;
+use Mail;
 use Conekta\Conekta;
+use Conekta\Handler;
 use Conekta\Order;
-use Conekta\Charge;
-use Conekta\Customer;
+use Conekta\ParameterValidationError;
+use Conekta\ProcessingError;
 
 class PagesController extends Controller
 {
@@ -259,10 +261,9 @@ class PagesController extends Controller
             'form_envio_cp','form_envio_estado','form_envio_municipio','form_envio_localidad',
             'form_envio_colonia','form_pago_tipo']*/
         $array_tosend = array();
-        require_once("lib/Conekta.php");
-        \Conekta\Conekta::setApiKey("key_4s5xH2S3BG44nFa5y9smWg");    // Pruebas
+        Conekta::setApiKey("key_4s5xH2S3BG44nFa5y9smWg");    // Pruebas
         //\Conekta\Conekta::setApiKey("key_nhZNh6mFkjEAyAtu79P7WQ");    // Producción
-        \Conekta\Conekta::setApiVersion("2.0.0");
+        Conekta::setApiVersion("2.0.0");
 
         $product_list_jd = json_decode($_POST['products_list']);
         $config =  array(
@@ -311,7 +312,7 @@ class PagesController extends Controller
             $total_topay_conektav = $total_topay * 100;
 
             try {
-                $order = \Conekta\Order::create(
+                $order = Order::create(
                     array(
                         "line_items" => [
                             [
@@ -343,20 +344,29 @@ class PagesController extends Controller
                         )
                     )
                 );
-            } catch (\Conekta\ProcessingError $error) {
+
+                $data = array('name' => $full_name);
+                Mail::send('mail', $data, function ($message) {
+                    $message->to($_POST['form_mail'], 'Cliente')->subject('Compra realizada con éxito');
+                    $message->from('pruebas@democrm7.estrasol.com.mx', 'INTELLI');
+                });
+
+            } catch (ProcessingError $error) {
 
                 echo json_encode($error->getMessage() . " 1");
                 exit();
-            } catch (\Conekta\ParameterValidationError $error) {
+            } catch (ParameterValidationError $error) {
 
                 echo json_encode($error->getMessage() . " 2");
                 exit();
-            } catch (\Conekta\Handler $error) {
+            } catch (Handler $error) {
 
                 echo json_encode($error->getMessage() . " 3");
                 exit();
             }
         }
+
+        //Mail::send([‘text’=>’text.view’], $data, $callback);
         $array_tosend['torre_bg'] = $_POST['torre_bg'];
         return view('front.payment_succeed', $array_tosend);
     }

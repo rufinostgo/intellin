@@ -627,7 +627,7 @@
 
                             <div class="col-12  invoice pt-3 pb-3 pl-5 mt-4 ">
                                 <label class="is_check d-inline">
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="check_terminos">
                                     <span class="checkmark"></span>
                                 </label>
                                 <div class="general_text d-inline " style="color:white;">
@@ -701,7 +701,7 @@
                         <div class="separator_total"></div>
                         <div class="row mt-3 mb-4">
                             <div class="col-12 mx-auto text-center  ">
-                                <button id="btn_comprar" class="btn-comprar pt-2 pb-2  ">
+                                <button id="btn_comprar" class="pt-2 pb-2 payment-proceed btn-comprar-unabled" disabled>
                                     PAGAR
                                 </button>
                             </div>

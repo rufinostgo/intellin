@@ -10,7 +10,21 @@ $(document).ready(function () {
         }
     });
 
-    $(".btn-comprar").on("click", function () {
+    $("#check_terminos").on("change",function(){
+        let is_checked = $(this).prop("checked");
+        console.log("check_terminos: " + is_checked);
+        if (is_checked) {
+            console.log("Habilita comprar");
+            $(".payment-proceed").removeClass("btn-comprar-unabled").addClass("btn-comprar");
+            $(".payment-proceed").prop("disabled",false);
+        } else {
+            console.log("Deshabilita comprar");
+            $(".payment-proceed").removeClass("btn-comprar").addClass("btn-comprar-unabled");
+            $(".payment-proceed").prop("disabled", true);
+        }
+    });
+
+    $(".payment-proceed").on("click", function () {
         console.log("Button comprar.");
         proceed_toPayment();
     });
@@ -42,7 +56,7 @@ $(document).ready(function () {
 
     init_forms_placeholders();
     llenar_select_prueba();
-    //introducir_datos_prueba();
+    introducir_datos_prueba();
 
     $("#check_factura").prop("checked", false);
     $("#check_factura").trigger("change");
@@ -108,23 +122,19 @@ const proceed_toPayment = () => {
         let elem_type = $(this).prop('nodeName').toLowerCase();
         let elem_val = "";
         if (elem_type == 'input') {
-            //console.warn($(this).prev().text()); // LABEL
-            //console.warn($(this).attr("id"));
             elem_val = $(this).val();
         } else if (elem_type == 'select') {
-            //console.warn($(this).parent().parent().prev().text()); // LABEL
-            //console.warn($(this).attr("id"));
             elem_val = $(this).children("option:selected").val();
         }
 
         if (elem_val == "") {
-            //console.log("--Respuesta vacia--");
             $(this).addClass('is-invalid');
             everything_correct = false;
         } else {
             $(this).removeClass('is-invalid');
         }
-    });
+    }); 
+
 
     if (everything_correct) {
         console.log("DATOS CORRECTOS..");

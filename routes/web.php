@@ -29,3 +29,8 @@ Route::get('/purchase-information-2', function () {
     return view('front.purchase_information_v2_ori');
 });
 
+
+// EMAIL ROUTES
+//Route::get('sendbasicemail','MailController@basic_email');
+Route::get('sendhtmlemail','MailController@html_email');
+//Route::get('sendattachmentemail','MailController@attachment_email');

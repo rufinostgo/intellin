@@ -57,6 +57,20 @@
     border-left: 7px solid #E95A0C;
 }
 
+.btn-comprar-unabled {
+    max-width: 197px;
+    width: 100%;
+    border: 3px solid $gris_fondo_1;
+    background-color: $gris_fondo_1;
+    color: #FFFFFF;
+    font-family: $font-family-roboto;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    border-left: 7px solid #9B9DA3;
+}
+
 .text-soft-gray {
     color: #BFC3CC;
     font-family: "Roboto", sans-serif;
