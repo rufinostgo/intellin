@@ -74,7 +74,7 @@ $(document).ready(function () {
     init_forms_placeholders();
     llenar_estadoslist()
 
-    //llenar_select_prueba(); 
+    llenar_select_prueba(); 
     //introducir_datos_prueba();
 
     $("#check_factura").prop("checked", false);
@@ -213,7 +213,7 @@ const introducir_datos_prueba = () => {
 }
 
 const llenar_select_prueba = () => {
-    $(".steps_purchase").find("select").each(function () {
+    /*$(".steps_purchase").find("select").each(function () {
         if ($(this).attr("id") != 'form_pago_card_expmes' &&
             $(this).attr("id") != 'form_pago_card_expanio' &&
             $(this).attr("id") != 'form_pago_tipo') {
@@ -224,7 +224,7 @@ const llenar_select_prueba = () => {
             let newOption = new Option(data.text, data.id, true, true);
             $(this).append(newOption).trigger('change');
         }
-    });
+    });*/
 
 
     $.each(['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
