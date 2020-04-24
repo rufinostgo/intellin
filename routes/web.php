@@ -28,6 +28,9 @@ Route::get('/purchase-information-ori', function () {
 Route::get('/purchase-information-2', function () {
     return view('front.purchase_information_v2_ori');
 });
+Route::get('/payment-ori', function () {
+    return view('front.payment_succeed_ori');
+});
 
 
 // EMAIL ROUTES

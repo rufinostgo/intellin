@@ -1,11 +1,11 @@
-@extends('layouts.appw')
+@extends('layouts.appsu')
 
 
 @section('title') INTELLI (WELCOME) @endsection
 
 @section('description') BIÉNVENIDO @endsection
 
-@section('mystyle') 
+@section('mystyle')
 <link href="{{ asset('css/payment_succeed.css') }}" rel="stylesheet">
 @endsection
 
@@ -116,7 +116,7 @@
         </div>
 
     </div>
-    <div style="background-image: url({{$torre_bg}}) " class="right_bg">
+    <div style="background-image: url('images/central_park_example.png') " class="right_bg">
     </div>
 </div>
 @endsection

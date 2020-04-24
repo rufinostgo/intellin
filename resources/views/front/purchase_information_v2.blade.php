@@ -870,8 +870,8 @@
                                 <h2 class="title_condition ">Términos y condiciones </h2>
                             </div>
                         </div>
-                        <div class="row condition_text pl-3  mt-4  ">
-                            <div class="col-8 text-break div_policy">
+                        <div class="row condition_text p3 mt-4 ">
+                            <div class="col-12 text-break div_policy">
 
                             </div>
                         </div>
