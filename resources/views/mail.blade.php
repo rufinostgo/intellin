@@ -1,2 +1,13 @@
-<h1>Hi, {{ $name }}</h1>
-l<p>Muchas gracias por tu compra</p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+</head>
+
+<body>
+    <div>
+        <img style="float: center;" src="images/central_park_example.png" alt="" width="1400" height="800" />
+    </div>
+</body>
+
+</html>

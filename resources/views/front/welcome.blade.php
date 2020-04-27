@@ -63,7 +63,7 @@
                 <img class="reticula_bottom" src="{{asset('images/decoratives/reticula_bottom.png')}}" alt="">
                 <div class="welcome_frame col-sm-12 col-md-12   ">
                     <img class="triangle_welcome" src="{{asset('images/decoratives/triangle_signup.png')}}" alt="">
-                    <p class="welcome-title "> <span class="welcome-guion">_</span> Biénvenido </p>
+                    <p class="welcome-title "> <span class="welcome-guion">_</span> Bienvenido </p>
                     <p class="welcome-instructions">
                         Por favor seleccione su número de departamento
                     </p>

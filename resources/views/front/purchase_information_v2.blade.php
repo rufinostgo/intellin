@@ -24,7 +24,7 @@
 
 @section('data_plano_url') {{$img_plano}} @endsection
 
-@section('data_plano_title') Torre con nombre de ejemplo largo @endsection
+@section('data_plano_title') {{$nombre_torre}} @endsection
 
 @section('text_button2') Producto autorizado @endsection
 

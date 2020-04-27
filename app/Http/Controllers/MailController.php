@@ -22,10 +22,10 @@ class MailController extends Controller
     }
     public function html_email()
     {
-        $data = array('name' => "ShadowPiva");
+        $data = array('name' => "ShadowPiva", "fondo" => 'images/central_park_example.png');
         Mail::send('mail', $data, function ($message) {
             $message->to('juan.camberos@estrasol.com.mx', 'Tutorials Point')->subject('Laravel HTML Testing Mail');
-            $message->from('pruebas@democrm7.estrasol.com.mx', 'Virat Gandhi');
+            $message->from('pruebas@democrm7.estrasol.com.mx', 'Testing Shadow');
         });
         echo "HTML Email Sent. Check your inbox.";
     }

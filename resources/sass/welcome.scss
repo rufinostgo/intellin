@@ -75,6 +75,26 @@
         height: 54px;
         width: 96%;
     }
+
+    .numero_contrato::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #FFFFFF;
+        opacity: 1;
+        font-size: 16px;
+        /* Firefox */
+    }
+    
+    .numero_contrato:-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: #FFFFFF;
+        font-size: 16px;
+    }
+    
+    .numero_contrato::-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: #FFFFFF;
+        font-size: 16px;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -95,6 +115,23 @@
         border: 1px solid #BFC3CC;
         height: 54px;
         max-width: 534px;
+    }
+
+    .numero_contrato::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #FFFFFF;
+        opacity: 1;
+        /* Firefox */
+    }
+    
+    .numero_contrato:-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: #FFFFFF;
+    }
+    
+    .numero_contrato::-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: #FFFFFF;
     }
 }
 
@@ -249,22 +286,7 @@ footer {
 
 }
 
-.numero_contrato::placeholder {
-    /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #FFFFFF;
-    opacity: 1;
-    /* Firefox */
-}
 
-.numero_contrato:-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    color: #FFFFFF;
-}
-
-.numero_contrato::-ms-input-placeholder {
-    /* Microsoft Edge */
-    color: #FFFFFF;
-}
 
 .invalid-welcome {
     font-family: Roboto;

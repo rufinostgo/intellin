@@ -349,8 +349,8 @@ class PagesController extends Controller
                 Mail::send('mail', $data, function ($message) {
                     $message->to($_POST['form_mail'], 'Cliente')->subject('Compra realizada con éxito');
                     $message->from('pruebas@democrm7.estrasol.com.mx', 'INTELLI');
+                    $message->embed('/images/central_park_example.png');
                 });
-
             } catch (ProcessingError $error) {
 
                 echo json_encode($error->getMessage() . " 1");
