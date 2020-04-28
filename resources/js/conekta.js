@@ -33,7 +33,7 @@ const conektaSuccessResponseHandler = function (token_con) {
             return response.json();
         })
         .then(function (myJson) {
-            //console.log(myJson );
+            console.log(myJson);
             $(".payment-proceed").prop('disabled', false);
             $(".payment-proceed").removeClass("btn-comprar-unabled").addClass("btn-comprar");
             $(".payment-proceed").html("PAGAR");
@@ -44,14 +44,21 @@ const conektaSuccessResponseHandler = function (token_con) {
                 $(".div-conekta-answer").show();
                 $(".conekta-answer").text(myJson.error_msg);
             }
-        }).catch(function (error){
-            //console.log("El errorsini, sinisini");
-            //console.log(error);
+        }).catch(function (error) {
+            console.log("El errorsini, sinisini");
+            console.log(error);
         });
     //$form.get(0).submit();
 };
 const conektaErrorResponseHandler = function (response) {
-    //console.log("Error: " + response.message_to_purchaser);
+    console.log("Error: " + response.message_to_purchaser);
+
+    $(".payment-proceed").prop('disabled', false);
+    $(".payment-proceed").removeClass("btn-comprar-unabled").addClass("btn-comprar");
+    $(".payment-proceed").html("PAGAR");
+    $(".div-conekta-answer").show();
+    $(".conekta-answer").text("Error: " + response.message_to_purchaser);
+
     let $form = $("#card-form");
     $form.find(".card-errors").text(response.message_to_purchaser);
     $form.find("button").prop("disabled", false);

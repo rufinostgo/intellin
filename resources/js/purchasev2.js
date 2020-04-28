@@ -28,6 +28,7 @@ $(document).ready(function () {
 
     $(".payment-proceed").on("click", function () {
         //console.log("Button comprar.");
+        console.clear();
         verificar_campos();
     });
 
@@ -79,9 +80,9 @@ $(document).ready(function () {
         }
     });
 
-    $(".form_metodo_pago").on("keypress", function () {
+    /*$(".form_metodo_pago").on("keypress", function () {
         $(".div-conekta-answer").hide();
-    });
+    });*/
 
     init_forms_placeholders();
     llenar_estadoslist();
@@ -259,10 +260,11 @@ const introducir_datos_prueba = () => {
     $("#form_pago_card_nombre").val("Shadow Jalcam Beroscar");
     $("#form_pago_card_tarjeta").val("4000000000000002");
     $("#form_pago_card_cvc").val("123");
-    $("#form_pago_card_expmes").val("10").trigger("change");
-    $("#form_pago_card_expanio").val("2022").trigger("change");
+    $("#form_pago_card_expmes").val("1").trigger("change");
+    $("#form_pago_card_expanio").val("2020").trigger("change");
 
     $(".tab-metodo-pago").trigger("click");
+    $("#check_terminos").trigger("click")
 }
 
 const llenar_fecha_explist = () => {
