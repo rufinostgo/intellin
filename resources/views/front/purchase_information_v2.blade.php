@@ -24,7 +24,7 @@
 
 @section('data_plano_url') {{$img_plano}} @endsection
 
-@section('data_plano_title') {{$nombre_torre}} @endsection
+@section('data_plano_title') {{$name_torre}} @endsection
 
 @section('text_button2') Producto autorizado @endsection
 
@@ -100,7 +100,7 @@
                                 </button>
                             </div>
                             <div class="col-3 pl-0 pr-0">
-                                <button class="bt_enabled    " data="4" style="width:100%;">
+                                <button class="bt_enabled    tab-metodo-pago" data="4" style="width:100%;">
                                     MÉTODO DE PAGO
                                 </button>
                             </div>
@@ -151,7 +151,7 @@
                                     <div class="col-md-5">
                                         <div class="pr-1  mt-2   mt-sm-3  item_form">
                                             <label for="form_telefono">Teléfono*</label>
-                                            <input type="text" class="fix_input general_text form-required" id="form_telefono" aria-describedby="emailHelp" placeholder="Indique su número telefónico">
+                                            <input type="text" class="fix_input general_text form-required" id="form_telefono" maxlength="10" aria-describedby="emailHelp" placeholder="Indique su número telefónico">
                                             <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                         </div>
                                     </div>
@@ -161,14 +161,14 @@
                                         <div class="pr-1  mt-2   mt-sm-3  item_form">
                                             <label for="form_mail">Correo electrónico*</label>
                                             <input type="email" class="fix_input general_text form-required" id="form_mail" aria-describedby="emailHelp" placeholder="Indique su correo electrónico">
-                                            <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
+                                            <span id="invalid-mail" class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="pr-1  mt-2   mt-sm-3  item_form">
                                             <label for="form_mail_confirm">Confirmacion de correo electrónico*</label>
                                             <input type="email" class="fix_input general_text form-required" id="form_mail_confirm" aria-describedby="emailHelp" placeholder="Confirme su correo electrónico">
-                                            <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
+                                            <span id="invalid-mail-confirm" class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                         </div>
                                     </div>
                                 </div>
@@ -285,7 +285,7 @@
                                     <div class="col-md-5">
                                         <div class="pr-1  mt-2   mt-sm-3  item_form">
                                             <label for="form_fact_cp">Codigo Postal*</label>
-                                            <input type="text" class="fix_input general_text form-required" id="form_fact_cp" aria-describedby="emailHelp" placeholder="Indique su codigo postal">
+                                            <input type="text" class="fix_input general_text form-required" maxlength="5" id="form_fact_cp" aria-describedby="emailHelp" placeholder="Indique su codigo postal">
                                             <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                         </div>
                                     </div>
@@ -410,7 +410,7 @@
                                     <div class="col-md-5">
                                         <div class="pr-1  mt-2   mt-sm-3  item_form">
                                             <label for="form_envio_cp">Código postal*</label>
-                                            <input type="text" class="fix_input general_text form-required" id="form_envio_cp" aria-describedby="emailHelp" placeholder="Indique su número telefónico">
+                                            <input type="text" class="fix_input general_text form-required" id="form_envio_cp" maxlength="5" aria-describedby="emailHelp" placeholder="Indique su número telefónico">
                                             <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                         </div>
                                     </div>
@@ -549,7 +549,7 @@
                                     </div>
                                 </div>
 
-                                <form action="{{ url('payment/') }}" method="POST" id="card-form">
+                                <form action="{{ url('payment_done/') }}" method="POST" id="card-form">
                                     @csrf
                                     <input type="hidden" class="form-control" name="extrapay_concept" id="extrapay_concept" value="total_delivery">
                                     <input type="hidden" class="form-control" name="torre_bg" id="torre_bg" value="{{$torre_bg}}">
@@ -559,7 +559,8 @@
                                         <div class="col-md-10">
                                             <div class="pr-1  mt-2   mt-sm-3  item_form">
                                                 <label for="form_pago_card_nombre">Nombre*</label>
-                                                <input type="text" data-conekta="card[name]" class="fix_input general_text " id="form_pago_card_nombre" aria-describedby="emailHelp" placeholder="Indique su nombre como aparece en su tarjeta">
+                                                <input type="text" data-conekta="card[name]" class="fix_input general_text form_metodo_pago " id="form_pago_card_nombre" aria-describedby="emailHelp" placeholder="Indique su nombre como aparece en su tarjeta">
+                                                <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                             </div>
                                         </div>
                                     </div>
@@ -567,7 +568,8 @@
                                         <div class="col-md-5 ">
                                             <div class="pr-1  mt-2   mt-sm-3  item_form">
                                                 <label for="form_pago_card_tarjeta">Número de tarjeta*</label>
-                                                <input type="tel" data-conekta="card[number]" class="fix_input general_text credit_card" id="form_pago_card_tarjeta" aria-describedby="emailHelp" placeholder="Indique su numero de tarjeta">
+                                                <input type="tel" data-conekta="card[number]" class="fix_input general_text credit_card form_metodo_pago" maxlength="19" id="form_pago_card_tarjeta" aria-describedby="emailHelp" placeholder="Indique su numero de tarjeta">
+                                                <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                             </div>
                                         </div>
                                         <div class="col-md-5">
@@ -577,20 +579,22 @@
                                                     <div class="col-5 mt-1">
                                                         <div class="row">
                                                             <div class="col-12 ml-2 mr-2 pl-0 pr-3 ">
-                                                                <select id="form_pago_card_expmes" class="form-control select_product select_2 ml-0 mr-0 " data-live-search="true" style="width:100%">
+                                                                <select id="form_pago_card_expmes" class="form-control select_product select_2 ml-0 mr-0  form_metodo_pago" data-live-search="true" style="width:100%">
                                                                     <option value=""></option>
                                                                 </select>
                                                                 <input id="form_pago_card_expmes_input" type="hidden" size="2" data-conekta="card[exp_month]">
+                                                                <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-5 mt-1">
                                                         <div class="row">
                                                             <div class="col-12 ml-2 mr-2 pl-0 pr-3 ">
-                                                                <select id="form_pago_card_expanio" class="form-control select_product select_2 ml-0 mr-0 " data-live-search="true" style="width:100%">
+                                                                <select id="form_pago_card_expanio" class="form-control select_product select_2 ml-0 mr-0 form_metodo_pago " data-live-search="true" style="width:100%">
                                                                     <option value=""></option>
                                                                 </select>
                                                                 <input id="form_pago_card_expanio_input" type="hidden" size="4" data-conekta="card[exp_year]">
+                                                                <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -603,7 +607,8 @@
                                         <div class="col-md-5 ">
                                             <div class="pr-1  mt-2   mt-sm-3  item_form">
                                                 <label for="form_pago_card_cvc">Código de seguridad*</label>
-                                                <input type="password" data-conekta="card[cvc]" class="fix_input general_text" id="form_pago_card_cvc" aria-describedby="emailHelp" placeholder="Indique su numero de tarjeta">
+                                                <input type="password" data-conekta="card[cvc]" class="fix_input general_text form_metodo_pago" id="form_pago_card_cvc" aria-describedby="emailHelp" placeholder="Indique su numero de tarjeta">
+                                                <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                             </div>
                                         </div>
                                         <div class="col-md-5">
@@ -636,7 +641,13 @@
                                     <!-- <button type="submit" class="token d-none">Crear token</button> -->
                                 </form>
                             </div>
-
+                            <div class="col-md-11 ml-3 pl-5 div-conekta-answer">
+                                <div class="alert alert-danger" role="alert">
+                                    <span class="conekta-answer">
+                                        
+                                    </span>
+                                </div>
+                            </div>
                             <div class="col-12  invoice pt-3 pb-3 pl-5 mt-4 ">
                                 <label class="is_check d-inline">
                                     <input type="checkbox" id="check_terminos">

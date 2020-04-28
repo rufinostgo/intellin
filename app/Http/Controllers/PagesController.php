@@ -211,13 +211,8 @@ class PagesController extends Controller
 
     public function purchase_infov2(Request $request)
     {
-        $product_list =  $_POST['products_list'];
+        $product_list =  $request['products_list'];
 
-        /*$name_torre =  $_POST['name_torre'];
-        $num_depto =  $_POST['num_depto'];
-        $img_torre =  $_POST['img_torre'];
-        $img_plano =  $_POST['products_list'];
-        $torre_bg = $_POST['torre_bg'];*/
 
         if ($product_list != "") {
             $product_list_jd = json_decode($product_list);
@@ -253,6 +248,133 @@ class PagesController extends Controller
             }
         }
     }
+
+    public function try_payment_wait(){
+        return $_POST['shadow'];
+    }
+
+    public function try_payment()
+    {
+        $array_tosend = array('success'=>'');
+        Conekta::setApiKey("key_4s5xH2S3BG44nFa5y9smWg");    // Pruebas
+        //\Conekta\Conekta::setApiKey("key_nhZNh6mFkjEAyAtu79P7WQ");    // Producción
+        Conekta::setApiVersion("2.0.0");
+
+        
+        $product_list_jd = json_decode($_POST['products_list']);
+        $config =  array(
+            'url' => "https://novias-novias-t-1-pruebas-1012178.dev.odoo.com/xmlrpc",
+            'db' => "novias-novias-t-1-pruebas-1012178",
+            'user' => "admin",
+            'password' => "adminadmin"
+        );
+        $common = new Ripcord($config);
+        $result = $common->client->execute_kw(
+            $common->db,
+            $common->uid,
+            $common->password,
+            'intelli.blind',
+            'products_total',
+            array('self', $product_list_jd)
+        );
+        
+        if ($result[0]['success'] == 200) {
+            $result_data = $result[0]['data'];
+            $full_name = $_POST['form_nombre'] . " " . $_POST['form_apellido_paterno'] . " " . $_POST['form_apellido_materno'];
+
+            /** TIPO DE PAGO */
+            if ($_POST['form_pago_tipo'] == 'pago_tarjeta') {
+                $paymenth_method = array(
+                    "type" => "card",
+                    "token_id" => $_POST['conektaTokenId']
+                );
+            }
+
+            /** ESPECIFICACIÓN DE ENVÍO */
+            $delivery_array = array();
+            $total_topay = 0;
+            if ($_POST['extrapay_concept'] == 'total_delivery') {
+                $total_topay = str_replace(",", "", $result_data['total_card']['total']);
+                $delivery_array = array(
+                    "amount" => +$result_data['total_card']['delivery_price'] * 100,
+                    "carrier" => "Paquetexpress"
+                );
+            } else {
+                $total_topay = str_replace(",", "", $result_data['total_card'][$_POST['extrapay_concept']]);
+                $delivery_array = array(
+                    "amount" => 0,
+                    "carrier" => "SINENVIO"
+                );
+            }
+            $total_topay_conektav = $total_topay * 100;
+
+            try {
+                $order = Order::create(
+                    array(
+                        "line_items" => [
+                            [
+                                "name" => "Compra en " . $_POST['depto_info'],
+                                "unit_price" =>  $total_topay_conektav,
+                                "quantity" => 1
+                            ]
+                        ],
+                        "shipping_lines" =>  [$delivery_array],
+                        "currency" => "MXN",
+                        "customer_info" => array(
+                            "name" => $full_name,
+                            "email" => $_POST['form_mail'],
+                            "phone" =>  $_POST['form_telefono']
+                        ),
+                        "shipping_contact" => array(
+                            "address" => array(
+                                "street1" => $_POST['form_envio_municipio'] . "," .
+                                    $_POST['form_envio_estado'] . " " . $_POST['form_envio_calle'] .
+                                    " int " . $_POST['form_envio_noint'],
+                                "postal_code" => $_POST['form_envio_cp'],
+                                "country" => "MX"
+                            )
+                        ),
+                        "charges" => array(
+                            array(
+                                "payment_method" => $paymenth_method
+                            )
+                        )
+                    )
+                );
+
+            } catch (ProcessingError $error) {
+                $array_tosend['success'] = 'error';
+                $array_tosend['error'] = $error; 
+                $array_tosend['error_msg'] = $error->getMessage(); 
+                return json_encode($array_tosend);
+                //echo json_encode($error->getMessage() . " 1");
+                exit();
+            } catch (ParameterValidationError $error) {
+                $array_tosend['success'] = 'error';
+                $array_tosend['error'] = $error->getMessage();
+                return json_encode($array_tosend);
+                //echo json_encode($error->getMessage() . " 2");
+                exit();
+            } catch (Handler $error) {
+                $array_tosend['success'] = 'error';
+                $array_tosend['error'] = $error->getMessage();
+                return json_encode($array_tosend);
+                //echo json_encode($error->getMessage() . " 3");
+                exit();
+            }
+        }
+        $array_tosend['success'] = 'success';
+        return json_encode($array_tosend);
+    }
+
+    public function payment_done(Request $request){
+        $array_tosend['torre_bg'] = $request['torre_bg'];
+        return view('front.payment_succeed', $array_tosend);
+    }
+
+
+
+
 
     public function payment(Request $request)
     {
@@ -349,18 +471,19 @@ class PagesController extends Controller
                 Mail::send('mail', $data, function ($message) {
                     $message->to($_POST['form_mail'], 'Cliente')->subject('Compra realizada con éxito');
                     $message->from('pruebas@democrm7.estrasol.com.mx', 'INTELLI');
-                    $message->embed('/images/central_park_example.png');
                 });
             } catch (ProcessingError $error) {
-
-                echo json_encode($error->getMessage() . " 1");
+                return redirect()->back()->withErrors(['conekta_answer' => $error->getMessage() . " 1"]);
+                //echo json_encode($error->getMessage() . " 1");
                 exit();
             } catch (ParameterValidationError $error) {
-
+                //return Redirect::back()->withInput()
+                //->withErrors(['conekta_answer' => $error->getMessage() . " 2"]);
                 echo json_encode($error->getMessage() . " 2");
                 exit();
             } catch (Handler $error) {
-
+                //return Redirect::back()->withInput()
+                //->withErrors(['conekta_answer' => $error->getMessage() . " 3"]);
                 echo json_encode($error->getMessage() . " 3");
                 exit();
             }

@@ -13,13 +13,14 @@
 Route::get('/', 'PagesController@home');
 
 Route::post('/welcome', 'PagesController@welcome');
-  
-Route::post('/purchase-info','PagesController@purchase_info');
 
-Route::post('/purchase-info-v2','PagesController@purchase_infov2');
+Route::post('/purchase-info', 'PagesController@purchase_info');
+
+Route::post('/purchase-info-v2', 'PagesController@purchase_infov2');
 
 //Route::post('/execute-order','PagesController@execute_order');
-Route::post('/payment','PagesController@payment');
+Route::post('/try_payment', 'PagesController@try_payment');
+Route::post('/payment_done', 'PagesController@payment_done');
 
 Route::get('/purchase-information-ori', function () {
     return view('front.purchase_information_ori');
@@ -35,5 +36,5 @@ Route::get('/payment-ori', function () {
 
 // EMAIL ROUTES
 //Route::get('sendbasicemail','MailController@basic_email');
-Route::get('sendhtmlemail','MailController@html_email');
+Route::get('sendhtmlemail', 'MailController@html_email');
 //Route::get('sendattachmentemail','MailController@attachment_email');
