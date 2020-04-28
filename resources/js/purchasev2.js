@@ -88,7 +88,7 @@ $(document).ready(function () {
     llenar_fecha_explist();
     cambio_metodo_pago();
 
-    //introducir_datos_prueba();
+    introducir_datos_prueba();
 
     $("#check_factura").prop("checked", false);
     $("#check_factura").trigger("change");
@@ -203,7 +203,13 @@ const verificar_campos = () => {
                     $(this).addClass('is-invalid');
                     everything_filled = false;
                 } else {
-                    $(this).removeClass('is-invalid');
+                    if ($(this).val() != $("#form_mail").val()) {
+                        $("#invalid-mail-confirm").text("Los correos electrónicos no coinciden.");
+                        $(this).addClass('is-invalid');
+                        everything_filled = false;
+                    } else {
+                        $(this).removeClass('is-invalid');
+                    }
                 }
             } else {
                 $(this).removeClass('is-invalid');
@@ -276,7 +282,7 @@ const llenar_fecha_explist = () => {
         let newOption = new Option(i + "", i + "", true, true);
         $("#form_pago_card_expanio").append(newOption);
     }
-    $("#form_pago_card_expanio").val((current_year+1)).trigger("change");
+    $("#form_pago_card_expanio").val((current_year + 1)).trigger("change");
 
 }
 
