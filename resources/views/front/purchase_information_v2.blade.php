@@ -9,10 +9,10 @@
 <link href="{{ asset('css/purchase_information_v2.css') }}" rel="stylesheet">
 @endsection
 
-@section('myscripts')
+@section('myscripts') 
 <script src="{{ asset('js/purchasev2.js') }}" defer></script>
-<script src="{{ asset('js/conekta.js') }}" defer></script>
-<script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js"></script>
+<script src="{{ asset('js/conektav2.js') }}" defer></script>
+<script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js" ></script>
 @endsection
 
 <!-- header menu -->
@@ -95,7 +95,7 @@
                                 </button>
                             </div>
                             <div class="col-3 pl-0 pr-0">
-                                <button class="bt_enabled   " data="3" style="width:100%;">
+                                <button class="bt_enabled   tab-delivery-choice" data="3" style="width:100%;">
                                     DATOS DE ENVÍO
                                 </button>
                             </div>
@@ -525,7 +525,7 @@
                                                 <div class="col-12 ml-2 mr-2 pl-0 pr-3 pb-0 pt-0">
                                                     <select id="form_pago_tipo" class="form-control select_product select_2 ml-0 mr-0 " data-live-search="true" style="width:100%">
                                                         <option value="pago_tarjeta" selected>Pago tarjeta crédito / Débito</option>
-                                                        <option value="pago_oxxo" disabled>Pago en Oxxo</option>
+                                                        <option value="pago_oxxo">Pago en Oxxo</option>
                                                         <option value="pago_spei" disabled>Pago con SPEI</option>
                                                     </select>
                                                 </div>
@@ -555,96 +555,99 @@
                                     <input type="hidden" class="form-control" name="torre_bg" id="torre_bg" value="{{$torre_bg}}">
                                     <input type="hidden" class="form-control" name="products_list" id="products_list" value="{{$products_list}}">
                                     <input type="hidden" class="form-control" name="depto_info" id="depto_info" value="{{$name_torre}}, Departamento {{$num_depto}}">
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <div class="pr-1  mt-2   mt-sm-3  item_form">
-                                                <label for="form_pago_card_nombre">Nombre*</label>
-                                                <input type="text" data-conekta="card[name]" class="fix_input general_text form_metodo_pago " id="form_pago_card_nombre" aria-describedby="emailHelp" placeholder="Indique su nombre como aparece en su tarjeta">
-                                                <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
+                                    <div class="metodo_tarjeta_data">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class="pr-1  mt-2   mt-sm-3  item_form">
+                                                    <label for="form_pago_card_nombre">Nombre*</label>
+                                                    <input type="text" data-conekta="card[name]" class="fix_input general_text form_metodo_pago " id="form_pago_card_nombre" aria-describedby="emailHelp" placeholder="Indique su nombre como aparece en su tarjeta">
+                                                    <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row ">
-                                        <div class="col-md-5 ">
-                                            <div class="pr-1  mt-2   mt-sm-3  item_form">
-                                                <label for="form_pago_card_tarjeta">Número de tarjeta*</label>
-                                                <input type="tel" data-conekta="card[number]" class="fix_input general_text credit_card form_metodo_pago" maxlength="19" id="form_pago_card_tarjeta" aria-describedby="emailHelp" placeholder="Indique su numero de tarjeta">
-                                                <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
+                                        <div class="row ">
+                                            <div class="col-md-5 ">
+                                                <div class="pr-1  mt-2   mt-sm-3  item_form">
+                                                    <label for="form_pago_card_tarjeta">Número de tarjeta*</label>
+                                                    <input type="tel" data-conekta="card[number]" class="fix_input general_text credit_card form_metodo_pago" maxlength="19" id="form_pago_card_tarjeta" aria-describedby="emailHelp" placeholder="Indique su numero de tarjeta">
+                                                    <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="pr-1   mt-2   mt-sm-3  item_form">
-                                                <label for="row_t pt-1">Fecha de expiración*</label>
-                                                <div class="row row_t">
-                                                    <div class="col-5 mt-1">
-                                                        <div class="row">
-                                                            <div class="col-12 ml-2 mr-2 pl-0 pr-3 ">
-                                                                <select id="form_pago_card_expmes" class="form-control select_product select_2 ml-0 mr-0  form_metodo_pago" data-live-search="true" style="width:100%">
-                                                                    <option value=""></option>
-                                                                </select>
-                                                                <input id="form_pago_card_expmes_input" type="hidden" size="2" data-conekta="card[exp_month]">
-                                                                <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
+                                            <div class="col-md-5">
+                                                <div class="pr-1   mt-2   mt-sm-3  item_form">
+                                                    <label for="row_t pt-1">Fecha de expiración*</label>
+                                                    <div class="row row_t">
+                                                        <div class="col-5 mt-1">
+                                                            <div class="row">
+                                                                <div class="col-12 ml-2 mr-2 pl-0 pr-3 ">
+                                                                    <select id="form_pago_card_expmes" class="form-control select_product select_2 ml-0 mr-0  form_metodo_pago" data-live-search="true" style="width:100%">
+                                                                        <option value=""></option>
+                                                                    </select>
+                                                                    <input id="form_pago_card_expmes_input" type="hidden" size="2" data-conekta="card[exp_month]">
+                                                                    <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-5 mt-1">
+                                                            <div class="row">
+                                                                <div class="col-12 ml-2 mr-2 pl-0 pr-3 ">
+                                                                    <select id="form_pago_card_expanio" class="form-control select_product select_2 ml-0 mr-0 form_metodo_pago " data-live-search="true" style="width:100%">
+                                                                        <option value=""></option>
+                                                                    </select>
+                                                                    <input id="form_pago_card_expanio_input" type="hidden" size="4" data-conekta="card[exp_year]">
+                                                                    <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-5 mt-1">
-                                                        <div class="row">
-                                                            <div class="col-12 ml-2 mr-2 pl-0 pr-3 ">
-                                                                <select id="form_pago_card_expanio" class="form-control select_product select_2 ml-0 mr-0 form_metodo_pago " data-live-search="true" style="width:100%">
-                                                                    <option value=""></option>
-                                                                </select>
-                                                                <input id="form_pago_card_expanio_input" type="hidden" size="4" data-conekta="card[exp_year]">
-                                                                <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="col-md-5 ">
+                                                <div class="pr-1  mt-2   mt-sm-3  item_form">
+                                                    <label for="form_pago_card_cvc">Código de seguridad*</label>
+                                                    <input type="password" data-conekta="card[cvc]" class="fix_input general_text form_metodo_pago" id="form_pago_card_cvc" aria-describedby="emailHelp" placeholder="Indique su numero de tarjeta">
+                                                    <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="pr-1   mt-2   mt-sm-3  item_form">
+                                                    <div class="row ">
+                                                        <div class="col-6 ">
+
+                                                            <div class="row">
+                                                                <div class="col-12 ml-2 mr-2 pl-0 pr-3 ">
+
+                                                                    <img src="{{ asset('images/payment/ReversoVisa/ReversoVisa.png')}}" class="img-fluid mr-3" alt="Responsive image">
+                                                                    <p class="mt-1">Reverso Visa y Master card</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 mt-1">
+
+                                                            <div class="row">
+                                                                <div class="col-12 ml-2 mr-2 pl-0 pr-3 ">
+
+                                                                    <img src="{{ asset('images/payment/FrenteAmericanExpress/FrenteAmericanExpress.png')}}" class="img-fluid mr-3" alt="Responsive image">
+                                                                    <p class="mt-1">Frente American Express</p>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row ">
-                                        <div class="col-md-5 ">
-                                            <div class="pr-1  mt-2   mt-sm-3  item_form">
-                                                <label for="form_pago_card_cvc">Código de seguridad*</label>
-                                                <input type="password" data-conekta="card[cvc]" class="fix_input general_text form_metodo_pago" id="form_pago_card_cvc" aria-describedby="emailHelp" placeholder="Indique su numero de tarjeta">
-                                                <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="pr-1   mt-2   mt-sm-3  item_form">
-                                                <div class="row ">
-                                                    <div class="col-6 ">
 
-                                                        <div class="row">
-                                                            <div class="col-12 ml-2 mr-2 pl-0 pr-3 ">
-
-                                                                <img src="{{ asset('images/payment/ReversoVisa/ReversoVisa.png')}}" class="img-fluid mr-3" alt="Responsive image">
-                                                                <p class="mt-1">Reverso Visa y Master card</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6 mt-1">
-
-                                                        <div class="row">
-                                                            <div class="col-12 ml-2 mr-2 pl-0 pr-3 ">
-
-                                                                <img src="{{ asset('images/payment/FrenteAmericanExpress/FrenteAmericanExpress.png')}}" class="img-fluid mr-3" alt="Responsive image">
-                                                                <p class="mt-1">Frente American Express</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <!-- <button type="submit" class="token d-none">Crear token</button> -->
                                 </form>
                             </div>
                             <div class="col-md-11 ml-3 pl-5 div-conekta-answer">
                                 <div class="alert alert-danger" role="alert">
                                     <span class="conekta-answer">
-                                        
+
                                     </span>
                                 </div>
                             </div>

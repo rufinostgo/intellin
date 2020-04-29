@@ -18,10 +18,20 @@ Route::post('/purchase-info', 'PagesController@purchase_info');
 
 Route::post('/purchase-info-v2', 'PagesController@purchase_infov2');
 
-//Route::post('/execute-order','PagesController@execute_order');
 Route::post('/try_payment', 'PagesController@try_payment');
+
 Route::post('/payment_done', 'PagesController@payment_done');
 
+Route::post('/webhook', 'PagesController@webhook_controller');
+
+//webhook
+Route::post('/webhook_controller', 'WebhookController@webhook_controller');
+
+
+ 
+/**
+ * ORIS PARA BORRAR DESPUES
+ */
 Route::get('/purchase-information-ori', function () {
     return view('front.purchase_information_ori');
 });
@@ -33,8 +43,11 @@ Route::get('/payment-ori', function () {
     return view('front.payment_succeed_ori');
 });
 
+Route::get('/oxxomail', function () {
+    return view('mails.payment_succeed_oxxo');
+});
 
-// EMAIL ROUTES
-//Route::get('sendbasicemail','MailController@basic_email');
+/**
+ * EMAILS DE PRUEBA
+ */
 Route::get('sendhtmlemail', 'MailController@html_email');
-//Route::get('sendattachmentemail','MailController@attachment_email');

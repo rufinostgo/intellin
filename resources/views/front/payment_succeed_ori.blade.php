@@ -9,6 +9,11 @@
 <link href="{{ asset('css/payment_succeed.css') }}" rel="stylesheet">
 @endsection
 
+
+@section('myscripts') 
+<script src="{{ asset('js/payment_succeed.js') }}" defer></script>
+@endsection
+
 @section('content')
 
 <div class="container ">

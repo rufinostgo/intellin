@@ -11,6 +11,8 @@ use Conekta\Handler;
 use Conekta\Order;
 use Conekta\ParameterValidationError;
 use Conekta\ProcessingError;
+use DateTime;
+use DateInterval;
 
 class PagesController extends Controller
 {
@@ -249,18 +251,15 @@ class PagesController extends Controller
         }
     }
 
-    public function try_payment_wait(){
-        return $_POST['shadow'];
-    }
-
     public function try_payment()
     {
-        $array_tosend = array('success'=>'');
+        $array_tosend = array('success' => '', 'referencia_oxxo' => '');
         Conekta::setApiKey("key_4s5xH2S3BG44nFa5y9smWg");    // Pruebas
         //\Conekta\Conekta::setApiKey("key_nhZNh6mFkjEAyAtu79P7WQ");    // Producción
         Conekta::setApiVersion("2.0.0");
 
-        
+
+
         $product_list_jd = json_decode($_POST['products_list']);
         $config =  array(
             'url' => "https://novias-novias-t-1-pruebas-1012178.dev.odoo.com/xmlrpc",
@@ -277,7 +276,7 @@ class PagesController extends Controller
             'products_total',
             array('self', $product_list_jd)
         );
-        
+
         if ($result[0]['success'] == 200) {
             $result_data = $result[0]['data'];
             $full_name = $_POST['form_nombre'] . " " . $_POST['form_apellido_paterno'] . " " . $_POST['form_apellido_materno'];
@@ -288,19 +287,28 @@ class PagesController extends Controller
                     "type" => "card",
                     "token_id" => $_POST['conektaTokenId']
                 );
+            } else if ($_POST['form_pago_tipo'] == 'pago_oxxo') {
+                $thirty_days_from_now = (new DateTime())->add(new DateInterval('P30D'))->getTimestamp();
+                $paymenth_method = array(
+                    "type" => "oxxo_cash",
+                    "expires_at" => $thirty_days_from_now
+                );
             }
 
             /** ESPECIFICACIÓN DE ENVÍO */
             $delivery_array = array();
             $total_topay = 0;
+            $total_topay_str = "";
             if ($_POST['extrapay_concept'] == 'total_delivery') {
                 $total_topay = str_replace(",", "", $result_data['total_card']['total']);
+                $total_topay_str = $result_data['total_card']['total'];
                 $delivery_array = array(
                     "amount" => +$result_data['total_card']['delivery_price'] * 100,
                     "carrier" => "Paquetexpress"
                 );
             } else {
                 $total_topay = str_replace(",", "", $result_data['total_card'][$_POST['extrapay_concept']]);
+                $total_topay_str = $result_data['total_card'][$_POST['extrapay_concept']];
                 $delivery_array = array(
                     "amount" => 0,
                     "carrier" => "SINENVIO"
@@ -342,10 +350,16 @@ class PagesController extends Controller
                     )
                 );
 
+                $array_tosend['monto_apagar'] = $total_topay_str;
+
+                if ($_POST['form_pago_tipo'] == 'pago_oxxo') {
+                    $array_tosend['referencia_oxxo'] = $order->charges[0]->payment_method->reference;
+                }
+                
             } catch (ProcessingError $error) {
                 $array_tosend['success'] = 'error';
-                $array_tosend['error'] = $error; 
-                $array_tosend['error_msg'] = $error->getMessage(); 
+                $array_tosend['error'] = $error;
+                $array_tosend['error_msg'] = $error->getMessage();
                 return json_encode($array_tosend);
                 //echo json_encode($error->getMessage() . " 1");
                 exit();
@@ -367,15 +381,33 @@ class PagesController extends Controller
         return json_encode($array_tosend);
     }
 
-    public function payment_done(Request $request){
+
+    public function payment_done(Request $request)
+    {
         $array_tosend['torre_bg'] = $request['torre_bg'];
+        $data = array();
+        $data['metodo_pago'] = $request['form_pago_tipo'];
+        $data['referencia_oxxo'] = $request['referencia_oxxo'];
+        $data['monto_apagar'] = $request['monto_apagar'];
+
+        if ($request['form_pago_tipo'] == 'pago_tarjeta') {
+            Mail::send('mails.payment_succeed_card', $data, function ($message) {
+                $message->to($_POST['form_mail'], 'Cliente')->subject('Compra realizada con éxito');
+                $message->from('pruebas@democrm7.estrasol.com.mx', 'INTELLI');
+            });
+        } else if ($request['form_pago_tipo'] == 'pago_oxxo') {
+            Mail::send('mails.payment_succeed_oxxo', $data, function ($message) {
+                $message->to($_POST['form_mail'], 'Cliente')->subject('Compra realizada con éxito');
+                $message->from('pruebas@democrm7.estrasol.com.mx', 'INTELLI');
+            });
+        }
+
+        echo "<script type='text/javascript'>const request_data = " . json_encode($data) . "</script>";
         return view('front.payment_succeed', $array_tosend);
     }
 
-
-
-
-
+   
+    /* OBSOLETE */
     public function payment(Request $request)
     {
         /*['form_nombre', 'form_apellido_paterno', 'form_apellido_materno', 

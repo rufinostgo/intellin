@@ -46,6 +46,11 @@ $(document).ready(function () {
         $(".extrapay_concept_value").text(result_data['total_card'].delivery_price);
         $(".total_value").text(result_data['total_card'].total_delivery);
         $("#extrapay_concept").val("total_delivery");
+        $(".tab-delivery-choice").text("DATOS DE ENVÍO");
+
+        let total_price = (result_data['total_card'].total_delivery).replace(",", "");
+        console.log(total_price);
+        //if( result_data['total_card'].total_delivery > 10000)
     });
 
     $("#instalation_choice_btn").on("click", function () {
@@ -55,6 +60,14 @@ $(document).ready(function () {
         $(".extrapay_concept_value").text(result_data['total_card'].instalation_price);
         $(".total_value").text(result_data['total_card'].total_instalation);
         $("#extrapay_concept").val("total_instalation");
+        $(".tab-delivery-choice").text("DATOS DE INSTALACIÓN");
+
+        let total_price = (result_data['total_card'].total_instalation).replace(",", "");
+        if (total_price > 10000) {
+            $("#form_pago_tipo option[value=pago_oxxo]").prop('disabled', true);
+        } else {
+            $("#form_pago_tipo option[value=pago_oxxo]").prop('disabled', false);
+        }
     });
 
     $("#form_fact_estado,#form_envio_estado").on("change", function () {
@@ -80,6 +93,9 @@ $(document).ready(function () {
         }
     });
 
+    $("#form_pago_tipo").on("change", function () {
+        cambio_metodo_pago();
+    });
     /*$(".form_metodo_pago").on("keypress", function () {
         $(".div-conekta-answer").hide();
     });*/
@@ -94,6 +110,13 @@ $(document).ready(function () {
     $("#check_factura").prop("checked", false);
     $("#check_factura").trigger("change");
     $(".div_policy").append(result_data['policy']);
+
+    let total_price = (result_data['total_card'].total_delivery).replace(",", "");
+    if (total_price > 10000) {
+        $("#form_pago_tipo option[value=pago_oxxo]").prop('disabled', true);
+    } else {
+        $("#form_pago_tipo option[value=pago_oxxo]").prop('disabled', false);
+    }
 
 });
 
@@ -221,27 +244,98 @@ const verificar_campos = () => {
 
     if (everything_filled) {
         //console.log("DATOS LLENADOS..");
-        trigger_payment_form(); //Hacer trigger a form de pagos para detonar pago Conekta.
+        const metodo_pago = $("#form_pago_tipo").val();
+        if (metodo_pago == 'pago_tarjeta') {
+            trigger_payment_form(); //Hacer trigger a form de pagos para detonar pago Conekta.
+        } else if (metodo_pago == 'pago_oxxo') {
+            generarFolioOxxo();
+        }
     } else {
         //console.log("DATOS SIN LLENAR, NO SE PUEDE PROCEDER AL PAGO!");
     }
 
 }
 
+/** Pagos con tarjeta */
 const trigger_payment_form = () => {
     //console.log("Trigger");
     set_spinner_atPayment(true);
     $("#card-form").trigger("submit");
 }
 
-const introducir_datos_prueba = () => {
+/** Pagos con Oxxo */
+const generarFolioOxxo = () => {
+    console.warn("Generando Folio Oxxo..");
+    set_spinner_atPayment(true);
+    let $form = $("#card-form");
+    const data_con = new FormData();
+    data_con.append('_token', $("meta[name='csrf-token']").attr("content"));
+    data_con.append('extrapay_concept', $("#extrapay_concept").val());
+    data_con.append('products_list', $("#products_list").val());
+    data_con.append('depto_info', $("#depto_info").val());
 
+    $.each(['form_nombre', 'form_apellido_paterno', 'form_apellido_materno',
+            'form_telefono', 'form_mail', 'form_envio_calle', 'form_envio_noext', 'form_envio_noint',
+            'form_envio_cp', 'form_envio_estado', 'form_envio_municipio', 'form_envio_localidad',
+            'form_envio_colonia', 'form_pago_tipo'
+        ],
+        function (index, value) {
+            data_con.append(value, $("#" + value).val());
+            $form.append($('<input type="hidden" name="' + value + '" >').val($("#" + value).val()));
+        });
+
+    fetch('try_payment', {
+            method: 'POST',
+            body: data_con,
+        })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (myJson) {
+            console.log(myJson);
+            $(".payment-proceed").prop('disabled', false);
+            $(".payment-proceed").removeClass("btn-comprar-unabled").addClass("btn-comprar");
+            $(".payment-proceed").html("PAGAR");
+
+            if (myJson.success == 'success') {
+                let referencia_json = myJson.referencia_oxxo+"";
+                console.log(referencia_json);
+                let referencia="";
+                for (let i = 0; i < referencia_json.length; i++) {
+                    if(i%4==0 && i!=0){
+                        referencia = referencia + "-";    
+                    }
+                    referencia = referencia + referencia_json.charAt(i);
+                  }
+                $form.append($('<input type="hidden" name="referencia_oxxo" >').val(referencia));
+                $form.append($('<input type="hidden" name="monto_apagar" >').val(myJson.monto_apagar));
+                $form.get(0).submit();
+            } else {
+                $(".div-conekta-answer").show();
+                $(".conekta-answer").text(myJson.error);
+            }
+        }).catch(function (error) {
+            console.log("El errorsini, sinisini");
+            console.log(error);
+        });
+    //$form.get(0).submit();
+
+}
+
+/** Pagos con SPEI */
+const generarFolioSPEI = () => {
+    console.warn("Generando Folio SPEI..");
+    conektaSuccessResponseHandler("spei");
+}
+
+/** DATOS DE PRUEBA */
+const introducir_datos_prueba = () => {
     $(".form-required").each(function () {
         if ($(this).prop('nodeName').toLowerCase() == 'input') {
             if ($(this).attr("id") == 'form_telefono') {
                 $(this).val("6441784512");
             } else if ($(this).attr("id") == 'form_mail' || $(this).attr("id") == 'form_mail_confirm') {
-                $(this).val("testing@mail.com");
+                $(this).val("juan.camberos@estrasol.com.mx");
             } else if ($(this).attr("id") == 'form_envio_cp') {
                 $(this).val("85100");
             } else if ($(this).attr("id") == 'form_nombre') {
@@ -257,10 +351,12 @@ const introducir_datos_prueba = () => {
     $("#form_envio_estado").val("Aguascalientes");
     $("#form_envio_estado").trigger("change");
 
+    //$("#form_pago_tipo").val("pago_oxxo");
+    //$("#form_pago_tipo").trigger("change");
     $("#form_pago_card_nombre").val("Shadow Jalcam Beroscar");
-    $("#form_pago_card_tarjeta").val("4000000000000002");
+    $("#form_pago_card_tarjeta").val("4242424242424242");
     $("#form_pago_card_cvc").val("123");
-    $("#form_pago_card_expmes").val("1").trigger("change");
+    $("#form_pago_card_expmes").val("10").trigger("change");
     $("#form_pago_card_expanio").val("2020").trigger("change");
 
     $(".tab-metodo-pago").trigger("click");
@@ -290,12 +386,34 @@ const llenar_fecha_explist = () => {
 
 const cambio_metodo_pago = () => {
     const metodo_pago = $("#form_pago_tipo").val();
+
     if (metodo_pago == 'pago_tarjeta') {
         $("#form_pago_card_nombre").addClass("form-required");
         $("#form_pago_card_tarjeta").addClass("form-required");
         $("#form_pago_card_expmes_input").addClass("form-required");
         $("#form_pago_card_expanio_input").addClass("form-required");
         $("#form_pago_card_cvc").addClass("form-required");
+
+        $(".metodo_tarjeta_data").show();
+    } else {
+        // Ni con OxxoPay ni con Spei se requieren estos campos.
+        $("#form_pago_card_nombre").removeClass("form-required");
+        $("#form_pago_card_tarjeta").removeClass("form-required");
+        $("#form_pago_card_expmes_input").removeClass("form-required");
+        $("#form_pago_card_expanio_input").removeClass("form-required");
+        $("#form_pago_card_cvc").removeClass("form-required");
+
+        $("#form_pago_card_nombre").val("");
+        $("#form_pago_card_tarjeta").val("");
+        $("#form_pago_card_expmes_input").val("");
+        $("#form_pago_card_expmes").val("");
+        $("#form_pago_card_expmes").trigger("change");
+        $("#form_pago_card_expanio_input").val("");
+        $("#form_pago_card_expanio").val("");
+        $("#form_pago_card_expanio").trigger("change");
+        $("#form_pago_card_cvc").val("");
+
+        $(".metodo_tarjeta_data").hide();
     }
 }
 

@@ -6,7 +6,7 @@
 
 <body>
     <div>
-        <img style="float: center;" src="images/central_park_example.png" alt="" width="1400" height="800" />
+        WEBHOOK
     </div>
 </body>
 
