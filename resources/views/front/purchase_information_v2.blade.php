@@ -526,7 +526,7 @@
                                                     <select id="form_pago_tipo" class="form-control select_product select_2 ml-0 mr-0 " data-live-search="true" style="width:100%">
                                                         <option value="pago_tarjeta" selected>Pago tarjeta crédito / Débito</option>
                                                         <option value="pago_oxxo">Pago en Oxxo</option>
-                                                        <option value="pago_spei" disabled>Pago con SPEI</option>
+                                                        <option value="pago_spei">Pago con SPEI</option>
                                                     </select>
                                                 </div>
                                             </div>

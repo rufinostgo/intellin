@@ -247,8 +247,8 @@ const verificar_campos = () => {
         const metodo_pago = $("#form_pago_tipo").val();
         if (metodo_pago == 'pago_tarjeta') {
             trigger_payment_form(); //Hacer trigger a form de pagos para detonar pago Conekta.
-        } else if (metodo_pago == 'pago_oxxo') {
-            generarFolioOxxo();
+        } else if (metodo_pago == 'pago_oxxo' || metodo_pago == 'pago_spei') {
+            generarFolioOxxoSpei(metodo_pago);
         }
     } else {
         //console.log("DATOS SIN LLENAR, NO SE PUEDE PROCEDER AL PAGO!");
@@ -264,8 +264,8 @@ const trigger_payment_form = () => {
 }
 
 /** Pagos con Oxxo */
-const generarFolioOxxo = () => {
-    console.warn("Generando Folio Oxxo..");
+const generarFolioOxxoSpei = (metodo_pago) => {
+    console.warn("Generando Folio Oxxo o SPEI..");
     set_spinner_atPayment(true);
     let $form = $("#card-form");
     const data_con = new FormData();
@@ -298,17 +298,21 @@ const generarFolioOxxo = () => {
             $(".payment-proceed").html("PAGAR");
 
             if (myJson.success == 'success') {
-                let referencia_json = myJson.referencia_oxxo+"";
-                console.log(referencia_json);
-                let referencia="";
-                for (let i = 0; i < referencia_json.length; i++) {
-                    if(i%4==0 && i!=0){
-                        referencia = referencia + "-";    
-                    }
-                    referencia = referencia + referencia_json.charAt(i);
-                  }
-                $form.append($('<input type="hidden" name="referencia_oxxo" >').val(referencia));
                 $form.append($('<input type="hidden" name="monto_apagar" >').val(myJson.monto_apagar));
+                if (metodo_pago == 'pago_oxxo') {
+                    let referencia_json = myJson.referencia_oxxo + "";
+                    let referencia = "";
+                    for (let i = 0; i < referencia_json.length; i++) {
+                        if (i % 4 == 0 && i != 0) {
+                            referencia = referencia + "-";
+                        }
+                        referencia = referencia + referencia_json.charAt(i);
+                    }
+                    $form.append($('<input type="hidden" name="referencia_oxxo" >').val(referencia));
+                } else if (metodo_pago == 'pago_spei') {
+                    $form.append($('<input type="hidden" name="banco_spei" >').val(myJson.banco_spei));
+                    $form.append($('<input type="hidden" name="clabe_spei" >').val(myJson.clabe_spei));
+                }
                 $form.get(0).submit();
             } else {
                 $(".div-conekta-answer").show();
@@ -318,14 +322,6 @@ const generarFolioOxxo = () => {
             console.log("El errorsini, sinisini");
             console.log(error);
         });
-    //$form.get(0).submit();
-
-}
-
-/** Pagos con SPEI */
-const generarFolioSPEI = () => {
-    console.warn("Generando Folio SPEI..");
-    conektaSuccessResponseHandler("spei");
 }
 
 /** DATOS DE PRUEBA */
@@ -352,12 +348,13 @@ const introducir_datos_prueba = () => {
     $("#form_envio_estado").trigger("change");
 
     //$("#form_pago_tipo").val("pago_oxxo");
-    //$("#form_pago_tipo").trigger("change");
-    $("#form_pago_card_nombre").val("Shadow Jalcam Beroscar");
-    $("#form_pago_card_tarjeta").val("4242424242424242");
-    $("#form_pago_card_cvc").val("123");
-    $("#form_pago_card_expmes").val("10").trigger("change");
-    $("#form_pago_card_expanio").val("2020").trigger("change");
+    $("#form_pago_tipo").val("pago_spei");
+    $("#form_pago_tipo").trigger("change");
+    // $("#form_pago_card_nombre").val("Shadow Jalcam Beroscar");
+    // $("#form_pago_card_tarjeta").val("4242424242424242");
+    // $("#form_pago_card_cvc").val("123");
+    // $("#form_pago_card_expmes").val("10").trigger("change");
+    // $("#form_pago_card_expanio").val("2020").trigger("change");
 
     $(".tab-metodo-pago").trigger("click");
     $("#check_terminos").trigger("click")

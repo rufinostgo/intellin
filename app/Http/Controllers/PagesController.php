@@ -293,6 +293,12 @@ class PagesController extends Controller
                     "type" => "oxxo_cash",
                     "expires_at" => $thirty_days_from_now
                 );
+            } else if ($_POST['form_pago_tipo'] == 'pago_spei') {
+                $thirty_days_from_now = (new DateTime())->add(new DateInterval('P30D'))->getTimestamp();
+                $paymenth_method = array(
+                    "type" => "spei",
+                    "expires_at" => $thirty_days_from_now
+                );
             }
 
             /** ESPECIFICACIÓN DE ENVÍO */
@@ -354,8 +360,10 @@ class PagesController extends Controller
 
                 if ($_POST['form_pago_tipo'] == 'pago_oxxo') {
                     $array_tosend['referencia_oxxo'] = $order->charges[0]->payment_method->reference;
+                } else if ($_POST['form_pago_tipo'] == 'pago_spei') {
+                    $array_tosend['banco_spei'] = $order->charges[0]->payment_method->receiving_account_bank;
+                    $array_tosend['clabe_spei'] = $order->charges[0]->payment_method->receiving_account_number;
                 }
-                
             } catch (ProcessingError $error) {
                 $array_tosend['success'] = 'error';
                 $array_tosend['error'] = $error;
@@ -387,7 +395,12 @@ class PagesController extends Controller
         $array_tosend['torre_bg'] = $request['torre_bg'];
         $data = array();
         $data['metodo_pago'] = $request['form_pago_tipo'];
-        $data['referencia_oxxo'] = $request['referencia_oxxo'];
+        if ($request['form_pago_tipo'] == 'pago_oxxo') {
+            $data['referencia_oxxo'] = $request['referencia_oxxo'];
+        } else if ($request['form_pago_tipo'] == 'pago_spei') {
+            $data['clabe_spei'] = $request['clabe_spei'];
+            $data['banco_spei'] = $request['banco_spei'];
+        }
         $data['monto_apagar'] = $request['monto_apagar'];
 
         if ($request['form_pago_tipo'] == 'pago_tarjeta') {
@@ -400,13 +413,18 @@ class PagesController extends Controller
                 $message->to($_POST['form_mail'], 'Cliente')->subject('Compra realizada con éxito');
                 $message->from('pruebas@democrm7.estrasol.com.mx', 'INTELLI');
             });
+        } else if ($request['form_pago_tipo'] == 'pago_spei') {
+            Mail::send('mails.payment_succeed_spei', $data, function ($message) {
+                $message->to($_POST['form_mail'], 'Cliente')->subject('Compra realizada con éxito');
+                $message->from('pruebas@democrm7.estrasol.com.mx', 'INTELLI');
+            });
         }
 
         echo "<script type='text/javascript'>const request_data = " . json_encode($data) . "</script>";
         return view('front.payment_succeed', $array_tosend);
     }
 
-   
+
     /* OBSOLETE */
     public function payment(Request $request)
     {

@@ -1,26 +1,23 @@
 <html>
-	<head>
-		<link href="{{ asset('css/oxxopay_mail.css') }}" media="all" rel="stylesheet" type="text/css" />
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
-	</head>
-	<body>
-		<div class="opps">
-			<div class="opps-header">
-				<div class="opps-reminder">Ficha digital. No es necesario imprimir.</div>
-				<div class="opps-info">
-					<div class="opps-brand"><img src="oxxopay_brand.png" alt="OXXOPay"></div>
-					<div class="opps-ammount">
-						<h3>Monto a pagar</h3>
-						<h2>${{$monto_apagar}} <sup>MXN</sup></h2>
-						<p>OXXO cobrará una comisión adicional al momento de realizar el pago.</p>
-					</div>
-				</div>
-				<div class="opps-reference">
-					<h3>Referencia</h3>
-					<h1>{{$referencia_oxxo}}</h1>
-				</div>
-			</div>
-			<div class="opps-instructions">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+</head>
+
+<body>
+    <div class="">
+        <div class="">
+            <div class="">
+                <h3>Gracias por su preferencia, </h3>
+                <h3>Monto a pagar:</h3>
+                <h2>${{$monto_apagar}} MXN</h2>
+                <p>OXXO cobrará una comisión adicional al momento de realizar el pago.</p>
+            </div>
+            <div class="">
+                <h3>Referencia:</h3>
+                <h1>{{$referencia_oxxo}}</h1>
+            </div>
+            <div class="">
 				<h3>Instrucciones</h3>
 				<ol>
 					<li>Acude a la tienda OXXO más cercana. <a href="https://www.google.com.mx/maps/search/oxxo/" target="_blank">Encuéntrala aquí</a>.</li>
@@ -29,8 +26,10 @@
 					<li>Realiza el pago correspondiente con dinero en efectivo.</li>
 					<li>Al confirmar tu pago, el cajero te entregará un comprobante impreso. <strong>En el podrás verificar que se haya realizado correctamente.</strong> Conserva este comprobante de pago.</li>
 				</ol>
-				<div class="opps-footnote">Al completar estos pasos recibirás un correo de <strong>Nombre del negocio</strong> confirmando tu pago.</div>
+                <div class="">Al completar estos pasos recibirás un correo de <strong>Nombre del negocio</strong> confirmando tu pago.</div>
+                <h4> Atentamente Equipo Intelli </h4>
 			</div>
-		</div>	
-	</body>
+        </div>
+</body>
+
 </html>
