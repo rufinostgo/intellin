@@ -22,7 +22,7 @@ Route::post('/try_payment', 'PagesController@try_payment');
 
 Route::post('/payment_done', 'PagesController@payment_done');
 
-Route::post('/webhook', 'PagesController@webhook_controller');
+//Route::post('/webhook', 'PagesController@webhook_controller');
 
 //webhook
 Route::post('/webhook_controller', 'WebhookController@webhook_controller');
