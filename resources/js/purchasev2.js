@@ -1,6 +1,9 @@
 let estados_list;
+let comisiones_porc, comisiones_envio, comisiones_install;
 
 $(document).ready(function () {
+    llenar_comisiones();
+
     $("#check_factura").on("change", function () {
         let is_checked = $(this).prop("checked");
         if (is_checked) {
@@ -40,17 +43,28 @@ $(document).ready(function () {
     });
 
     $("#delivery_choice_btn").on("click", function () {
+        console.log("Delivery choice btn");
         $("#delivery_choice_btn").removeClass("bt_enabled_no_background").addClass("bt_enabled");
         $("#instalation_choice_btn").removeClass("bt_enabled").addClass("bt_enabled_no_background");
         $(".extrapay_concept_label").text("Envío");
         $(".extrapay_concept_value").text(result_data['total_card'].delivery_price);
-        $(".total_value").text(result_data['total_card'].total_delivery);
         $("#extrapay_concept").val("total_delivery");
         $(".tab-delivery-choice").text("DATOS DE ENVÍO");
 
         let total_price = (result_data['total_card'].total_delivery).replace(",", "");
-        console.log(total_price);
-        //if( result_data['total_card'].total_delivery > 10000)
+        if (total_price > 10000) {
+            $("#form_pago_tipo option[value=pago_oxxo]").prop('disabled', true);
+        } else {
+            $("#form_pago_tipo option[value=pago_oxxo]").prop('disabled', false);
+        }
+
+        if ($("#form_pago_tipo").val() == 'pago_tarjeta_credito') {
+            let curr_val = $("#form_meses_pago").val();
+            llenar_select_meses("envio");
+            $("#form_meses_pago").val(curr_val).trigger("change");
+        } else {
+            $(".total_value").text(result_data['total_card'].total_delivery);
+        }
     });
 
     $("#instalation_choice_btn").on("click", function () {
@@ -58,7 +72,6 @@ $(document).ready(function () {
         $("#instalation_choice_btn").removeClass("bt_enabled_no_background").addClass("bt_enabled");
         $(".extrapay_concept_label").text("Instalación");
         $(".extrapay_concept_value").text(result_data['total_card'].instalation_price);
-        $(".total_value").text(result_data['total_card'].total_instalation);
         $("#extrapay_concept").val("total_instalation");
         $(".tab-delivery-choice").text("DATOS DE INSTALACIÓN");
 
@@ -67,6 +80,14 @@ $(document).ready(function () {
             $("#form_pago_tipo option[value=pago_oxxo]").prop('disabled', true);
         } else {
             $("#form_pago_tipo option[value=pago_oxxo]").prop('disabled', false);
+        }
+
+        if ($("#form_pago_tipo").val() == 'pago_tarjeta_credito') {
+            let curr_val = $("#form_meses_pago").val();
+            llenar_select_meses("instalation");
+            $("#form_meses_pago").val(curr_val).trigger("change");
+        } else {
+            $(".total_value").text(result_data['total_card'].total_instalation);
         }
     });
 
@@ -96,16 +117,42 @@ $(document).ready(function () {
     $("#form_pago_tipo").on("change", function () {
         cambio_metodo_pago();
     });
-    /*$(".form_metodo_pago").on("keypress", function () {
-        $(".div-conekta-answer").hide();
-    });*/
+
+    $("#form_meses_pago").on("change", function () {
+        const num_pagos = $(this).val();
+        const comision_toadd = comisiones_porc[num_pagos];
+        let comision_toadd_amount = 0;
+        const extrapay_concept = $("#extrapay_concept").val();
+        let total_concept = 0;
+        let total_topay = 0;
+
+        $("#num_pagos").val(num_pagos);
+        if (extrapay_concept == 'total_delivery') {
+            total_concept = result_data['total_card'].total_delivery;
+        } else if (extrapay_concept == 'total_instalation') {
+            total_concept = result_data['total_card'].total_instalation;
+        }
+        total_concept = total_concept.replace(",", "");
+        comision_toadd_amount = ((+total_concept * +comision_toadd) / 100);
+        total_topay = +total_concept + +comision_toadd_amount;
+        total_topay = Math.round((+total_topay + Number.EPSILON) * 100) / 100;
+
+        comision_to_value = Math.round((+comision_toadd_amount + Number.EPSILON) * 100) / 100;
+        // console.log("Se añade al total de tipo " + extrapay_concept + ": " + total_concept);
+        // console.log("La comisión de " + comision_toadd + "% : " + comision_toadd_amount);
+        // console.log("Dando un total de: " + total_topay);
+
+        $(".total_value").text(total_topay);
+        $(".comision_value").text(comision_to_value);
+    });
 
     init_forms_placeholders();
     llenar_estadoslist();
     llenar_fecha_explist();
     cambio_metodo_pago();
 
-    introducir_datos_prueba();
+
+    //introducir_datos_prueba();
 
     $("#check_factura").prop("checked", false);
     $("#check_factura").trigger("change");
@@ -141,6 +188,66 @@ const llenar_estadoslist = () => {
                 $("#form_envio_estado").append(new Option(index, index, false, false));
             });
         });*/
+}
+
+const llenar_comisiones = () => {
+    comisiones_porc = new Array();
+    comisiones_envio = new Array();
+    comisiones_install = new Array();
+    comisiones_porc['1'] = 0;
+    comisiones_porc['3'] = 5.5;
+    comisiones_porc['6'] = 9;
+    comisiones_porc['9'] = 11;
+    comisiones_porc['12'] = 15;
+
+    let total_envio = (result_data['total_card'].total_delivery).replace(",", "");
+    let total_install = (result_data['total_card'].total_instalation).replace(",", "");
+
+    console.clear();
+    console.log(comisiones_porc);
+    console.warn(" - - - - - - - -- - - ");
+
+    $.each(comisiones_porc, function (index, value) {
+        if (value != null) {
+
+            let total_aux = 0;
+            let comision_toadd = ((+total_envio * +value) / 100);
+            total_aux = +total_envio + +comision_toadd;
+            total_aux = Math.round((+total_aux + Number.EPSILON) * 100) / 100;
+            comisiones_envio[index] = total_aux;
+
+            total_aux = 0;
+            comision_toadd = ((+total_install * +value) / 100);
+            total_aux = +total_install + +comision_toadd;
+            total_aux = Math.round((+total_aux + Number.EPSILON) * 100) / 100;
+            comisiones_install[index] = total_aux;
+        }
+    });
+    console.log(comisiones_envio);
+    console.log(comisiones_install);
+}
+
+const llenar_select_meses = (concept) => {
+    console.clear();
+    $('#form_meses_pago').empty();
+    $("#form_meses_pago").append(new Option("1 x Único Pago", "1", false, false));
+    let array_comisiones = new Array();
+    if (concept == 'envio') {
+        array_comisiones = comisiones_envio;
+    } else if (concept == 'instalation') {
+        array_comisiones = comisiones_install;
+    }
+    console.log(array_comisiones);
+    $.each(array_comisiones, function (index, value) {
+        if (value != null && index != 1) {
+            
+            console.log(index + ": " + value);
+
+            let monto_pago = +value / +index;
+            monto_pago = Math.round((+monto_pago + Number.EPSILON) * 100) / 100;
+            $("#form_meses_pago").append(new Option(index + " x Pagos de $" + monto_pago, index, false, false));
+        }
+    });
 }
 
 const init_forms_placeholders = () => {
@@ -245,7 +352,7 @@ const verificar_campos = () => {
     if (everything_filled) {
         //console.log("DATOS LLENADOS..");
         const metodo_pago = $("#form_pago_tipo").val();
-        if (metodo_pago == 'pago_tarjeta') {
+        if (metodo_pago == 'pago_tarjeta' || metodo_pago == 'pago_tarjeta_credito') {
             trigger_payment_form(); //Hacer trigger a form de pagos para detonar pago Conekta.
         } else if (metodo_pago == 'pago_oxxo' || metodo_pago == 'pago_spei') {
             generarFolioOxxoSpei(metodo_pago);
@@ -348,13 +455,14 @@ const introducir_datos_prueba = () => {
     $("#form_envio_estado").trigger("change");
 
     //$("#form_pago_tipo").val("pago_oxxo");
-    $("#form_pago_tipo").val("pago_spei");
-    $("#form_pago_tipo").trigger("change");
-    // $("#form_pago_card_nombre").val("Shadow Jalcam Beroscar");
-    // $("#form_pago_card_tarjeta").val("4242424242424242");
-    // $("#form_pago_card_cvc").val("123");
-    // $("#form_pago_card_expmes").val("10").trigger("change");
-    // $("#form_pago_card_expanio").val("2020").trigger("change");
+    //$("#form_pago_tipo").val("pago_spei");
+    // $("#form_pago_tipo").val("pago_tarjeta_credito");
+    // $("#form_pago_tipo").trigger("change");
+    $("#form_pago_card_nombre").val("Shadow Jalcam Beroscar");
+    $("#form_pago_card_tarjeta").val("4242424242424242");
+    $("#form_pago_card_cvc").val("123");
+    $("#form_pago_card_expmes").val("10").trigger("change");
+    $("#form_pago_card_expanio").val("2020").trigger("change");
 
     $(".tab-metodo-pago").trigger("click");
     $("#check_terminos").trigger("click")
@@ -382,16 +490,26 @@ const llenar_fecha_explist = () => {
 }
 
 const cambio_metodo_pago = () => {
+    console.log("Cambio metodo de pago");
     const metodo_pago = $("#form_pago_tipo").val();
-
+    reinit_prices();
     if (metodo_pago == 'pago_tarjeta') {
         $("#form_pago_card_nombre").addClass("form-required");
         $("#form_pago_card_tarjeta").addClass("form-required");
         $("#form_pago_card_expmes_input").addClass("form-required");
         $("#form_pago_card_expanio_input").addClass("form-required");
         $("#form_pago_card_cvc").addClass("form-required");
-
         $(".metodo_tarjeta_data").show();
+        $(".row-meses").hide();
+    } else if (metodo_pago == 'pago_tarjeta_credito') {
+        $("#form_pago_card_nombre").addClass("form-required");
+        $("#form_pago_card_tarjeta").addClass("form-required");
+        $("#form_pago_card_expmes_input").addClass("form-required");
+        $("#form_pago_card_expanio_input").addClass("form-required");
+        $("#form_pago_card_cvc").addClass("form-required");
+        $(".metodo_tarjeta_data").show();
+        $("#form_meses_pago").val("1").trigger("change");
+        $(".row-meses").show();
     } else {
         // Ni con OxxoPay ni con Spei se requieren estos campos.
         $("#form_pago_card_nombre").removeClass("form-required");
@@ -411,6 +529,7 @@ const cambio_metodo_pago = () => {
         $("#form_pago_card_cvc").val("");
 
         $(".metodo_tarjeta_data").hide();
+        $(".row-meses").hide();
     }
 }
 
@@ -421,6 +540,16 @@ const set_spinner_atPayment = (toshow) => {
     $(".payment-proceed").removeClass("btn-comprar").addClass("btn-comprar-unabled");
 }
 
+const reinit_prices = () => {
+    console.log("Reinit prices");
+    $(".comision_value").text("0.00")
+    let concept = $("#extrapay_concept").val();
+    if (concept == 'total_delivery') {
+        $("#delivery_choice_btn").trigger("click");
+    } else if (concept == 'total_instalation') {
+        $("#instalation_choice_btn").trigger("click");
+    }
+}
 
 
 

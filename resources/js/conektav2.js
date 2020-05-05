@@ -13,6 +13,7 @@ const conektaSuccessResponseHandler = function (token_con) {
     data_con.append('extrapay_concept', $("#extrapay_concept").val());
     data_con.append('products_list', $("#products_list").val());
     data_con.append('depto_info', $("#depto_info").val());
+    data_con.append('num_pagos', $("#num_pagos").val())
 
 
     $.each(['form_nombre', 'form_apellido_paterno', 'form_apellido_materno',

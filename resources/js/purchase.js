@@ -144,7 +144,7 @@ $(document).ready(function () {
 });
 
 const calcular_totales = () => {
-    console.log("Calcular totales");
+    //console.log("Calcular totales");
     let subtotal = 0,
         iva = 0,
         total = 0;
@@ -158,7 +158,7 @@ const calcular_totales = () => {
         let cant = $(this).find(".select_product_extra").val() != "" ? $(this).find(".select_product_extra").val() : 1;
         let price = products_gral[$(this).find(".extra_product_id").val()].replace(',', '');
         let monto = +cant * +price;
-        console.log("(" + $(this).find(".extra_product_id").val() + "): "+ cant + " * " + price + " = " + monto);
+        //console.log("(" + $(this).find(".extra_product_id").val() + "): "+ cant + " * " + price + " = " + monto);
         subtotal = +subtotal + +monto;
     });
     
@@ -168,7 +168,7 @@ const calcular_totales = () => {
         let cant = $(this).find(".select_product_extra").val() != "" ? $(this).find(".select_product_extra").val() : 1;
         let price = products_gral[$(this).find(".extra_product_id").val()].replace(',', '');
         let monto = +cant * +price;
-        console.log("(" + $(this).find(".extra_product_id").val() + "): "+ cant + " * " + price + " = " + monto);
+        //console.log("(" + $(this).find(".extra_product_id").val() + "): "+ cant + " * " + price + " = " + monto);
         subtotal = +subtotal + +monto;
     });
     iva = (subtotal * .16);

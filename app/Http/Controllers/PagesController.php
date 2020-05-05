@@ -258,7 +258,13 @@ class PagesController extends Controller
         //\Conekta\Conekta::setApiKey("key_nhZNh6mFkjEAyAtu79P7WQ");    // Producción
         Conekta::setApiVersion("2.0.0");
 
-
+        $comisiones_porc = array(
+            '1' => 0,
+            '3' => 5.5,
+            '6' => 9,
+            '9' => 11,
+            '12' => 15,
+        );
 
         $product_list_jd = json_decode($_POST['products_list']);
         $config =  array(
@@ -287,6 +293,12 @@ class PagesController extends Controller
                     "type" => "card",
                     "token_id" => $_POST['conektaTokenId']
                 );
+            } else if ($_POST['form_pago_tipo'] == 'pago_tarjeta_credito') {
+                $paymenth_method = array(
+                    "type" => "card",
+                    "token_id" => $_POST['conektaTokenId'],
+                    "monthly_installments" => $_POST['num_pagos']
+                );
             } else if ($_POST['form_pago_tipo'] == 'pago_oxxo') {
                 $thirty_days_from_now = (new DateTime())->add(new DateInterval('P30D'))->getTimestamp();
                 $paymenth_method = array(
@@ -312,6 +324,14 @@ class PagesController extends Controller
                     "amount" => +$result_data['total_card']['delivery_price'] * 100,
                     "carrier" => "Paquetexpress"
                 );
+
+                if ($_POST['form_pago_tipo'] == 'pago_tarjeta_credito') {
+                    $deliv_price = $result_data['total_card']['delivery_price'];
+                    $comision_toadd = $comisiones_porc[$_POST['num_pagos']];
+                    $comision_toadd_amount = (($deliv_price * $comision_toadd) / 100);
+                    $deliv_price = $deliv_price + $comision_toadd_amount;
+                    $delivery_array['amount'] = round($deliv_price,2) * 100;
+                }
             } else {
                 $total_topay = str_replace(",", "", $result_data['total_card'][$_POST['extrapay_concept']]);
                 $total_topay_str = $result_data['total_card'][$_POST['extrapay_concept']];
@@ -320,7 +340,24 @@ class PagesController extends Controller
                     "carrier" => "SINENVIO"
                 );
             }
-            $total_topay_conektav = $total_topay * 100;
+
+            if ($_POST['form_pago_tipo'] == 'pago_tarjeta_credito') {
+                $comision_toadd = $comisiones_porc[$_POST['num_pagos']];
+                $comision_toadd_amount = (($total_topay * $comision_toadd) / 100);
+                $total_topay = $total_topay + $comision_toadd_amount;
+                $total_topay_str = $total_topay . "";
+            }
+
+            $total_topay_conektav = round($total_topay, 2) * 100;
+
+            $toreturn = array(
+                $_POST['num_pagos'],
+                $comisiones_porc[$_POST['num_pagos']],
+                $total_topay,
+                $total_topay_conektav
+            );
+            //return json_encode($toreturn);
+            //die();
 
             try {
                 $order = Order::create(
@@ -421,126 +458,6 @@ class PagesController extends Controller
         }
 
         echo "<script type='text/javascript'>const request_data = " . json_encode($data) . "</script>";
-        return view('front.payment_succeed', $array_tosend);
-    }
-
-
-    /* OBSOLETE */
-    public function payment(Request $request)
-    {
-        /*['form_nombre', 'form_apellido_paterno', 'form_apellido_materno', 
-            'form_telefono', 'form_mail','form_envio_calle','form_envio_noext','form_envio_noint',
-            'form_envio_cp','form_envio_estado','form_envio_municipio','form_envio_localidad',
-            'form_envio_colonia','form_pago_tipo']*/
-        $array_tosend = array();
-        Conekta::setApiKey("key_4s5xH2S3BG44nFa5y9smWg");    // Pruebas
-        //\Conekta\Conekta::setApiKey("key_nhZNh6mFkjEAyAtu79P7WQ");    // Producción
-        Conekta::setApiVersion("2.0.0");
-
-        $product_list_jd = json_decode($_POST['products_list']);
-        $config =  array(
-            'url' => "https://novias-novias-t-1-pruebas-1012178.dev.odoo.com/xmlrpc",
-            'db' => "novias-novias-t-1-pruebas-1012178",
-            'user' => "admin",
-            'password' => "adminadmin"
-        );
-        $common = new Ripcord($config);
-        $result = $common->client->execute_kw(
-            $common->db,
-            $common->uid,
-            $common->password,
-            'intelli.blind',
-            'products_total',
-            array('self', $product_list_jd)
-        );
-        if ($result[0]['success'] == 200) {
-            $result_data = $result[0]['data'];
-            $full_name = $_POST['form_nombre'] . " " . $_POST['form_apellido_paterno'] . " " . $_POST['form_apellido_materno'];
-
-            /** TIPO DE PAGO */
-            if ($_POST['form_pago_tipo'] == 'pago_tarjeta') {
-                $paymenth_method = array(
-                    "type" => "card",
-                    "token_id" => $_POST['conektaTokenId']
-                );
-            }
-
-            /** ESPECIFICACIÓN DE ENVÍO */
-            $delivery_array = array();
-            $total_topay = 0;
-            if ($_POST['extrapay_concept'] == 'total_delivery') {
-                $total_topay = str_replace(",", "", $result_data['total_card']['total']);
-                $delivery_array = array(
-                    "amount" => +$result_data['total_card']['delivery_price'] * 100,
-                    "carrier" => "Paquetexpress"
-                );
-            } else {
-                $total_topay = str_replace(",", "", $result_data['total_card'][$_POST['extrapay_concept']]);
-                $delivery_array = array(
-                    "amount" => 0,
-                    "carrier" => "SINENVIO"
-                );
-            }
-            $total_topay_conektav = $total_topay * 100;
-
-            try {
-                $order = Order::create(
-                    array(
-                        "line_items" => [
-                            [
-                                "name" => "Compra en " . $_POST['depto_info'],
-                                "unit_price" =>  $total_topay_conektav,
-                                "quantity" => 1
-                            ]
-                        ],
-                        "shipping_lines" =>  [$delivery_array],
-                        "currency" => "MXN",
-                        "customer_info" => array(
-                            "name" => $full_name,
-                            "email" => $_POST['form_mail'],
-                            "phone" =>  $_POST['form_telefono']
-                        ),
-                        "shipping_contact" => array(
-                            "address" => array(
-                                "street1" => $_POST['form_envio_municipio'] . "," .
-                                    $_POST['form_envio_estado'] . " " . $_POST['form_envio_calle'] .
-                                    " int " . $_POST['form_envio_noint'],
-                                "postal_code" => $_POST['form_envio_cp'],
-                                "country" => "MX"
-                            )
-                        ),
-                        "charges" => array(
-                            array(
-                                "payment_method" => $paymenth_method
-                            )
-                        )
-                    )
-                );
-
-                $data = array('name' => $full_name);
-                Mail::send('mail', $data, function ($message) {
-                    $message->to($_POST['form_mail'], 'Cliente')->subject('Compra realizada con éxito');
-                    $message->from('pruebas@democrm7.estrasol.com.mx', 'INTELLI');
-                });
-            } catch (ProcessingError $error) {
-                return redirect()->back()->withErrors(['conekta_answer' => $error->getMessage() . " 1"]);
-                //echo json_encode($error->getMessage() . " 1");
-                exit();
-            } catch (ParameterValidationError $error) {
-                //return Redirect::back()->withInput()
-                //->withErrors(['conekta_answer' => $error->getMessage() . " 2"]);
-                echo json_encode($error->getMessage() . " 2");
-                exit();
-            } catch (Handler $error) {
-                //return Redirect::back()->withInput()
-                //->withErrors(['conekta_answer' => $error->getMessage() . " 3"]);
-                echo json_encode($error->getMessage() . " 3");
-                exit();
-            }
-        }
-
-        //Mail::send([‘text’=>’text.view’], $data, $callback);
-        $array_tosend['torre_bg'] = $_POST['torre_bg'];
         return view('front.payment_succeed', $array_tosend);
     }
 }

@@ -9,10 +9,10 @@
 <link href="{{ asset('css/purchase_information_v2.css') }}" rel="stylesheet">
 @endsection
 
-@section('myscripts') 
+@section('myscripts')
 <script src="{{ asset('js/purchasev2.js') }}" defer></script>
 <script src="{{ asset('js/conektav2.js') }}" defer></script>
-<script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js" ></script>
+<script type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js"></script>
 @endsection
 
 <!-- header menu -->
@@ -524,14 +524,13 @@
                                             <div class="row">
                                                 <div class="col-12 ml-2 mr-2 pl-0 pr-3 pb-0 pt-0">
                                                     <select id="form_pago_tipo" class="form-control select_product select_2 ml-0 mr-0 " data-live-search="true" style="width:100%">
-                                                        <option value="pago_tarjeta" selected>Pago tarjeta crédito / Débito</option>
+                                                        <option value="pago_tarjeta" selected>Pago tarjeta débito</option>
+                                                        <option value="pago_tarjeta_credito">Pago tarjeta crédito</option>
                                                         <option value="pago_oxxo">Pago en Oxxo</option>
                                                         <option value="pago_spei">Pago con SPEI</option>
                                                     </select>
                                                 </div>
                                             </div>
-
-
                                         </div>
                                     </div>
                                     <div class="col-md-5">
@@ -548,10 +547,28 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row row-meses">
+                                    <div class="col-md-5 row-meses">
+                                        <div class="pr-1 mt-sm-3 item_form">
+                                            <div class="row">
+                                                <div class="col-12 ml-2 mr-2 pl-0 pr-3 pb-0 pt-0">
+                                                    <select id="form_meses_pago" class="form-control select_product select_2 ml-0 mr-0 " data-live-search="true" style="width:100%">
+                                                        <option value="1" selected>1 x Único Pago</option>
+                                                        <!-- <option value="3"> 3 x Pagos de $0.00 </option>
+                                                        <option value="6"> 6 x Pagos de $0.00 </option>
+                                                        <option value="9"> 9 x Pagos de $0.00 </option>
+                                                        <option value="12"> 12 x Pagos de $0.00 </option> -->
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <form action="{{ url('payment_done/') }}" method="POST" id="card-form">
                                     @csrf
                                     <input type="hidden" class="form-control" name="extrapay_concept" id="extrapay_concept" value="total_delivery">
+                                    <input type="hidden" class="form-control" name="num_pagos" id="num_pagos" value="1">
                                     <input type="hidden" class="form-control" name="torre_bg" id="torre_bg" value="{{$torre_bg}}">
                                     <input type="hidden" class="form-control" name="products_list" id="products_list" value="{{$products_list}}">
                                     <input type="hidden" class="form-control" name="depto_info" id="depto_info" value="{{$name_torre}}, Departamento {{$num_depto}}">
@@ -708,6 +725,16 @@
                             </div>
                             <div class="col-6">
                                 <p class="text-right general_text" style="color:white"> ${{$total_card['iva']}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-1">
+                        <div class="row">
+                            <div class="col-6 general_text" style="color:white">
+                                Comisión
+                            </div>
+                            <div class="col-6">
+                                <p class="text-right general_text" style="color:white"> $<span class="comision_value">0.00</span></p>
                             </div>
                         </div>
                     </div>
