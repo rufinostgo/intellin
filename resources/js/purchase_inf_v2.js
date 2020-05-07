@@ -83,7 +83,8 @@ $(".cerrar_video").click(function( ev){
     exept = $(ev.target).closest('#modal_video');
     exept.toggleClass( "d-none");
     exept.toggleClass( "d-block"); 
-   
+    //player.stopVideo();
+    $(".iframe_video").html('<iframe class="embed-responsive-item" src="'+ result_data['video'] + '" allowfullscreen></iframe>');
 });
 
 //open

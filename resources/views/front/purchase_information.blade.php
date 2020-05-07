@@ -56,7 +56,7 @@
             <div class="area-box-tpl  mb-5">
                 <div class="row head_area mr-md-3 pt-2 pb-2">
                     <div class="col-6 col-md-4 border_area">
-                        <span class="title_area">ÁREA </span>
+                        <span class="title_area"></span>
                         <span class="subtitle_area area_name">{{$area['area']}}</span>
                     </div>
                     <div class="col-6 col-md-4">
@@ -66,7 +66,7 @@
                 </div>
 
                 <div class="row sub_header_area mr-md-3 justify-content-center align-items-center">
-                    <div class="d-none d-sm-block col-sm-3 col-md-3 zone mt-2 mb-2 pt-1 pb-1 ">Zona</div>
+                    <div class="d-none d-sm-block col-sm-3 col-md-3 zone mt-2 mb-2 pt-1 pb-1 ">Ventana</div>
                     <div class="col-6 col-sm-4 col-md-4 zone mt-2 mb-2 pt-1 pb-1 ">Producto</div>
                     <div class="d-none d-sm-block col-sm-3 col-md-3 zone mt-2 mb-2 pt-1 pb-1 ">Imágenes</div>
                     <div class="col-6 col-sm-2 col-md-2 pt-3 pb-3 text-left text-sm-right total_area">Total</div>
@@ -85,7 +85,7 @@
                         </div>
                         <div class="d-none d-sm-block col-sm-3 col-md-3">
                             <button class="show-p show_product-dis  pt-1 pb-1 mt-1 mb-1" data-toggle="modal" href="#carouselModal" disabled>
-                                Ver imágenes
+                                Más..
                             </button>
                         </div>
                         <div class="col-6 col-sm-2 col-md-2 text-left text-sm-right price_total_area"> <span class="preci_total ">$0.00</span>
@@ -129,7 +129,7 @@
                             </div>
                             <div class="d-none d-sm-block col-sm-3 col-md-3">
                                 <button class="show_product  pt-1 pb-1 mt-1 mb-1" data-toggle="modal" href="#carouselModal_{{$product['product_id']}}">
-                                    Ver imágenes
+                                    Más..
                                 </button>
                             </div>
                             <div class="col-4 col-sm-2 col-md-2 text-left text-sm-right price_total_product"> <span class="preci_total "> $0.00</span>
@@ -181,7 +181,7 @@
                         </div>
                         <div class="d-none d-sm-block col-sm-3 col-md-3">
                             <button class="show_product  pt-1 pb-1 mt-1 mb-1" data-toggle="modal" href="#carouselModal_{{$product['product_id']}}">
-                                Ver imágenes
+                                Más..
                             </button>
                         </div>
                         <div class="col-4 col-sm-2 col-md-2 text-left text-sm-right price_total_product"> <span class="preci_total "> $0.00</span>
@@ -236,7 +236,7 @@
                         <h5 class="modal-title"><i class="fa fa-exclamation-triangle mr-2" aria-hidden="true"></i> Aviso</h5>
                     </div>
                     <div class="modal-body mt-2">
-                        Algunos de sus productos son distintos para cada una de las zonas, ¿Seguro que desea proceder a la compra?
+                        Algunos de sus productos son distintos para cada una de las ventanas, ¿Seguro que desea proceder a la compra?
                     </div>
                     <div class="modal-footer mt-2">
                         <div class="row w-100 text-center">
@@ -324,7 +324,7 @@
                             <div class="col-9 text-subtotal pb-3">{{$area['area']}}</div>
                             <div class="col-3 text-subtotal pb-3"><span class="text-soft-gray">Estilo</span></div>
                             <div class="col-9 text-subtotal pb-3">{{$area['style']}}</div>
-                            <div class="col-3 text-subtotal pb-3"><span class="text-soft-gray">Zona</span></div>
+                            <div class="col-3 text-subtotal pb-3"><span class="text-soft-gray">Ventana</span></div>
                             <div class="col-9 text-total pb-4">{{$zone['zone']}}</div>
 
                             <div class="col-12">
@@ -339,7 +339,7 @@
 
                             <div class="col-md-12 text-center mt-4">
                                 <button class="mw-100 btn_continue pt-1 pb-1 mt-1 mb-1 show-p btn_cont-dis" data-toggle="modal" href="#carouselModal">
-                                    Ver imágenes
+                                    Más..
                                 </button>
                             </div>
                         </div>
@@ -372,7 +372,7 @@
                             <div class="col-9 text-subtotal pb-3">{{$area['area']}}</div>
                             <div class="col-3 text-subtotal pb-3"><span class="text-soft-gray">Estilo</span></div>
                             <div class="col-9 text-subtotal pb-3">{{$area['style']}}</div>
-                            <div class="col-3 text-subtotal pb-3"><span class="text-soft-gray">Zona</span></div>
+                            <div class="col-3 text-subtotal pb-3"><span class="text-soft-gray">Ventana</span></div>
                             <div class="col-9 text-total pb-4">{{$zone['zone']}}</div>
 
                             <div class="col-12">
@@ -391,7 +391,7 @@
 
                             <div class="col-md-12 text-center mt-4">
                                 <button class="mw-100 btn_continue pt-1 pb-1 mt-1 mb-1">
-                                    Ver imágenes
+                                    Más..
                                 </button>
                             </div>
                         </div>
@@ -437,7 +437,7 @@
 
                             <div class="col-md-12 text-center mt-4">
                                 <button class="mw-100 btn_continue pt-1 pb-1 mt-1 mb-1">
-                                    Ver imágenes
+                                    Más..
                                 </button>
                             </div>
                         </div>

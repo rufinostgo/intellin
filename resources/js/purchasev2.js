@@ -2,6 +2,9 @@ let estados_list;
 let comisiones_porc, comisiones_envio, comisiones_install;
 
 $(document).ready(function () {
+    setTimeout(() => {
+        console.clear();
+    }, 500);
     llenar_comisiones();
 
     $("#check_factura").on("change", function () {
@@ -31,7 +34,7 @@ $(document).ready(function () {
 
     $(".payment-proceed").on("click", function () {
         //console.log("Button comprar.");
-        console.clear();
+        //console.clear();
         verificar_campos();
     });
 
@@ -43,7 +46,7 @@ $(document).ready(function () {
     });
 
     $("#delivery_choice_btn").on("click", function () {
-        console.log("Delivery choice btn");
+        //console.log("Delivery choice btn");
         $("#delivery_choice_btn").removeClass("bt_enabled_no_background").addClass("bt_enabled");
         $("#instalation_choice_btn").removeClass("bt_enabled").addClass("bt_enabled_no_background");
         $(".extrapay_concept_label").text("Envío");
@@ -138,11 +141,11 @@ $(document).ready(function () {
         total_topay = Math.round((+total_topay + Number.EPSILON) * 100) / 100;
 
         comision_to_value = Math.round((+comision_toadd_amount + Number.EPSILON) * 100) / 100;
-        // console.log("Se añade al total de tipo " + extrapay_concept + ": " + total_concept);
-        // console.log("La comisión de " + comision_toadd + "% : " + comision_toadd_amount);
-        // console.log("Dando un total de: " + total_topay);
+        // //console.log("Se añade al total de tipo " + extrapay_concept + ": " + total_concept);
+        // //console.log("La comisión de " + comision_toadd + "% : " + comision_toadd_amount);
+        // //console.log("Dando un total de: " + total_topay);
 
-        $(".total_value").text(total_topay);
+        $(".total_value").text(currencyFormat(total_topay).replace("$",""));
         $(".comision_value").text(comision_to_value);
     });
 
@@ -152,7 +155,7 @@ $(document).ready(function () {
     cambio_metodo_pago();
 
 
-    //introducir_datos_prueba();
+    introducir_datos_prueba();
 
     $("#check_factura").prop("checked", false);
     $("#check_factura").trigger("change");
@@ -203,9 +206,9 @@ const llenar_comisiones = () => {
     let total_envio = (result_data['total_card'].total_delivery).replace(",", "");
     let total_install = (result_data['total_card'].total_instalation).replace(",", "");
 
-    console.clear();
-    console.log(comisiones_porc);
-    console.warn(" - - - - - - - -- - - ");
+    //console.clear();
+    //console.log(comisiones_porc);
+    //console.warn(" - - - - - - - -- - - ");
 
     $.each(comisiones_porc, function (index, value) {
         if (value != null) {
@@ -223,29 +226,33 @@ const llenar_comisiones = () => {
             comisiones_install[index] = total_aux;
         }
     });
-    console.log(comisiones_envio);
-    console.log(comisiones_install);
+    //console.log(comisiones_envio);
+    //console.log(comisiones_install);
 }
 
 const llenar_select_meses = (concept) => {
-    console.clear();
+    //console.clear();
     $('#form_meses_pago').empty();
-    $("#form_meses_pago").append(new Option("1 x Único Pago", "1", false, false));
+    
     let array_comisiones = new Array();
+    let total_1pay = 0;
     if (concept == 'envio') {
         array_comisiones = comisiones_envio;
+        total_1pay = result_data['total_card'].total_delivery;
     } else if (concept == 'instalation') {
         array_comisiones = comisiones_install;
+        total_1pay = result_data['total_card'].total_instalation;
     }
-    console.log(array_comisiones);
+    
+    $("#form_meses_pago").append(new Option("1 x Único Pago | ($" + total_1pay + ")", "1", false, false));
     $.each(array_comisiones, function (index, value) {
         if (value != null && index != 1) {
             
-            console.log(index + ": " + value);
+            //console.log(index + ": " + value);
 
             let monto_pago = +value / +index;
             monto_pago = Math.round((+monto_pago + Number.EPSILON) * 100) / 100;
-            $("#form_meses_pago").append(new Option(index + " x Pagos de $" + monto_pago, index, false, false));
+            $("#form_meses_pago").append(new Option(index + " x Pagos de " + currencyFormat(monto_pago) + " | (" + currencyFormat(value) + ")", index, false, false));
         }
     });
 }
@@ -372,7 +379,7 @@ const trigger_payment_form = () => {
 
 /** Pagos con Oxxo */
 const generarFolioOxxoSpei = (metodo_pago) => {
-    console.warn("Generando Folio Oxxo o SPEI..");
+    //console.warn("Generando Folio Oxxo o SPEI..");
     set_spinner_atPayment(true);
     let $form = $("#card-form");
     const data_con = new FormData();
@@ -399,7 +406,7 @@ const generarFolioOxxoSpei = (metodo_pago) => {
             return response.json();
         })
         .then(function (myJson) {
-            console.log(myJson);
+            //console.log(myJson);
             $(".payment-proceed").prop('disabled', false);
             $(".payment-proceed").removeClass("btn-comprar-unabled").addClass("btn-comprar");
             $(".payment-proceed").html("PAGAR");
@@ -426,8 +433,8 @@ const generarFolioOxxoSpei = (metodo_pago) => {
                 $(".conekta-answer").text(myJson.error);
             }
         }).catch(function (error) {
-            console.log("El errorsini, sinisini");
-            console.log(error);
+            //console.log("El errorsini, sinisini");
+            //console.log(error);
         });
 }
 
@@ -464,8 +471,8 @@ const introducir_datos_prueba = () => {
     $("#form_pago_card_expmes").val("10").trigger("change");
     $("#form_pago_card_expanio").val("2020").trigger("change");
 
-    $(".tab-metodo-pago").trigger("click");
-    $("#check_terminos").trigger("click")
+    //$(".tab-metodo-pago").trigger("click");
+    //$("#check_terminos").trigger("click")
 }
 
 const llenar_fecha_explist = () => {
@@ -490,7 +497,7 @@ const llenar_fecha_explist = () => {
 }
 
 const cambio_metodo_pago = () => {
-    console.log("Cambio metodo de pago");
+    //console.log("Cambio metodo de pago");
     const metodo_pago = $("#form_pago_tipo").val();
     reinit_prices();
     if (metodo_pago == 'pago_tarjeta') {
@@ -541,7 +548,7 @@ const set_spinner_atPayment = (toshow) => {
 }
 
 const reinit_prices = () => {
-    console.log("Reinit prices");
+    //console.log("Reinit prices");
     $(".comision_value").text("0.00")
     let concept = $("#extrapay_concept").val();
     if (concept == 'total_delivery') {
@@ -551,6 +558,15 @@ const reinit_prices = () => {
     }
 }
 
+
+const currencyFormat = (num) => {
+    return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}
+
+$(".select_back").on("click",function(){
+    $(this).prop("disabled",true);
+    window.history.back();
+});
 
 
 

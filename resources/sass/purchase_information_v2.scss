@@ -147,4 +147,21 @@
         width: 100%;
         height: 250px;
     }
+
+    .purchase_header{
+        display: none;
+    }
+}
+
+.purchase_header {
+    padding-bottom: 0px;
+    background-color: $crema_1;
+}
+
+.select_depart {
+    color: $gris_fondo_1;
+    font-family: $font-family-roboto;
+    font-size: 16px;
+    line-height: 19px;
+    height: 70px;
 }

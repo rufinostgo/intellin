@@ -78,6 +78,7 @@ class PagesController extends Controller
         $nombre_torre =  $_POST['name_torre'];
         $img_torre = $_POST['img_torre'];
         $numero_departamento =  $_POST['numero_departamento'];
+        $num_depto_name =  $_POST['num_depto_name'];
         $torre_bg = $_POST['torre_bg'];
 
         if ($numero_departamento != 'empty') {
@@ -190,7 +191,7 @@ class PagesController extends Controller
                 $areas_array['nombre_torre'] = $nombre_torre;
                 $areas_array['imagen_torre'] = "data:image/png;base64," . str_replace('"', '', $img_torre);
                 $areas_array['map'] = "data:image/png;base64," . str_replace('"', '', $areas_array['map']);
-                $areas_array['num_depto'] = $numero_departamento;
+                $areas_array['num_depto'] = $num_depto_name;
                 $areas_array['products_info'] = $products_info;
                 $areas_array['a_extraprods'] = $area_extraprods;
                 $areas_array['a_otherprods'] = $area_otherprods;
@@ -245,7 +246,9 @@ class PagesController extends Controller
                 $result_data['img_plano'] =  $_POST['img_plano'];
                 $result_data['torre_bg'] = $_POST['torre_bg'];
                 $result_data['products_list'] = $_POST['products_list'];
+                //$result_data['video'] = $result_data['video'] . "&enablejsapi=1";
 
+                //print_r($result_data); die();
                 return view('front.purchase_information_v2', $result_data);
             }
         }
@@ -350,12 +353,12 @@ class PagesController extends Controller
 
             $total_topay_conektav = round($total_topay, 2) * 100;
 
-            $toreturn = array(
-                $_POST['num_pagos'],
-                $comisiones_porc[$_POST['num_pagos']],
-                $total_topay,
-                $total_topay_conektav
-            );
+            // $toreturn = array(
+            //     $_POST['num_pagos'],
+            //     $comisiones_porc[$_POST['num_pagos']],
+            //     $total_topay,
+            //     $total_topay_conektav
+            // );
             //return json_encode($toreturn);
             //die();
 
@@ -440,7 +443,7 @@ class PagesController extends Controller
         }
         $data['monto_apagar'] = $request['monto_apagar'];
 
-        if ($request['form_pago_tipo'] == 'pago_tarjeta') {
+        if ($request['form_pago_tipo'] == 'pago_tarjeta' || $request['form_pago_tipo'] == 'pago_tarjeta_credito') {
             Mail::send('mails.payment_succeed_card', $data, function ($message) {
                 $message->to($_POST['form_mail'], 'Cliente')->subject('Compra realizada con éxito');
                 $message->from('pruebas@democrm7.estrasol.com.mx', 'INTELLI');

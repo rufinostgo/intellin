@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    console.log("Welcome XDDDDDD");
+    console.log("Welcome.");
 });
 
 $("#aceptar_welcome").on("click",function(){
@@ -13,4 +13,5 @@ $("#aceptar_welcome").on("click",function(){
 
 $("#numero_departamento").on("change",function(){
     $(this).removeClass('is-invalid');
+    $("#num_depto_name").val($("#numero_departamento  option:selected").text());
 });

@@ -37,12 +37,23 @@
 <!-- end header menu -->
 
 @section('content')
-<div class="sub_head">
+<!-- <div class="sub_head">
+</div> -->
 
+<div class="container-fluid purchase_header ">
+    <div class="container pt-4 border">
+        <div class="d-none d-md-block select_depart ">
+            <a class="rever_play select_back">
+                <i class="fa fa-chevron-left play" aria-hidden="true"></i>
+            </a>
+            &nbsp;&nbsp;&nbsp; Modificar productos de compra
+        </div>
+    </div>
 </div>
+
 <!--Principal-->
 <div class="container-fluid ">
-    <div class="container pt-4">
+    <div class="container pt-3">
         <div class="row ">
             <!--Primer bloque inform general y formularios -->
             <div class="col-md-8  mt-2 pt-4">
@@ -61,6 +72,14 @@
                             AYÚDENME CON LA INSTALACIÓN
                         </button>
                     </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-5">
+                        <span> En cuanto el producto esté listo, lo enviaremos a la dirección que nos proporcione.</span>
+                    </div>
+                    <div class="col-md-5">
+                        <span>En cuanto el producto esté listo lo contactaremos para coordinar la fecha y hora de instalación. </span>
+                    </div>
+
                     <div class="col-md-12 ">
                         <div class="row no-gutters">
                             <div class="col-7 col-md-3  general_text mt-3 open_video_modal">Ver video de instalación
@@ -814,7 +833,7 @@
     <div class="row ">
         <div class="col-12">
             <div class="col-12 mx-auto text-center  ">
-                <button class="btn-comprar pt-2 pb-2  ">
+                <button id="btn_comprar_mob" class="pt-2 pb-2 payment-proceed btn-comprar-unabled">
                     COMPRAR
                 </button>
             </div>
