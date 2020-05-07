@@ -11,9 +11,11 @@ $(document).ready(function () {
         let is_checked = $(this).prop("checked");
         if (is_checked) {
             $(".tab-datos-facturacion").show();
+            $(".tab-datos-fact-mob").show();
             set_required_fact_elements(true);
         } else {
             $(".tab-datos-facturacion").hide();
+            $(".tab-datos-fact-mob").hide();
             set_required_fact_elements(false);
         }
     });
@@ -153,7 +155,6 @@ $(document).ready(function () {
     llenar_estadoslist();
     llenar_fecha_explist();
     cambio_metodo_pago();
-
 
     introducir_datos_prueba();
 

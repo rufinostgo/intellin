@@ -214,8 +214,8 @@
 
 
                     </div>
-                    <div class="col-md-12  control_iformation">
-                        <button class="bt_enabled general_text pt-2 pb-2 pr-0 pl-0  mt-1  d-block d-sm-none  " style="width:100%; height:40px; ">
+                    <div class="col-md-12  control_iformation tab-datos-fact-mob">
+                        <button class=" bt_enabled general_text pt-2 pb-2 pr-0 pl-0  mt-1  d-block d-sm-none" style="width:100%; height:40px; ">
                             DATOS DE FACTURACIÓN
                         </button>
                         <!--aqui-->
@@ -893,7 +893,6 @@
                     <div class="col-sm-12 col-md-8 mt-3  ">
                         <div class="embed-responsive embed-responsive-16by9 iframe_video ">
                             <iframe class="embed-responsive-item" src="{{$video}}" allowfullscreen></iframe>
-
                         </div>
                     </div>
                 </div>
