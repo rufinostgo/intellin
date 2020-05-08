@@ -5,7 +5,7 @@ const conektaSuccessResponseHandler = function (token_con) {
     //console.log("Success Conekta JS!");
     let $form = $("#card-form");
     $form.append($('<input type="hidden" name="conektaTokenId" id="conektaTokenId">').val(token_con.id));
- 
+
     const data_con = new FormData();
     data_con.append('_token', $("meta[name='csrf-token']").attr("content"));
     data_con.append('conektaTokenId', token_con.id);
@@ -26,8 +26,8 @@ const conektaSuccessResponseHandler = function (token_con) {
             data_con.append(value, $("#" + value).val());
         });
 
-        console.log("READYs");
-      fetch('try_payment', {
+    console.log("READYs");
+    fetch('try_payment', {
             method: 'POST',
             body: data_con,
         })
@@ -36,15 +36,15 @@ const conektaSuccessResponseHandler = function (token_con) {
         })
         .then(function (myJson) {
             console.log(myJson);
-            $(".payment-proceed").prop('disabled', false);
-            $(".payment-proceed").removeClass("btn-comprar-unabled").addClass("btn-comprar");
-            $(".payment-proceed").html("PAGAR");
 
             if (myJson.success == 'success') {
                 console.log("Success");
                 $form.get(0).submit();
             } else {
                 console.log("Unsuccessfully");
+                $(".payment-proceed").prop('disabled', false);
+                $(".payment-proceed").removeClass("btn-comprar-unabled").addClass("btn-comprar");
+                $(".payment-proceed").html("PAGAR");
                 $(".div-conekta-answer").show();
                 $(".conekta-answer").text(myJson.error_msg);
             }
@@ -56,7 +56,7 @@ const conektaSuccessResponseHandler = function (token_con) {
 };
 const conektaErrorResponseHandler = function (response) {
     console.log("Error: " + response.message_to_purchaser);
- 
+
     $(".payment-proceed").prop('disabled', false);
     $(".payment-proceed").removeClass("btn-comprar-unabled").addClass("btn-comprar");
     $(".payment-proceed").html("PAGAR");
@@ -78,5 +78,3 @@ $(function () {
         return false;
     });
 });
-
-

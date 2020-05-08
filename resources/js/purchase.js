@@ -12,7 +12,8 @@ $(document).ready(function () {
 
     $(".select_product").select2({
         placeholder: "Seleccione",
-        allowClear: true
+        allowClear: true,
+        minimumResultsForSearch: -1
     });
 
     ocultar_valores_extra_interfase();
@@ -35,13 +36,18 @@ $(document).ready(function () {
         watch_needed_products($(this).parent().parent().parent()); // .ZoneProduct
         watch_other_products();
         calcular_totales();
+        verify_same_products($(this).parent().parent().parent().parent());
 
         const parent_row_id = $(this).parent().parent().attr("id");
         const select_mb_id = parent_row_id.replace("web", "select");
         const select_mobile = $("#" + select_mb_id);
+
+        const text_mb_id = parent_row_id.replace("web", "text");
+        const text_mobile = $("#" + text_mb_id);
         if ($(select_mobile).val() != $(this).val()) {
             $(select_mobile).val($(this).val());
             $(select_mobile).trigger("change");
+            $(text_mobile).text($(this).find("option:selected").text());
         } else {
             //console.log("Mismo value en ambos selects, se detienen triggers. (MSG Web)");
         }
@@ -98,10 +104,13 @@ $(document).ready(function () {
         let select_mb_id = select_idweb.replace("webselect", "select");
         let select_mobile = $("#" + select_mb_id);
 
+        const text_mb_id = select_idweb.replace("webselect", "text");
+        const text_mobile = $("#" + text_mb_id);
         if ($(select_mobile).val() != $(this).val()) {
             //console.log("Select extra val: " + $(this).val());
             $(select_mobile).val($(this).val());
             $(select_mobile).trigger("change");
+            $(text_mobile).text($(this).find("option:selected").text());
         } else {
             //console.log("Mismo value en ambos selects, se detienen triggers. (MSG Web)");
         }
@@ -130,11 +139,15 @@ $(document).ready(function () {
     });
 
     $(".btn-comprar").on("click", function () {
+        set_spinner_atPayment(true);
         toContinueBuy();
+
     });
 
     $(".btn_back").on("click", function () {
         $('#modalContinueBuy').modal('hide');
+        $(".to_payment_btn").prop("disabled", false)
+        $(".to_payment_btn").html('COMPRAR');
     });
 
     $(".select_back").on("click", function () {
@@ -345,7 +358,12 @@ const ocultar_valores_extra_interfase = () => {
     $("#productModal-oth" + id_modal_inte).find('.select_product').append(newOption_1).trigger('change');
 }
 
-const toContinueBuy = () => {
+
+const toContinueBuy = () =>{
+    $('#modalContinueBuy').modal('show');
+}
+
+const toContinueBuy_deprecated = () => {
     //console.log("To continue buying..");
     let is_any_different_prod = false;
     $(".area-box-tpl").each(function () {
@@ -370,6 +388,30 @@ const toContinueBuy = () => {
         advance_purchasev2();
     }
 }
+
+const verify_same_products = (div_areabox) => {
+    let is_any_different_prod = false;
+    let first_product = "";
+    $(div_areabox).find(".product_row").each(function () {
+        let prod_id = $(this).find(".select_product").val();
+        if (prod_id != "") {
+            first_product = first_product == "" ? prod_id : first_product;
+            if (first_product != prod_id) {
+                is_any_different_prod = true;
+            }
+        }
+    });
+
+    if (is_any_different_prod) {
+        $(div_areabox).find(".productos_distintos").removeClass("d-none");
+    } else {
+        $(div_areabox).find(".productos_distintos").addClass("d-none");
+    }
+}
+
+
+
+
 
 const advance_purchasev2 = () => {
     //console.log("Product list");
@@ -440,3 +482,18 @@ const reestablecer_backhistory = () => {
         }
     });
 }
+
+const set_spinner_atPayment = (toshow) => {
+    //console.log("Agrega spinner");
+    $(".to_payment_btn").prop("disabled", true)
+    $(".to_payment_btn").append('&nbsp;&nbsp; <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <span class="sr-only">Loading...</span>');
+    //$(".to_payment_btn").removeClass("btn-comprar").addClass("btn-comprar-unabled");
+}
+
+$(".btn-mob-img").on("click",function(){
+    $(this).parent().parent().parent().find(".cerrar").trigger("click");
+});
+
+$(".clickme_toend").on("click",function(){
+    $(this).parent().find(".cerrar").trigger("click");
+})

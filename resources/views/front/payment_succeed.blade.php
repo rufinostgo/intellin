@@ -15,7 +15,7 @@
 
 @section('content')
 
-<div class="container ">
+<div class="container-fluid">
     <div style="background-image:url('images/payment/fondo/bg_reticula.png');" class="left_bg">
         <div class="row">
             <div class="offset-md-4 col-md-7">
@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="offset-md-4 col-md-7">
+            <div class="col-sm-12 offset-md-4 col-md-7">
                 <div class="row">
                     <div class="col-md-12 pt-5">
                         <img src="{{ asset('images/logos/logo_welcome.png')}}" class="img-fluid img_logo" alt="Responsive image">

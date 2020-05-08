@@ -196,6 +196,17 @@
     line-height: 19px;
 }
 
+.productos_distintos {
+    color: $red;
+    font-family: $font-family-roboto;
+    font-size: 16px;
+    font-style: italic;
+    letter-spacing: 0;
+    line-height: 19px;
+    margin-left: -8px;;
+}
+
+
 #paymentModal,
 .areaModal,
 .productModal {

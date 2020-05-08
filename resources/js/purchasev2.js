@@ -7,6 +7,10 @@ $(document).ready(function () {
     }, 500);
     llenar_comisiones();
 
+    if (screen.width <= 768) {
+        $(".bt_datos_mobile").removeClass("bt_enabled_steps").addClass("bt_enabled");
+    }
+
     $("#check_factura").on("change", function () {
         let is_checked = $(this).prop("checked");
         if (is_checked) {
@@ -147,7 +151,7 @@ $(document).ready(function () {
         // //console.log("La comisión de " + comision_toadd + "% : " + comision_toadd_amount);
         // //console.log("Dando un total de: " + total_topay);
 
-        $(".total_value").text(currencyFormat(total_topay).replace("$",""));
+        $(".total_value").text(currencyFormat(total_topay).replace("$", ""));
         $(".comision_value").text(comision_to_value);
     });
 
@@ -155,6 +159,7 @@ $(document).ready(function () {
     llenar_estadoslist();
     llenar_fecha_explist();
     cambio_metodo_pago();
+    //$(".bt_datos_mobile").trigger("click");
 
     introducir_datos_prueba();
 
@@ -234,7 +239,7 @@ const llenar_comisiones = () => {
 const llenar_select_meses = (concept) => {
     //console.clear();
     $('#form_meses_pago').empty();
-    
+
     let array_comisiones = new Array();
     let total_1pay = 0;
     if (concept == 'envio') {
@@ -244,11 +249,11 @@ const llenar_select_meses = (concept) => {
         array_comisiones = comisiones_install;
         total_1pay = result_data['total_card'].total_instalation;
     }
-    
+
     $("#form_meses_pago").append(new Option("1 x Único Pago | ($" + total_1pay + ")", "1", false, false));
     $.each(array_comisiones, function (index, value) {
         if (value != null && index != 1) {
-            
+
             //console.log(index + ": " + value);
 
             let monto_pago = +value / +index;
@@ -564,8 +569,8 @@ const currencyFormat = (num) => {
     return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 }
 
-$(".select_back").on("click",function(){
-    $(this).prop("disabled",true);
+$(".select_back").on("click", function () {
+    $(this).prop("disabled", true);
     window.history.back();
 });
 

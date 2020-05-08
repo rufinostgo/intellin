@@ -26,10 +26,10 @@ class PagesController extends Controller
         $num_contrato =  $_POST['numero_contrato'];
 
         $config =  array(
-            'url' => "https://novias-novias-t-1-pruebas-1012178.dev.odoo.com/xmlrpc",
-            'db' => "novias-novias-t-1-pruebas-1012178",
+            'url' => "http://contratos.intelli.mx:8069/xmlrpc",
+            'db' => "intelli",
             'user' => "admin",
-            'password' => "adminadmin"
+            'password' => "admin"
         );
         $common = new Ripcord($config);
         $result = $common->client->execute_kw(
@@ -83,10 +83,10 @@ class PagesController extends Controller
 
         if ($numero_departamento != 'empty') {
             $config =  array(
-                'url' => "https://novias-novias-t-1-pruebas-1012178.dev.odoo.com/xmlrpc",
-                'db' => "novias-novias-t-1-pruebas-1012178",
-                'user' => "admin",
-                'password' => "adminadmin"
+                'url' => "http://contratos.intelli.mx:8069/xmlrpc",
+            'db' => "intelli",
+            'user' => "admin",
+            'password' => "admin"
             );
             $common = new Ripcord($config);
             $result = $common->client->execute_kw(
@@ -220,10 +220,10 @@ class PagesController extends Controller
         if ($product_list != "") {
             $product_list_jd = json_decode($product_list);
             $config =  array(
-                'url' => "https://novias-novias-t-1-pruebas-1012178.dev.odoo.com/xmlrpc",
-                'db' => "novias-novias-t-1-pruebas-1012178",
+                'url' => "http://contratos.intelli.mx:8069/xmlrpc",
+                'db' => "intelli",
                 'user' => "admin",
-                'password' => "adminadmin"
+                'password' => "admin"
             );
             $common = new Ripcord($config);
             $result = $common->client->execute_kw(
@@ -271,10 +271,10 @@ class PagesController extends Controller
 
         $product_list_jd = json_decode($_POST['products_list']);
         $config =  array(
-            'url' => "https://novias-novias-t-1-pruebas-1012178.dev.odoo.com/xmlrpc",
-            'db' => "novias-novias-t-1-pruebas-1012178",
+            'url' => "http://contratos.intelli.mx:8069/xmlrpc",
+            'db' => "intelli",
             'user' => "admin",
-            'password' => "adminadmin"
+            'password' => "admin"
         );
         $common = new Ripcord($config);
         $result = $common->client->execute_kw(
@@ -288,7 +288,7 @@ class PagesController extends Controller
 
         if ($result[0]['success'] == 200) {
             $result_data = $result[0]['data'];
-            $full_name = $_POST['form_nombre'] . " " . $_POST['form_apellido_paterno'] . " " . $_POST['form_apellido_materno'];
+            $full_name = $_POST['form_nombre']; // . " " . $_POST['form_apellido_paterno'] . " " . $_POST['form_apellido_materno'];
 
             /** TIPO DE PAGO */
             if ($_POST['form_pago_tipo'] == 'pago_tarjeta') {
@@ -333,7 +333,7 @@ class PagesController extends Controller
                     $comision_toadd = $comisiones_porc[$_POST['num_pagos']];
                     $comision_toadd_amount = (($deliv_price * $comision_toadd) / 100);
                     $deliv_price = $deliv_price + $comision_toadd_amount;
-                    $delivery_array['amount'] = round($deliv_price,2) * 100;
+                    $delivery_array['amount'] = round($deliv_price, 2) * 100;
                 }
             } else {
                 $total_topay = str_replace(",", "", $result_data['total_card'][$_POST['extrapay_concept']]);

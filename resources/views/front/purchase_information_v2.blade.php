@@ -127,11 +127,11 @@
                     </div>
                     <!--FORMULARIOS INCLUYEN BOTON PARA MOBILE -->
                     <div class="col-md-12  control_iformation  ">
-                        <button class="bt_enabled_steps general_text pt-2 pb-2 pr-0 pl-0  mt-1  d-block d-sm-none  " style="width:100%; height:40px; ">
+                        <button class="bt_enabled_steps general_text pt-2 pb-2 pr-0 pl-0  mt-1  d-block d-sm-none  bt_datos_mobile" style="width:100%; height:40px; ">
                             DATOS PERSONALES
-                        </button>
+                        </button> 
 
-                        <div class="row ml-0 mr-0 mt-md-4">
+                        <div class="row ml-0 mr-0 mt-md-4 pd-init-none">
                             <div class="col-12  pl-5 pr-5 pb-4 mt-2" style=" padding:0; margin:0px;">
                                 <div class="parent_line">
                                     <div class="line">
@@ -141,26 +141,26 @@
                             </div>
 
                         </div>
-                        <div class="row ml-0 mr-0 ">
+                        <div class="row ml-0 mr-0  pd-init-none">
                             <div class="col-md-12 ml-md-5 pb-5 general_text">
                                 <div class="row ">
-                                    <div class="col-md-5">
+                                    <div class="col-md-10">
                                         <div class="pr-1  mt-2   mt-sm-3  item_form">
-                                            <label for="form_nombre general_text">Nombre*</label>
+                                            <label for="form_nombre general_text">Nombre completo*</label>
                                             <input type="text" class="fix_input form-required" id="form_nombre" aria-describedby="emailHelp" placeholder="Indique su nombre">
                                             <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                         </div>
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-5 d-none">
                                         <div class="pr-1  mt-2   mt-sm-3  item_form">
                                             <label for="form_apellido_paterno">Apellido paterno*</label>
-                                            <input type="text" class="fix_input general_text form-required" id="form_apellido_paterno" aria-describedby="emailHelp" placeholder="Indique su apellido paterno">
+                                            <input type="text" class="fix_input general_text" id="form_apellido_paterno" aria-describedby="emailHelp" placeholder="Indique su apellido paterno">
                                             <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-5">
+                                    <div class="col-md-5 d-none">
                                         <div class="pr-1  mt-2   mt-sm-3  item_form">
                                             <label for="form_apellido_materno">Apellido materno</label>
                                             <input type="text" class="fix_input general_text" id="form_apellido_materno" aria-describedby="emailHelp" placeholder="Indique su apellido materno">
@@ -304,7 +304,7 @@
                                     <div class="col-md-5">
                                         <div class="pr-1  mt-2   mt-sm-3  item_form">
                                             <label for="form_fact_cp">Codigo Postal*</label>
-                                            <input type="text" class="fix_input general_text form-required" maxlength="5" id="form_fact_cp" aria-describedby="emailHelp" placeholder="Indique su codigo postal">
+                                            <input type="text" class="fix_input general_text form-required" maxlength="5" id="form_fact_cp" aria-describedby="emailHelp" placeholder="Indique su código postal">
                                             <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                         </div>
                                     </div>
@@ -385,7 +385,7 @@
 
                     </div>
                     <div class="col-md-12  control_iformation">
-                        <button class="bt_enabled general_text pt-2 pb-2 pr-0 pl-0  mt-1  d-block d-sm-none  " style="width:100%; height:40px;">
+                        <button class="tab-delivery-choice bt_enabled general_text pt-2 pb-2 pr-0 pl-0  mt-1  d-block d-sm-none " style="width:100%; height:40px;">
                             DATOS DE ENVÍO
                         </button>
                         <!--aqui-->
@@ -429,7 +429,7 @@
                                     <div class="col-md-5">
                                         <div class="pr-1  mt-2   mt-sm-3  item_form">
                                             <label for="form_envio_cp">Código postal*</label>
-                                            <input type="text" class="fix_input general_text form-required" id="form_envio_cp" maxlength="5" aria-describedby="emailHelp" placeholder="Indique su número telefónico">
+                                            <input type="text" class="fix_input general_text form-required" id="form_envio_cp" maxlength="5" aria-describedby="emailHelp" placeholder="Indique su código postal">
                                             <span class="invalid-feedback" role="alert"> Campo obligatorio </span>
                                         </div>
                                     </div>

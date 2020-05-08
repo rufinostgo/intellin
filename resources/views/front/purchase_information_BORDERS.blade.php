@@ -260,22 +260,22 @@
 
         <!-- PRODUCTS IMAGE MODAL  -->
         @foreach ($products_info as $key => $product)
-        <div class="modal fade carouselModal" id="carouselModal_{{$key}}" data-keyboard="false" data-backdrop="static">
+        <div class="modal fade carouselModal border border-danger" id="carouselModal_{{$key}}" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
                         <p class="title_view">Estas viendo</p>
                         <div class="row">
-                            <div class="col-6 div-title">
+                            <div class="col-6 border border-primary div-title">
                                 <span class="title">{{ $product['name']}}</span>
                             </div>
-                            <div class="col-6 ">
+                            <div class="col-6 border border-info">
                                 <button type="button" class="cerrar border-0" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" class="close">&times;</span>
                                 </button>
                             </div>
                         </div>
-                        <div class="false_padding_img clickme_toend ">
+                        <div class="false_padding_img clickme_toend border border-white">
 
                         </div>
                         <div id="indicators" class="carousel slide" data-ride="carousel">
@@ -285,7 +285,7 @@
                                 <li data-target="#indicators" data-slide-to="2">3</li>
                             </ol> -->
                             <!-- <p class="num"></p> -->
-                            <div class="carousel-inner ">
+                            <div class="carousel-inner border border-warning">
                                 @foreach ($product['images'] as $key_i => $img)
                                 <div class="carousel-item {{ $key_i == 0 ? 'active' : '' }}">
                                     <img class="d-block w-100" src="{{$img}}" alt="Third slide">
@@ -301,7 +301,7 @@
                                 <span class="sr-only">Next</span>
                             </a>
                         </div>
-                        <div class="false_bottom_img clickme_toend">
+                        <div class="false_bottom_img clickme_toend border border-white">
 
                         </div>
                     </div><!-- /.modal-body -->

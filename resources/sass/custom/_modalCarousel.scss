@@ -1,66 +1,80 @@
-.carouselModal{
-  background-color: rgba(0, 0, 0, 0.8);
+.carouselModal {
+    background-color: rgba(0, 0, 0, 0.8);
 
-  .modal-content{
-    background-color: transparent;
-    border: 0;
-    color: #fff;
+    .modal-content {
+        background-color: transparent;
+        border: 0;
+        color: #fff;
 
-    .modal-body{
-      padding: 0;
-    }
+        .modal-body {
+            padding: 0;
+        }
 
-    .title_view /*, .description*/{
-      font-family: 'Roboto';
-      font-weight: 100;
-      font-size: 16px;
-      line-height: 27px;
-      margin-bottom: 1rem;
-    }
+        .title_view
 
-    /*
+        /*, .description*/
+            {
+            font-family: 'Roboto';
+            font-weight: 100;
+            font-size: 18px;
+            line-height: 27px;
+            margin-bottom: 1rem;
+        }
+
+        /*
     .description{
       color: #BFC3CC;
     }*/
 
-    .title{
-      font-family: 'Montserrat';
-      font-weight: bold;
-      font-size: 23px;
-      line-height: 28px;
-    }
+        .title {
+            font-family: 'Montserrat';
+            font-weight: bold;
+            font-size: 26px;
+            line-height: 28px;
+        }
 
-    .cerrar{
-      background: transparent;
-      /*position: absolute;
-      right: 0;
-      top: 190px;*/
-      text-shadow: none;
-    }
+        .cerrar {
+            position: absolute;
+            top: 0px;
+            right: 20px;
+            background: transparent;
+            text-shadow: none;
+        }
 
-    #indicators{
-      margin-top: 100px;
-    }
+        #indicators {
+            /*margin-top: 80px;*/
+        }
 
-    .carousel-control-prev{
-      left: -250px;
-    }
+        .false_padding_img {
+            height: 80px;
+            padding: 0px;
+            margin: 0px;
+        }
 
-    .carousel-control-next{
-      right: -250px;
+        .false_bottom_img {
+            height: 500px;
+        }
+
+        .carousel-control-prev {
+            left: -250px;
+        }
+
+        .carousel-control-next {
+            right: -250px;
+        }
     }
-  }
 }
 
 @media (max-width: 420px) {
-  .carouselModal{
-    .modal-content{
-      .cerrar{
-        top: 250px;
-      }
-      #indicators{
-        margin-top: 70px;
-      }
+    .carouselModal {
+        .modal-content {
+            .cerrar {
+                top: 250px;
+            }
+
+            #indicators {
+                margin-top: 70px;
+            }
+        }
     }
-  }
 }
